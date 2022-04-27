@@ -29,11 +29,6 @@ import java.util.ArrayList;
 	
  */
 public class Post {
-
-	// One thing that is interesting is that the Firebase database cannot store arrays.
-	// 
-	// 
-	// 
 	
 	public String data;
 	
