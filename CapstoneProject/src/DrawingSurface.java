@@ -25,7 +25,7 @@ public class DrawingSurface extends PApplet {
 	private static final int DRAWING_WIDTH = 800, DRAWING_HEIGHT = 600;
 	
 	// Database stuff
-	private DatabaseReference database;
+	private DatabaseReference ref;
 	
 	private int i;
 	
@@ -43,7 +43,7 @@ public class DrawingSurface extends PApplet {
 					.build();
 
 			FirebaseApp.initializeApp(options);
-			database = FirebaseDatabase.getInstance().getReference();
+			ref = FirebaseDatabase.getInstance().getReference();
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -77,9 +77,9 @@ public class DrawingSurface extends PApplet {
 //		textAlign(PConstants.CENTER, PConstants.CENTER);
 //		text("CLEAR",clearButton.x, clearButton.y, clearButton.width, clearButton.height);
 		
-		// clears data every 5 seconds
+		// clears data every 10 seconds
 		i += 1;
-		if (i == 60*5) {
+		if (i == 60*10) {
 			i = 0;
 			clearAllData();
 		}
@@ -87,22 +87,49 @@ public class DrawingSurface extends PApplet {
 	}
 	
 	public void mousePressed() {
-		postData("hello world  " + i + " :D");
+		String path = "-N0gtrG-WI24DbU-XtL8";
+		DatabaseReference postRef = ref.child(path);
+		DatabaseReference pushedPostRef = postData("Hello, world!", postRef);
+//		System.out.println(pushedPostRef.getKey());
+		
 	}
 	
-	private void postData(String data) {
-		database.push().setValueAsync(new Post(data));
+	/**
+	 * Posts the given data in the main parent folder.
+	 * 
+	 * @param data data to post
+	 * @return reference to the post created
+	 */
+	private DatabaseReference postData(String data) {
+		return postData(data, ref);
 	}
 	
-	private void postData(String data, DatabaseReference location) {
-		if (location == null) return;
-		location.push().setValueAsync(new Post(data));
+	/**
+	 * Posts the given data in the parent folder.
+	 * 
+	 * @param data data to post
+	 * @param location reference to where to post the data. will post in the main parent folder if null
+	 * @return reference to the post created
+	 */
+	private DatabaseReference postData(String data, DatabaseReference location) {
+		if (location == null) location = ref;
+		DatabaseReference postRef = location.push();
+		postRef.setValueAsync(new Post(data));
+		return postRef;
 	}
 	
+	/**
+	 * Deletes all data stored in the database (main parent folder).
+	 */
 	private void clearAllData() {
-		database.setValueAsync(null);
+		ref.setValueAsync(null);
 	}
 	
+	/**
+	 * Deletes all data stored in location (including nested values).
+	 * 
+	 * @param location reference to where to delete data
+	 */
 	private void clearData(DatabaseReference location) {
 		if (location == null) return;
 		location.setValueAsync(null);
