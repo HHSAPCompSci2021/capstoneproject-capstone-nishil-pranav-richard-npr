@@ -44,7 +44,7 @@ public class DrawingSurface extends PApplet {
 
 			FirebaseApp.initializeApp(options);
 			DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-			postsRef = database.child("dots");
+			postsRef = database.child("data");
 
 			postsRef.addChildEventListener(new DatabaseChangeListener());
 
@@ -80,16 +80,25 @@ public class DrawingSurface extends PApplet {
 //		textAlign(PConstants.CENTER, PConstants.CENTER);
 //		text("CLEAR",clearButton.x, clearButton.y, clearButton.width, clearButton.height);
 		
+		// clears data every 5 seconds
 		i += 1;
 		if (i == 60*5) {
 			i = 0;
-			postsRef.setValueAsync(null);
+			clearData();
 		}
 		
 	}
 	
 	public void mousePressed() {
-		postsRef.push().setValueAsync(new Post("hello world  " + i + " :D"));  // Posting the database object to the database
+		postData("hello world  " + i + " :D");
+	}
+	
+	private void postData(String data) {
+		postsRef.push().setValueAsync(new Post(data));
+	}
+	
+	private void clearData() {
+		postsRef.setValueAsync(null);
 	}
 	
 	/**
