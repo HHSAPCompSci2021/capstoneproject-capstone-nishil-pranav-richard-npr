@@ -25,7 +25,7 @@ public class DrawingSurface extends PApplet {
 	private static final int DRAWING_WIDTH = 800, DRAWING_HEIGHT = 600;
 	
 	// Database stuff
-	private DatabaseReference postsRef;
+	private DatabaseReference database;
 	
 	private int i;
 	
@@ -43,10 +43,7 @@ public class DrawingSurface extends PApplet {
 					.build();
 
 			FirebaseApp.initializeApp(options);
-			DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-			postsRef = database.child("data");
-
-			postsRef.addChildEventListener(new DatabaseChangeListener());
+			database = FirebaseDatabase.getInstance().getReference();
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -84,7 +81,7 @@ public class DrawingSurface extends PApplet {
 		i += 1;
 		if (i == 60*5) {
 			i = 0;
-			clearData();
+			clearAllData();
 		}
 		
 	}
@@ -94,11 +91,21 @@ public class DrawingSurface extends PApplet {
 	}
 	
 	private void postData(String data) {
-		postsRef.push().setValueAsync(new Post(data));
+		database.push().setValueAsync(new Post(data));
 	}
 	
-	private void clearData() {
-		postsRef.setValueAsync(null);
+	private void postData(String data, DatabaseReference location) {
+		if (location == null) return;
+		location.push().setValueAsync(new Post(data));
+	}
+	
+	private void clearAllData() {
+		database.setValueAsync(null);
+	}
+	
+	private void clearData(DatabaseReference location) {
+		if (location == null) return;
+		location.setValueAsync(null);
 	}
 	
 	/**
