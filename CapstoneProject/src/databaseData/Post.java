@@ -1,5 +1,4 @@
-
-import java.util.ArrayList;
+package databaseData;
 
 /**
 	
@@ -30,14 +29,8 @@ import java.util.ArrayList;
  */
 public class Post {
 	
-	public String data;
-	
 	public Post() {
 		
-	}
-	
-	public Post(String newData) {
-		data = newData;
 	}
 	
 }

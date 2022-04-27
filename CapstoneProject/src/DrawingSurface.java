@@ -15,6 +15,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import databaseData.MessagePost;
+import databaseData.Post;
 import processing.core.PApplet;
 import processing.core.PConstants;
 
@@ -89,7 +91,7 @@ public class DrawingSurface extends PApplet {
 	public void mousePressed() {
 		String path = "-N0gtrG-WI24DbU-XtL8";
 		DatabaseReference postRef = ref.child(path);
-		DatabaseReference pushedPostRef = postData("Hello, world!", postRef);
+		DatabaseReference pushedPostRef = postData(new MessagePost("Hello, world!"), postRef);
 //		System.out.println(pushedPostRef.getKey());
 		
 	}
@@ -100,7 +102,7 @@ public class DrawingSurface extends PApplet {
 	 * @param data data to post
 	 * @return reference to the post created
 	 */
-	private DatabaseReference postData(String data) {
+	private DatabaseReference postData(Post data) {
 		return postData(data, ref);
 	}
 	
@@ -111,10 +113,10 @@ public class DrawingSurface extends PApplet {
 	 * @param location reference to where to post the data. will post in the main parent folder if null
 	 * @return reference to the post created
 	 */
-	private DatabaseReference postData(String data, DatabaseReference location) {
+	private DatabaseReference postData(Post data, DatabaseReference location) {
 		if (location == null) location = ref;
 		DatabaseReference postRef = location.push();
-		postRef.setValueAsync(new Post(data));
+		postRef.setValueAsync(data);
 		return postRef;
 	}
 	
