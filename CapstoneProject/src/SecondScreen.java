@@ -3,12 +3,15 @@
 
 import java.awt.event.*;
 
+import databaseData.MessagePost;
 import processing.core.PApplet;
+import processing.core.PConstants;
 
 
 public class SecondScreen extends Screen {
 	
 	private int x, y;
+	private String message;
 	
 	private DrawingSurface surface;
 	
@@ -16,8 +19,10 @@ public class SecondScreen extends Screen {
 		super(800,600);
 		this.surface = surface;
 		
-		x = 30;
-		y = 30;
+		x = 600;
+		y = 100;
+		
+		message = "";
 	}
 	
 	public void draw() {
@@ -34,7 +39,10 @@ public class SecondScreen extends Screen {
 		
 		surface.fill(0);
 		surface.text("Move: Arrow keys",10,30);
-		surface.text("Menu: Space",10,50);
+		surface.text("Menu & clear database: `",10,50);
+		surface.text("Send to databse: Enter",10,70);
+		
+		surface.text(message,10,120);
 
 		surface.popStyle();
 
@@ -50,9 +58,18 @@ public class SecondScreen extends Screen {
 			y -= 5;
 		if (surface.isPressed(KeyEvent.VK_DOWN))
 			y += 5;
-
-		if (surface.isPressed(KeyEvent.VK_SPACE)) {
+		
+	}
+	
+	public void keyPressed() {
+		if (surface.key == '`') {
+			surface.clearAllData();
 			surface.switchScreen(ScreenSwitcher.SCREEN1);
+		} else if (surface.keyCode == KeyEvent.VK_ENTER) {
+			surface.postData(new MessagePost(message));
+			message = "";
+		} else {
+			message += surface.key;
 		}
 	}
 	

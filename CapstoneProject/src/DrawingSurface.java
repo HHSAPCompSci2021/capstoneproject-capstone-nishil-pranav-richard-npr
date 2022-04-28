@@ -115,6 +115,10 @@ public class DrawingSurface extends PApplet {
 	
 	public void keyPressed() {
 		keys.add(keyCode);
+		if (activeScreen == screens.get(ScreenSwitcher.SCREEN2) && key != CODED) {
+//			System.out.println(key);
+			((SecondScreen) activeScreen).keyPressed();
+		}
 	}
 
 	public void keyReleased() {
@@ -164,7 +168,7 @@ public class DrawingSurface extends PApplet {
 	 * @param data data to post
 	 * @return reference to the post created
 	 */
-	private DatabaseReference postData(Post data) {
+	public DatabaseReference postData(Post data) {
 		return postData(data, ref);
 	}
 	
@@ -175,7 +179,7 @@ public class DrawingSurface extends PApplet {
 	 * @param location reference to where to post the data. will post in the main parent folder if null
 	 * @return reference to the post created
 	 */
-	private DatabaseReference postData(Post data, DatabaseReference location) {
+	public DatabaseReference postData(Post data, DatabaseReference location) {
 		if (location == null) location = ref;
 		DatabaseReference postRef = location.push();
 		postRef.setValueAsync(data);
@@ -185,7 +189,7 @@ public class DrawingSurface extends PApplet {
 	/**
 	 * Deletes all data stored in the database (main parent folder).
 	 */
-	private void clearAllData() {
+	public void clearAllData() {
 		ref.setValueAsync(null);
 	}
 	
@@ -194,7 +198,7 @@ public class DrawingSurface extends PApplet {
 	 * 
 	 * @param location reference to where to delete data
 	 */
-	private void clearData(DatabaseReference location) {
+	public void clearData(DatabaseReference location) {
 		if (location == null) return;
 		location.setValueAsync(null);
 	}
