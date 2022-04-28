@@ -68,6 +68,8 @@ public class SecondScreen extends Screen {
 		} else if (surface.keyCode == KeyEvent.VK_ENTER) {
 			surface.postData(new MessagePost(message));
 			message = "";
+		} else if (surface.keyCode == KeyEvent.VK_BACK_SPACE) {
+			message = message.substring(0, message.length()-1);
 		} else {
 			message += surface.key;
 		}
