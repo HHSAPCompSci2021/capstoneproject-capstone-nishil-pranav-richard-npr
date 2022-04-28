@@ -1,5 +1,7 @@
 
+
 import java.awt.Color;
+import java.awt.Point;
 import java.awt.Rectangle;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -23,8 +25,12 @@ import processing.core.PConstants;
 
 public class DrawingSurface extends PApplet {
 	
-	// Drawing stuff
+	// Drawing/screen stuff
+	public float ratioX, ratioY;
 	private static final int DRAWING_WIDTH = 800, DRAWING_HEIGHT = 600;
+	private Screen activeScreen;
+	private ArrayList<Screen> screens;
+	private ArrayList<Integer> keys;
 	
 	// Database stuff
 	private DatabaseReference ref;
@@ -51,6 +57,19 @@ public class DrawingSurface extends PApplet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		
+		// SCREEN SETUP
+		screens = new ArrayList<Screen>();
+		keys = new ArrayList<Integer>();
+		
+		Menu screen1 = new Menu(this);
+		screens.add(screen1);
+		
+		SecondScreen screen2 = new SecondScreen(this);
+		screens.add(screen2);
+		
+		activeScreen = screens.get(0);
 		
 	}
 
@@ -86,14 +105,57 @@ public class DrawingSurface extends PApplet {
 			clearAllData();
 		}
 		
+		// draw the screen
+		ratioX = (float)width/activeScreen.DRAWING_WIDTH;
+		ratioY = (float)height/activeScreen.DRAWING_HEIGHT;
+		scale(ratioX, ratioY);
+		activeScreen.draw();
+		
+	}
+	
+	public void keyPressed() {
+		keys.add(keyCode);
+	}
+
+	public void keyReleased() {
+		while(keys.contains(keyCode))
+			keys.remove(new Integer(keyCode));
+	}
+
+	public boolean isPressed(Integer code) {
+		return keys.contains(code);
 	}
 	
 	public void mousePressed() {
-		String path = "-N0gtrG-WI24DbU-XtL8";
-		DatabaseReference postRef = ref.child(path);
-		DatabaseReference pushedPostRef = postData(new MessagePost("Hello, world!"), postRef);
+//		String path = "Folder";
+//		DatabaseReference postRef = ref.child(path);
+//		DatabaseReference pushedPostRef = postData(new MessagePost("Hello, world!"), postRef);
 //		System.out.println(pushedPostRef.getKey());
-		
+		activeScreen.mousePressed();
+	}
+	
+	public void mouseMoved() {
+		activeScreen.mouseMoved();
+	}
+	
+	public void mouseDragged() {
+		activeScreen.mouseDragged();
+	}
+	
+	public void mouseReleased() {
+		activeScreen.mouseReleased();
+	}
+	
+	public Point assumedCoordinatesToActual(Point assumed) {
+		return new Point((int)(assumed.getX()*ratioX), (int)(assumed.getY()*ratioY));
+	}
+
+	public Point actualCoordinatesToAssumed(Point actual) {
+		return new Point((int)(actual.getX()/ratioX) , (int)(actual.getY()/ratioY));
+	}
+
+	public void switchScreen(int i) {
+		activeScreen = screens.get(i);
 	}
 	
 	/**
