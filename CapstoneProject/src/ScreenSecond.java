@@ -8,14 +8,14 @@ import processing.core.PApplet;
 import processing.core.PConstants;
 
 
-public class SecondScreen extends Screen {
+public class ScreenSecond extends Screen {
 	
 	private int x, y;
 	private String message;
 	
 	private DrawingSurface surface;
 	
-	public SecondScreen(DrawingSurface surface) {
+	public ScreenSecond(DrawingSurface surface) {
 		super(800,600);
 		this.surface = surface;
 		

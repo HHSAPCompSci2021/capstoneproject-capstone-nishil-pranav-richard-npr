@@ -31,6 +31,7 @@ public class DrawingSurface extends PApplet {
 	private Screen activeScreen;
 	private ArrayList<Screen> screens;
 	private ArrayList<Integer> keys;
+	private String playerName;
 	
 	// Database stuff
 	private DatabaseReference ref;
@@ -41,6 +42,7 @@ public class DrawingSurface extends PApplet {
 		
 		// DATABASE SETUP
 		FileInputStream refreshToken;
+		DatabaseReference queueRef = null;
 		try {
 
 			refreshToken = new FileInputStream("chessroyale-e5d70-firebase-adminsdk-7r4i3-3384c877b4.json");
@@ -52,7 +54,9 @@ public class DrawingSurface extends PApplet {
 
 			FirebaseApp.initializeApp(options);
 			ref = FirebaseDatabase.getInstance().getReference();
-
+			
+			queueRef = ref.child("Queue");
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -63,13 +67,23 @@ public class DrawingSurface extends PApplet {
 		screens = new ArrayList<Screen>();
 		keys = new ArrayList<Integer>();
 		
-		Menu screen1 = new Menu(this);
+		ScreenMenu screen1 = new ScreenMenu(this);
 		screens.add(screen1);
 		
-		SecondScreen screen2 = new SecondScreen(this);
+		ScreenSecond screen2 = new ScreenSecond(this);
 		screens.add(screen2);
 		
+		ScreenNameCreate screen3 = new ScreenNameCreate(this, queueRef);
+		screens.add(screen3);
+		
+		ScreenQueue screen4 = new ScreenQueue(this);
+		screens.add(screen4);
+		
 		activeScreen = screens.get(0);
+		
+		
+		// OTHER
+		playerName = null;
 		
 	}
 
@@ -99,11 +113,11 @@ public class DrawingSurface extends PApplet {
 //		text("CLEAR",clearButton.x, clearButton.y, clearButton.width, clearButton.height);
 		
 		// clears data every 10 seconds
-		i += 1;
-		if (i == 60*10) {
-			i = 0;
-			clearAllData();
-		}
+//		i += 1;
+//		if (i == 60*1) {
+//			i = 0;
+//			clearAllData();
+//		}
 		
 		// draw the screen
 		ratioX = (float)width/activeScreen.DRAWING_WIDTH;
@@ -116,8 +130,9 @@ public class DrawingSurface extends PApplet {
 	public void keyPressed() {
 		keys.add(keyCode);
 		if (activeScreen == screens.get(ScreenSwitcher.SCREEN2) && key != CODED) {
-//			System.out.println(key);
-			((SecondScreen) activeScreen).keyPressed();
+			((ScreenSecond) activeScreen).keyPressed();
+		} else if (activeScreen == screens.get(ScreenSwitcher.SCREEN3)) {
+			((ScreenNameCreate) activeScreen).keyPressed();
 		}
 	}
 
@@ -204,6 +219,18 @@ public class DrawingSurface extends PApplet {
 	}
 	
 	/**
+	 * Sets the player's name. Note that the name can only be set once.
+	 * 
+	 * @param name player name
+	 * @pre the player's name has not been set yet. If it has already been set, method will return without doing anything.
+	 */
+	public void setPlayerName(String name) {
+		if (playerName != null) return;
+		playerName = name;
+		System.out.println(playerName);
+	}
+	
+	/**
 	 * 
 	 * Handles all changes to the database reference. Because Firebase uses a separate thread than most other processes we're using (both Swing and Processing),
 	 * we need to have a strategy for ensuring that code is executed somewhere besides these methods.
@@ -241,6 +268,7 @@ public class DrawingSurface extends PApplet {
 		 * someone else). It is also called at the beginning of the program for all existing database posts. 
 		 */
 		public void onChildAdded(DataSnapshot dataSnapshot, String arg1) {
+			
 			tasks.add(new Runnable() {
 
 				@Override
