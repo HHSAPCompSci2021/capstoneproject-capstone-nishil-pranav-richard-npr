@@ -22,4 +22,12 @@ public class UserPost extends Post {
 		this.playerName = playerName;
 	}
 	
+	public String getPlayerName() {
+		return playerName;
+	}
+	
+	public String getPlayerID() {
+		return playerID;
+	}
+	
 }

@@ -29,6 +29,8 @@ package databaseData;
  */
 public class Post {
 	
+	public String data;
+	
 	public Post() {
 		
 	}

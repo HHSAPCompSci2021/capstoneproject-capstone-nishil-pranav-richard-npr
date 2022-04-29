@@ -6,6 +6,7 @@ import java.awt.Rectangle;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import com.google.auth.oauth2.GoogleCredentials;
@@ -19,6 +20,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import databaseData.MessagePost;
 import databaseData.Post;
+import databaseData.UserPost;
 import processing.core.PApplet;
 import processing.core.PConstants;
 
@@ -54,6 +56,7 @@ public class DrawingSurface extends PApplet {
 
 			FirebaseApp.initializeApp(options);
 			ref = FirebaseDatabase.getInstance().getReference();
+			ref.addChildEventListener(new DatabaseChangeListener());
 			
 			queueRef = ref.child("Queue");
 			
@@ -76,7 +79,7 @@ public class DrawingSurface extends PApplet {
 		ScreenNameCreate screen3 = new ScreenNameCreate(this, queueRef);
 		screens.add(screen3);
 		
-		ScreenQueue screen4 = new ScreenQueue(this);
+		ScreenQueue screen4 = new ScreenQueue(this, ref);
 		screens.add(screen4);
 		
 		activeScreen = screens.get(0);
@@ -227,7 +230,6 @@ public class DrawingSurface extends PApplet {
 	public void setPlayerName(String name) {
 		if (playerName != null) return;
 		playerName = name;
-		System.out.println(playerName);
 	}
 	
 	/**

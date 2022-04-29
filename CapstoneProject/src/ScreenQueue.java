@@ -4,18 +4,25 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+
 import processing.core.PApplet;
 import processing.core.PConstants;
 
 public class ScreenQueue extends Screen {
 	
 	private DrawingSurface surface;
+	private DatabaseReference ref;
 	
 	private Rectangle button;
 	
-	public ScreenQueue(DrawingSurface surface) {
+	public ScreenQueue(DrawingSurface surface, DatabaseReference ref) {
 		super(800,600);
 		this.surface = surface;
+		this.ref = ref;
 		
 		button = new Rectangle(800/2-100,600/2-50,200,50);
 	}

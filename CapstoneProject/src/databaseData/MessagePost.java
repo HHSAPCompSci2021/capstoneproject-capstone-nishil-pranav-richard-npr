@@ -12,4 +12,8 @@ public class MessagePost extends Post {
 		data = newData;
 	}
 	
+	public String getData() {
+		return data;
+	}
+	
 }
