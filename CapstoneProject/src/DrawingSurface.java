@@ -45,6 +45,7 @@ public class DrawingSurface extends PApplet {
 		// DATABASE SETUP
 		FileInputStream refreshToken;
 		DatabaseReference queueRef = null;
+		DatabaseReference test = null;
 		try {
 
 			refreshToken = new FileInputStream("chessroyale-e5d70-firebase-adminsdk-7r4i3-3384c877b4.json");
@@ -56,9 +57,10 @@ public class DrawingSurface extends PApplet {
 
 			FirebaseApp.initializeApp(options);
 			ref = FirebaseDatabase.getInstance().getReference();
-			ref.addChildEventListener(new DatabaseChangeListener());
-			
 			queueRef = ref.child("Queue");
+			
+			ref.addChildEventListener(new DatabaseChangeListener());
+			queueRef.addChildEventListener(new DatabaseChangeListener());
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -132,6 +134,9 @@ public class DrawingSurface extends PApplet {
 	
 	public void keyPressed() {
 		keys.add(keyCode);
+//		if (key == 'h') {
+//			postData(new MessagePost("h"));
+//		}
 		if (activeScreen == screens.get(ScreenSwitcher.SCREEN2) && key != CODED) {
 			((ScreenSecond) activeScreen).keyPressed();
 		} else if (activeScreen == screens.get(ScreenSwitcher.SCREEN3)) {
@@ -271,11 +276,19 @@ public class DrawingSurface extends PApplet {
 		 */
 		public void onChildAdded(DataSnapshot dataSnapshot, String arg1) {
 			
+//			System.out.println("SNAPSHOT FROM DRAWING " + dataSnapshot);
+			
 			tasks.add(new Runnable() {
-
 				@Override
 				public void run() {
-					Post post = dataSnapshot.getValue(Post.class);
+					Post postN = dataSnapshot.getValue(Post.class);
+					String postType = postN.postType;
+					if (postType != null && postType.matches("USER")) {
+						UserPost post = dataSnapshot.getValue(UserPost.class);
+						System.out.println(" in queue: " + post.playerName);
+					} else {
+//						System.out.println(postType);
+					}
 //					currentDrawing.addDotSet(post.dots, new Color(post.r,post.g,post.b));
 				}
 				

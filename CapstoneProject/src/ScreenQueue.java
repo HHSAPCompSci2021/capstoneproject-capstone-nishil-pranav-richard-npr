@@ -3,12 +3,19 @@
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.ArrayList;
+import java.util.concurrent.ConcurrentLinkedQueue;
+
+import javax.swing.SwingUtilities;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
+import databaseData.MessagePost;
+import databaseData.Post;
+import databaseData.UserPost;
 import processing.core.PApplet;
 import processing.core.PConstants;
 
@@ -19,12 +26,15 @@ public class ScreenQueue extends Screen {
 	
 	private Rectangle button;
 	
+	private int i;
+	
 	public ScreenQueue(DrawingSurface surface, DatabaseReference ref) {
 		super(800,600);
 		this.surface = surface;
 		this.ref = ref;
 		
 		button = new Rectangle(800/2-100,600/2-50,200,50);
+		
 	}
 	
 	
@@ -42,7 +52,11 @@ public class ScreenQueue extends Screen {
 		
 		
 		// CHECK FOR OPPONENTS
-		
+//		i++;
+//		if (i > 60) {
+//			i = 0;
+//			surface.postData(new MessagePost("Hello world"), ref.child("Test stuff"));
+//		}
 		
 	}
 	
@@ -54,6 +68,5 @@ public class ScreenQueue extends Screen {
 		surface.text(buttonText, rectangle.x+rectangle.width/2, rectangle.y+rectangle.height/2+6);
 	}
 	
-
 }
 

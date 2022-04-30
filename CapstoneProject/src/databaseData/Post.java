@@ -29,10 +29,20 @@ package databaseData;
  */
 public class Post {
 	
-	public String data;
+	public String postType;
 	
 	public Post() {
-		
+//		System.out.println("no arg Post constructor was used");
+	}
+	
+	public Post(String type) {
+		if (type == "MESSAGE") {
+			postType = type;
+		} else if (type == "USER") {
+			postType = type;
+		} else {
+			System.out.println("unknown post type: " + type);
+		}
 	}
 	
 }

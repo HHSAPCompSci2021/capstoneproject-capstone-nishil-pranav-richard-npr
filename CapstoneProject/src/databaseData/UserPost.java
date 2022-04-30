@@ -6,10 +6,11 @@ public class UserPost extends Post {
 	public String playerID;
 	
 	public UserPost() {
-		
+		super("USER");
 	}
 	
 	public UserPost(String playerName) {
+		super("USER");
 		this.playerName = playerName;
 		this.playerID = "";
 	}
