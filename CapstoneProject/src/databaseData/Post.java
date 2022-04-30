@@ -30,12 +30,20 @@ package databaseData;
 public class Post {
 	private String data;
 	
+	public String postType;
+	
 	public Post() {
 		data = "";
 	}
 	
-	public Post(String data) {
-		this.data = data;
+	public Post(String type) {
+		if (type == "MESSAGE") {
+			postType = type;
+		} else if (type == "USER") {
+			postType = type;
+		} else {
+			System.out.println("unknown post type: " + type);
+		}
 	}
 	
 }

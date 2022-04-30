@@ -92,12 +92,13 @@ public class ScreenNameCreate extends Screen {
 	
 	private void addPlayerToQueue(String playerName) {
 		UserPost user = new UserPost(playerName);
-		DatabaseReference pushedPostRef = surface.postData(user, queueFolder);
-		String playerID = pushedPostRef.getKey();
-		user.setPlayerID(playerID);
-		Map<String, Object> updates = new HashMap<String, Object>();
-		updates.put("playerID", playerID);
-		pushedPostRef.updateChildrenAsync(updates);
+		queueFolder.push().setValueAsync(user);
+//		DatabaseReference pushedPostRef = surface.postData(user, queueFolder);
+//		String playerID = pushedPostRef.getKey();
+//		user.setPlayerID(playerID);
+//		Map<String, Object> updates = new HashMap<String, Object>();
+//		updates.put("playerID", playerID);
+//		pushedPostRef.updateChildrenAsync(updates);
 		
 	}
 	
