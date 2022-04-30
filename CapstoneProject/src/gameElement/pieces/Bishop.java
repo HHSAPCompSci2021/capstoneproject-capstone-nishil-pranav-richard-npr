@@ -1,5 +1,9 @@
 package gameElement.pieces;
 
-public class Bishop implements GamePiece{
+import processing.core.PApplet;
+
+public class Bishop extends GamePiece{
+	
+	public void draw(PApplet marker) {}
 
 }

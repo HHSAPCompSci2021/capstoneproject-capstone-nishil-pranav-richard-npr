@@ -17,7 +17,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import databaseData.MessagePost;
 import databaseData.Post;
 import processing.core.PApplet;
 import processing.core.PConstants;
@@ -153,17 +152,6 @@ public class DrawingSurface extends PApplet {
 		activeScreen.mousePressed();
 	}
 	
-	public void mouseMoved() {
-		activeScreen.mouseMoved();
-	}
-	
-	public void mouseDragged() {
-		activeScreen.mouseDragged();
-	}
-	
-	public void mouseReleased() {
-		activeScreen.mouseReleased();
-	}
 	
 	public Point assumedCoordinatesToActual(Point assumed) {
 		return new Point((int)(assumed.getX()*ratioX), (int)(assumed.getY()*ratioY));
@@ -229,7 +217,7 @@ public class DrawingSurface extends PApplet {
 		playerName = name;
 		System.out.println(playerName);
 	}
-	
+
 	/**
 	 * 
 	 * Handles all changes to the database reference. Because Firebase uses a separate thread than most other processes we're using (both Swing and Processing),

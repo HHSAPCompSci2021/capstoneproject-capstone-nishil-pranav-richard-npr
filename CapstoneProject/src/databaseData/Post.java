@@ -28,9 +28,14 @@ package databaseData;
 	
  */
 public class Post {
+	private String data;
 	
 	public Post() {
-		
+		data = "";
+	}
+	
+	public Post(String data) {
+		this.data = data;
 	}
 	
 }

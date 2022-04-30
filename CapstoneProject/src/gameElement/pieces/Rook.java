@@ -1,5 +1,9 @@
 package gameElement.pieces;
 
-public class Rook implements GamePiece{
+import processing.core.PApplet;
 
+public class Rook extends GamePiece{
+
+	public void draw(PApplet marker) {}
+	
 }

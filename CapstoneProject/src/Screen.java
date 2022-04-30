@@ -21,18 +21,9 @@ public abstract class Screen {
 		
 	}
 	
-	public void mouseMoved() {
+	public void keyPressed() {
 		
 	}
-	
-	public void mouseDragged() {
-		
-	}
-	
-	public void mouseReleased() {
-		
-	}
-	
 	
 	
 }

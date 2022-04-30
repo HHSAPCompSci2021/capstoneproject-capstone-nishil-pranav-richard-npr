@@ -3,7 +3,7 @@
 
 import java.awt.event.*;
 
-import databaseData.MessagePost;
+import databaseData.Post;
 import processing.core.PApplet;
 import processing.core.PConstants;
 
@@ -66,7 +66,7 @@ public class ScreenSecond extends Screen {
 			surface.clearAllData();
 			surface.switchScreen(ScreenSwitcher.SCREEN1);
 		} else if (surface.keyCode == KeyEvent.VK_ENTER) {
-			surface.postData(new MessagePost(message));
+			surface.postData(new Post(message));
 			message = "";
 		} else if (surface.keyCode == KeyEvent.VK_BACK_SPACE) {
 			message = message.substring(0, message.length()-1);

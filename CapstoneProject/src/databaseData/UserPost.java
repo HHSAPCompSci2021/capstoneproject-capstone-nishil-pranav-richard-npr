@@ -2,8 +2,8 @@ package databaseData;
 
 public class UserPost extends Post {
 	
-	public String playerName;
-	public String playerID;
+	private String playerName;
+	private String playerID;
 	
 	public UserPost() {
 		

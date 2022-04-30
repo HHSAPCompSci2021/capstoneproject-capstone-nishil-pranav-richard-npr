@@ -1,5 +1,9 @@
 package gameElement.pieces;
 
-public class Knight implements GamePiece{
+import processing.core.PApplet;
+
+public class Knight extends GamePiece{
+	
+	public void draw(PApplet marker) {}
 
 }
