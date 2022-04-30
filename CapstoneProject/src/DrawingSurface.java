@@ -273,7 +273,7 @@ public class DrawingSurface extends PApplet {
 					String postType = postN.postType;
 					if (postType != null && postType.matches("USER")) {
 						UserPost post = dataSnapshot.getValue(UserPost.class);
-						System.out.println(" in queue: " + post.playerName);
+						System.out.println(" in queue: " + post.getPlayerName());
 					} else {
 //						System.out.println(postType);
 					}
