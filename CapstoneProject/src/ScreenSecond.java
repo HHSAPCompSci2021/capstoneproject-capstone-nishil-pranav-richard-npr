@@ -16,22 +16,20 @@ public class ScreenSecond extends Screen {
 	
 	private DrawingSurface surface;
 	private PImage image;
+	private final String fileSeparator = System.getProperty("file.separator");
 	
 	public ScreenSecond(DrawingSurface surface) {
 		super(800,600);
 		this.surface = surface;
-		surface.setup();
+		PImageCreator temp = new PImageCreator("ChessPieces" + fileSeparator + "blackSide" + fileSeparator + "blackBishop.gif");
+		image = temp.getImage(); 
+//		surface.setup();
 		x = 600;
 		y = 100;
 		
 		message = "";
 	}
-	
-	public void setup() {
-		if(surface != null) {
-			image = surface.loadImage("ChessPieces/blackSide/blackBishop.gif");
-		}
-	}
+
 	
 	public void draw() {
 		
@@ -55,7 +53,7 @@ public class ScreenSecond extends Screen {
 		surface.popStyle();
 
 		surface.image(image, 0, 0);
-		
+
 		
 		// Change stuff
 
@@ -83,6 +81,5 @@ public class ScreenSecond extends Screen {
 			message += surface.key;
 		}
 	}
-	
-	
 }
+

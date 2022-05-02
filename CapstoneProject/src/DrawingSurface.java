@@ -22,11 +22,14 @@ import databaseData.Post;
 import databaseData.UserPost;
 import processing.core.PApplet;
 import processing.core.PConstants;
+import processing.core.PImage;
+
 
 
 public class DrawingSurface extends PApplet {
 	
 	// Drawing/screen stuff
+	private final String fileSeparator = System.getProperty("file.separator");
 	public float ratioX, ratioY;
 	private static final int DRAWING_WIDTH = 800, DRAWING_HEIGHT = 600;
 	private Screen activeScreen;
@@ -65,7 +68,7 @@ public class DrawingSurface extends PApplet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		//setup();
 		
 		// SCREEN SETUP
 		screens = new ArrayList<Screen>();
@@ -83,26 +86,17 @@ public class DrawingSurface extends PApplet {
 		ScreenQueue screen4 = new ScreenQueue(this, ref);
 		screens.add(screen4);
 		
-		
+		activeScreen = screens.get(0);
 		
 		// OTHER
 		playerName = null;
 		
 	}
-
-	public void settings() {
-		
-	}
 	
 	public void setup() {
-//		currentDrawing = new Drawing(DRAWING_WIDTH, DRAWING_HEIGHT, this);
-		
+		System.out.println("WHYYYYYY");
 	}
-	
-	private void setupScreen(Screen s) {
-		s.setup();
-	}
-	
+
 	public void draw() {
 //		background(255);
 //		
@@ -135,6 +129,11 @@ public class DrawingSurface extends PApplet {
 		
 	}
 	
+	public PImage getImage() {
+		System.out.println("RETURN HERE DRAWINGSURFACE");
+		return null;
+	}
+	
 	public void keyPressed() {
 		keys.add(keyCode);
 //		if (key == 'h') {
@@ -155,6 +154,7 @@ public class DrawingSurface extends PApplet {
 	public boolean isPressed(Integer code) {
 		return keys.contains(code);
 	}
+	
 	
 	public void mousePressed() {
 //		String path = "Folder";
