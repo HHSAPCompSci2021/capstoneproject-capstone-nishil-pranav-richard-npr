@@ -6,6 +6,7 @@ import java.awt.event.*;
 import databaseData.Post;
 import processing.core.PApplet;
 import processing.core.PConstants;
+import processing.core.PImage;
 
 
 public class ScreenSecond extends Screen {
@@ -14,15 +15,22 @@ public class ScreenSecond extends Screen {
 	private String message;
 	
 	private DrawingSurface surface;
+	private PImage image;
 	
 	public ScreenSecond(DrawingSurface surface) {
 		super(800,600);
 		this.surface = surface;
-		
+		surface.setup();
 		x = 600;
 		y = 100;
 		
 		message = "";
+	}
+	
+	public void setup() {
+		if(surface != null) {
+			image = surface.loadImage("ChessPieces/blackSide/blackBishop.gif");
+		}
 	}
 	
 	public void draw() {
@@ -46,6 +54,7 @@ public class ScreenSecond extends Screen {
 
 		surface.popStyle();
 
+		surface.image(image, 0, 0);
 		
 		
 		// Change stuff

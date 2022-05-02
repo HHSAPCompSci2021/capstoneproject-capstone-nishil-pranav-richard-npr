@@ -83,7 +83,6 @@ public class DrawingSurface extends PApplet {
 		ScreenQueue screen4 = new ScreenQueue(this, ref);
 		screens.add(screen4);
 		
-		activeScreen = screens.get(0);
 		
 		
 		// OTHER
@@ -97,6 +96,11 @@ public class DrawingSurface extends PApplet {
 	
 	public void setup() {
 //		currentDrawing = new Drawing(DRAWING_WIDTH, DRAWING_HEIGHT, this);
+		
+	}
+	
+	private void setupScreen(Screen s) {
+		s.setup();
 	}
 	
 	public void draw() {
