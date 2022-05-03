@@ -1,4 +1,4 @@
-package gameElement.pieces;
+package gameElements.pieces;
 
 import processing.core.PApplet;
 

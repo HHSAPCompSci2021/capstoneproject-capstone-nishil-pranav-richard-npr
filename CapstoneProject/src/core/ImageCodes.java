@@ -1,3 +1,4 @@
+package core;
 public interface ImageCodes {
     public static final int BLACK_BISHOP = 0;
     public static final int BLACK_KING = 1;

@@ -1,3 +1,4 @@
+package core;
 
 
 import java.awt.Color;
@@ -9,6 +10,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
+import gameElements.screens.Screen;
+import gameElements.screens.ScreenNameCreate;
+import gameElements.screens.ScreenSecond;
+import gameElements.screens.ScreenSwitcher;
 import processing.core.PApplet;
 import processing.core.PConstants;
 import processing.core.PImage;

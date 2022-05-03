@@ -1,3 +1,4 @@
+package gameElements.screens;
 
 
 
@@ -11,6 +12,7 @@ import java.util.Map;
 
 import com.google.firebase.database.DatabaseReference;
 
+import core.DrawingSurface;
 import databaseData.UserPost;
 import processing.core.PApplet;
 import processing.core.PConstants;

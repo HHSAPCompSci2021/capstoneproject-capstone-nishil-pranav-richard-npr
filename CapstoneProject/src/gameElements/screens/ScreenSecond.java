@@ -1,6 +1,8 @@
+package gameElements.screens;
 
 import java.awt.event.*;
 
+import core.DrawingSurface;
 import databaseData.Post;
 import processing.core.PApplet;
 import processing.core.PConstants;

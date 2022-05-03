@@ -1,3 +1,4 @@
+package gameElements.screens;
 
 
 import java.awt.Point;
@@ -13,6 +14,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import core.DrawingSurface;
 import databaseData.MessagePost;
 import databaseData.Post;
 import databaseData.UserPost;

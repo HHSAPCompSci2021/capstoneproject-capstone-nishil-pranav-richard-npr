@@ -1,8 +1,8 @@
-package gameElement.pieces;
+package gameElements.pieces;
 
 import processing.core.PApplet;
 
-public class Pawn extends GamePiece{
+public class Knight extends GamePiece{
 	
 	public void draw(PApplet marker) {}
 

@@ -1,4 +1,4 @@
-package gameElement.pieces;
+package gameElements.pieces;
 import java.util.ArrayList;
 
 import gameElements.board.*;
