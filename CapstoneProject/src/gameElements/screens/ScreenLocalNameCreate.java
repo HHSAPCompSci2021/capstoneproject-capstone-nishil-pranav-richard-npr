@@ -21,7 +21,7 @@ import processing.core.PConstants;
 public class ScreenLocalNameCreate extends Screen {
 	
 	private DrawingSurface surface;
-	private ScreenGame screenGame;
+	private ScreenLocalGame screenLocalGame;
 	
 	private StringBuffer boxText;
 	private Rectangle nameCreationBox;
@@ -31,14 +31,14 @@ public class ScreenLocalNameCreate extends Screen {
 	private boolean boxSelected;
 	
 	
-	public ScreenLocalNameCreate(DrawingSurface surface, ScreenGame screenGame) {
+	public ScreenLocalNameCreate(DrawingSurface surface, ScreenLocalGame screenLocalGame) {
 		super(1200,600);
 		this.surface = surface;
 		
 		this.boxText = new StringBuffer();
 		this.nameCreationBox = new Rectangle(1200/2-100,600/2-50,175,50);
 		this.boxSelected = false;
-		this.screenGame = screenGame;
+		this.screenLocalGame = screenLocalGame;
 	}
 	
 	
@@ -88,7 +88,7 @@ public class ScreenLocalNameCreate extends Screen {
 					boxSelected = false;
 				} else {
 					player2 = playerName;
-					screenGame.setNames(player1, player2);
+					screenLocalGame.setNames(player1, player2);
 					surface.switchScreen(ScreenSwitcher.SCREEN5);
 				}
 			} else if (ascii >= 32 && ascii <= 126) {

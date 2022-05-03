@@ -11,7 +11,7 @@ import processing.core.PApplet;
 import processing.core.PConstants;
 
 
-public class ScreenGame extends Screen {
+public class ScreenLocalGame extends Screen {
 	
 	private DrawingSurface surface;
 	
@@ -46,7 +46,7 @@ public class ScreenGame extends Screen {
 	private final int x = 1200;
 	private final int y = 600;
 	
-	public ScreenGame(DrawingSurface surface) {
+	public ScreenLocalGame(DrawingSurface surface) {
 		super(1200,600);
 		this.surface = surface;
 		

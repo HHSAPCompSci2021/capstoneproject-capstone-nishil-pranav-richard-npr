@@ -22,7 +22,7 @@ import databaseData.Post;
 import databaseData.UserPost;
 import gameElements.board.Board;
 import gameElements.screens.Screen;
-import gameElements.screens.ScreenGame;
+import gameElements.screens.ScreenLocalGame;
 import gameElements.screens.ScreenLocalNameCreate;
 import gameElements.screens.ScreenMenu;
 import gameElements.screens.ScreenOnlineNameCreate;
@@ -103,7 +103,7 @@ public class DrawingSurface extends PApplet {
 		ScreenQueue screen4 = new ScreenQueue(this, ref);
 		screens.add(screen4);
 		
-		ScreenGame screen5 = new ScreenGame(this);
+		ScreenLocalGame screen5 = new ScreenLocalGame(this);
 		screens.add(screen5);
 		
 		ScreenLocalNameCreate screen6 = new ScreenLocalNameCreate(this, screen5);
