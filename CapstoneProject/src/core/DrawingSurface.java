@@ -23,8 +23,9 @@ import databaseData.UserPost;
 import gameElements.board.Board;
 import gameElements.screens.Screen;
 import gameElements.screens.ScreenGame;
+import gameElements.screens.ScreenLocalNameCreate;
 import gameElements.screens.ScreenMenu;
-import gameElements.screens.ScreenNameCreate;
+import gameElements.screens.ScreenOnlineNameCreate;
 import gameElements.screens.ScreenQueue;
 import gameElements.screens.ScreenSecond;
 import gameElements.screens.ScreenSwitcher;
@@ -96,7 +97,7 @@ public class DrawingSurface extends PApplet {
 		ScreenSecond screen2 = new ScreenSecond(this);
 		screens.add(screen2);
 		
-		ScreenNameCreate screen3 = new ScreenNameCreate(this, queueRef);
+		ScreenOnlineNameCreate screen3 = new ScreenOnlineNameCreate(this, queueRef);
 		screens.add(screen3);
 		
 		ScreenQueue screen4 = new ScreenQueue(this, ref);
@@ -104,6 +105,9 @@ public class DrawingSurface extends PApplet {
 		
 		ScreenGame screen5 = new ScreenGame(this);
 		screens.add(screen5);
+		
+		ScreenLocalNameCreate screen6 = new ScreenLocalNameCreate(this, screen5);
+		screens.add(screen6);
 		
 //		activeScreen = screens.get(4);
 		activeScreen = screens.get(0);
@@ -176,7 +180,9 @@ public class DrawingSurface extends PApplet {
 		if (activeScreen == screens.get(ScreenSwitcher.SCREEN2) && key != CODED) {
 			((ScreenSecond) activeScreen).keyPressed();
 		} else if (activeScreen == screens.get(ScreenSwitcher.SCREEN3)) {
-			((ScreenNameCreate) activeScreen).keyPressed();
+			((ScreenOnlineNameCreate) activeScreen).keyPressed();
+		} else if (activeScreen == screens.get(ScreenSwitcher.SCREEN6)) {
+			((ScreenLocalNameCreate) activeScreen).keyPressed();
 		}
 	}
 

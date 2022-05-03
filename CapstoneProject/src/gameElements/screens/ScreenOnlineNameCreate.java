@@ -18,7 +18,7 @@ import processing.core.PApplet;
 import processing.core.PConstants;
 
 
-public class ScreenNameCreate extends Screen {
+public class ScreenOnlineNameCreate extends Screen {
 	
 	private DrawingSurface surface;
 
@@ -28,7 +28,7 @@ public class ScreenNameCreate extends Screen {
 	
 	private DatabaseReference queueFolder;
 	
-	public ScreenNameCreate(DrawingSurface surface, DatabaseReference queueFolder) {
+	public ScreenOnlineNameCreate(DrawingSurface surface, DatabaseReference queueFolder) {
 		super(1200,600);
 		this.surface = surface;
 		

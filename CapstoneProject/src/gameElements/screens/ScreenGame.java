@@ -15,6 +15,9 @@ public class ScreenGame extends Screen {
 	
 	private DrawingSurface surface;
 	
+	private String nameOne;
+	private String nameTwo;
+	
 	private Board board;
 //	private Rectangle board;
 	private Rectangle leftKing;
@@ -74,8 +77,6 @@ public class ScreenGame extends Screen {
 		// DO STUFF
 		int oneEnergy = 3;		// how much energy does player 1 have
 		int twoEnergy = 5;		// how much energy does player 2 have
-		String oneName = "Nishil";
-		String twoName = "Pranav";
 		board = surface.getBoard();
 		
 		
@@ -110,9 +111,9 @@ public class ScreenGame extends Screen {
 		
 		surface.textSize(25);
 		surface.textAlign(PConstants.LEFT);
-		surface.text(oneName, x/2-340, y/2-220);
+		surface.text(nameOne, x/2-340, y/2-220);
 		surface.textAlign(PConstants.RIGHT);
-		surface.text(twoName, x/2+340, y/2-220);
+		surface.text(nameTwo, x/2+340, y/2-220);
 		
 		surface.popStyle();
 		
@@ -127,6 +128,17 @@ public class ScreenGame extends Screen {
 //		
 //		if (multiplayerButton.contains(p))
 //			surface.switchScreen(ScreenSwitcher.SCREEN3);
+	}
+	
+	/**
+	 * Sets the player's names.
+	 * 
+	 * @param nameOne name of player one
+	 * @param nameTwo name of player two
+	 */
+	public void setNames(String nameOne, String nameTwo) {
+		this.nameOne = nameOne;
+		this.nameTwo = nameTwo;
 	}
 	
 	private void showTextButton(Rectangle rectangle, String buttonText, boolean border) {

@@ -39,10 +39,10 @@ public class ScreenMenu extends Screen {
 		
 		surface.textSize(20);
 		showButton(button, "Test Database");
-		surface.textSize(20);
-		showButton(multiplayerButton, "Play Online");
-		surface.textSize(17);
-		showButton(localButton, "Play with a friend!");
+		surface.textSize(16);
+		showButton(multiplayerButton, "Find opponent (wip)");
+		surface.textSize(18);
+		showButton(localButton, "Play with a friend");
 		
 		surface.popStyle();
 		
@@ -57,13 +57,13 @@ public class ScreenMenu extends Screen {
 		if (button.contains(p))
 			surface.switchScreen(ScreenSwitcher.SCREEN2);
 		
-		if (multiplayerButton.contains(p))
-			surface.switchScreen(ScreenSwitcher.SCREEN3);
+//		if (multiplayerButton.contains(p))
+//			surface.switchScreen(ScreenSwitcher.SCREEN3);
 		
 		if (localButton.contains(p)) {
 			Board board = new Board();
 			surface.setBoard(board);
-			surface.switchScreen(ScreenSwitcher.SCREEN5);
+			surface.switchScreen(ScreenSwitcher.SCREEN6);
 		}
 			
 	}
