@@ -25,7 +25,7 @@ public class ScreenSecond extends Screen {
         y = 100;
         
         message = "";
-        setup();
+      //  setup();
     }
 
     public void setup() {
@@ -43,7 +43,7 @@ public class ScreenSecond extends Screen {
         surface.stroke(0);     // Set line drawing color to white
         surface.noFill();
 
-        surface.rect(x,y,30,30);
+      //  surface.rect(x,y,30,30);
         
         surface.fill(0);
         surface.text("Move: Arrow keys",10,30);
@@ -54,8 +54,8 @@ public class ScreenSecond extends Screen {
 
         surface.popStyle();
         
-        surface.image(images.get(0), 9, 8);
-        surface.rect(190, 190, 20, 20);
+        images.get(0).resize(0, 50);
+        surface.image(images.get(0), x, y);
         
         // Change stuff
         if (surface.isPressed(KeyEvent.VK_LEFT))
