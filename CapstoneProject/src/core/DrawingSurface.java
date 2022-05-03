@@ -20,6 +20,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import databaseData.Post;
 import databaseData.UserPost;
+import gameElements.board.Board;
 import gameElements.screens.Screen;
 import gameElements.screens.ScreenGame;
 import gameElements.screens.ScreenMenu;
@@ -44,6 +45,7 @@ public class DrawingSurface extends PApplet {
 	private ArrayList<Integer> keys;
 	private ArrayList<PImage> images;
 	private String playerName;
+	private Board board;
 	
 	// Database stuff
 	private DatabaseReference ref;
@@ -54,6 +56,7 @@ public class DrawingSurface extends PApplet {
 		
 		// SETUP NORMAL FIELDS
 		playerName = null;
+		board = null;
 		images = new ArrayList<PImage>();
 		
 		
@@ -102,8 +105,8 @@ public class DrawingSurface extends PApplet {
 		ScreenGame screen5 = new ScreenGame(this);
 		screens.add(screen5);
 		
-		activeScreen = screens.get(0);
 //		activeScreen = screens.get(4);
+		activeScreen = screens.get(0);
 		
 	}
 	
@@ -266,6 +269,24 @@ public class DrawingSurface extends PApplet {
 	 */
 	public ArrayList<PImage> getImages() {
 		return images;
+	}
+	
+	/**
+	 * Sets the Board to board 
+	 * 
+	 * @param the new game board
+	 */
+	public void setBoard(Board board) {
+		this.board = board;
+	}
+	
+	/**
+	 * Returns the game board. Could be null.
+	 * 
+	 * @return the game board
+	 */
+	public Board getBoard() {
+		return board;
 	}
 
 	/**
