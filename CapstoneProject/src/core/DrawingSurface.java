@@ -51,6 +51,11 @@ public class DrawingSurface extends PApplet {
 	
 	public DrawingSurface() {
 		
+		// SETUP NORMAL FIELDS
+		playerName = null;
+		images = new ArrayList<PImage>();
+		
+		
 		// DATABASE SETUP
 		FileInputStream refreshToken;
 		DatabaseReference queueRef = null;
@@ -94,11 +99,6 @@ public class DrawingSurface extends PApplet {
 		screens.add(screen4);
 		
 		activeScreen = screens.get(0);
-		
-		
-		// OTHER
-		playerName = null;
-		images = new ArrayList<PImage>();
 		
 	}
 	
