@@ -6,6 +6,7 @@ import java.awt.Rectangle;
 import java.util.ArrayList;
 
 import core.DrawingSurface;
+import gameElements.board.Board;
 import processing.core.PApplet;
 import processing.core.PConstants;
 
@@ -14,7 +15,8 @@ public class ScreenGame extends Screen {
 	
 	private DrawingSurface surface;
 	
-	private Rectangle board;
+	private Board board;
+//	private Rectangle board;
 	private Rectangle leftKing;
 	private Rectangle rightKing;
 	
@@ -45,7 +47,7 @@ public class ScreenGame extends Screen {
 		super(1200,600);
 		this.surface = surface;
 		
-		board = new Rectangle(x/2+0,y/2+50,700,400);
+//		board = new Rectangle(x/2+0,y/2+50,700,400);
 		 leftKing = new Rectangle(x/2-300,y/2+50,100,400);
 		rightKing = new Rectangle(x/2+300,y/2+50,100,400);
 		
@@ -74,6 +76,7 @@ public class ScreenGame extends Screen {
 		int twoEnergy = 5;		// how much energy does player 2 have
 		String oneName = "Nishil";
 		String twoName = "Pranav";
+		board = surface.getBoard();
 		
 		
 		// DRAW STUFF
@@ -84,7 +87,8 @@ public class ScreenGame extends Screen {
 		surface.fill(255);
 		surface.rectMode(PConstants.CENTER);
 		
-		showBox(board);
+		board.draw(surface, (x-450)/2, y/2-130, 500, 400);
+//		showBox(board);
 		showBox(leftKing);
 		showBox(rightKing);
 		

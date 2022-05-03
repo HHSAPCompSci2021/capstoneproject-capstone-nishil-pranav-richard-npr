@@ -8,6 +8,7 @@ import java.awt.Rectangle;
 import java.util.ArrayList;
 
 import core.DrawingSurface;
+import gameElements.board.Board;
 import processing.core.PApplet;
 import processing.core.PConstants;
 
@@ -59,8 +60,12 @@ public class ScreenMenu extends Screen {
 		if (multiplayerButton.contains(p))
 			surface.switchScreen(ScreenSwitcher.SCREEN3);
 		
-		if (localButton.contains(p))
+		if (localButton.contains(p)) {
+			Board board = new Board();
+			surface.setBoard(board);
 			surface.switchScreen(ScreenSwitcher.SCREEN5);
+		}
+			
 	}
 	
 	private void showButton(Rectangle rectangle, String buttonText) {
