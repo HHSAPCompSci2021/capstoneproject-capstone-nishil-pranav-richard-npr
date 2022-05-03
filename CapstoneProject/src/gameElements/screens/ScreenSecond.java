@@ -5,8 +5,6 @@ import java.util.ArrayList;
 
 import core.DrawingSurface;
 import databaseData.Post;
-import processing.core.PApplet;
-import processing.core.PConstants;
 import processing.core.PImage;
 
 
@@ -49,6 +47,8 @@ public class ScreenSecond extends Screen {
         surface.text(message,10,120);
 
         surface.popStyle();
+        
+        surface.image(images.get(0), 9, 8);
 
         
         // Change stuff
