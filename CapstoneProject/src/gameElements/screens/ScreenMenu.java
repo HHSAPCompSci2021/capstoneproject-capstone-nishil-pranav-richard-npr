@@ -18,6 +18,7 @@ public class ScreenMenu extends Screen {
 	
 	private Rectangle button;
 	private Rectangle multiplayerButton;
+	private Rectangle localButton;
 	
 	public ScreenMenu(DrawingSurface surface) {
 		super(800,600);
@@ -25,6 +26,7 @@ public class ScreenMenu extends Screen {
 		
 		button = new Rectangle(800/2-100,600/2-50,175,50);
 		multiplayerButton = new Rectangle(800/2-100,600/2+50,175,50);
+		localButton = new Rectangle(800/2-100,600/2+150,175,50);
 	}
 	
 	
@@ -33,10 +35,13 @@ public class ScreenMenu extends Screen {
 		surface.pushStyle();
 		surface.background(255,255,255);
 		
-		surface.textSize(20);
 		
+		surface.textSize(20);
 		showButton(button, "Test Database");
-		showButton(multiplayerButton, "Play online");
+		surface.textSize(20);
+		showButton(multiplayerButton, "Play Online");
+		surface.textSize(17);
+		showButton(localButton, "Play with a friend!");
 		
 		surface.popStyle();
 		
@@ -53,6 +58,9 @@ public class ScreenMenu extends Screen {
 		
 		if (multiplayerButton.contains(p))
 			surface.switchScreen(ScreenSwitcher.SCREEN3);
+		
+		if (localButton.contains(p))
+			surface.switchScreen(ScreenSwitcher.SCREEN5);
 	}
 	
 	private void showButton(Rectangle rectangle, String buttonText) {
