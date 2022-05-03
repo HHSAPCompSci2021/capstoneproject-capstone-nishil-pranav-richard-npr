@@ -102,8 +102,8 @@ public class DrawingSurface extends PApplet {
 		ScreenGame screen5 = new ScreenGame(this);
 		screens.add(screen5);
 		
-//		activeScreen = screens.get(0);
-		activeScreen = screens.get(4);
+		activeScreen = screens.get(0);
+//		activeScreen = screens.get(4);
 		
 	}
 	
