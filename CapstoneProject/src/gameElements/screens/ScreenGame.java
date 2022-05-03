@@ -31,6 +31,9 @@ public class ScreenGame extends Screen {
 	private Rectangle leftEnergy;
 	private Rectangle rightEnergy;
 	
+	private Rectangle leftPFP;
+	private Rectangle rightPFP;
+	
 	// (total height-((number of cards-1)*spacing))/number of cards
 	// (400-(3*8))/4
 	// = 94
@@ -56,9 +59,11 @@ public class ScreenGame extends Screen {
 		rightCardThree = new Rectangle(x/2+405,y/2+50-200+(102*2)+(94/2),94,94);
 		 rightCardFour = new Rectangle(x/2+405,y/2+50-200+(102*3)+(94/2),94,94);
 		 
-		//
 		 leftEnergy = new Rectangle(x/2-507,y/2+50,50,20);
 		rightEnergy = new Rectangle(x/2+507,y/2+50,50,20);
+		
+		 leftPFP = new Rectangle(x/2-405,y/2-275+(94/2),94,94);
+		rightPFP = new Rectangle(x/2+405,y/2-275+(94/2),94,94);
 	}
 	
 	
@@ -67,6 +72,8 @@ public class ScreenGame extends Screen {
 		// DO STUFF
 		int oneEnergy = 3;		// how much energy does player 1 have
 		int twoEnergy = 5;		// how much energy does player 2 have
+		String oneName = "Nishil";
+		String twoName = "Pranav";
 		
 		
 		// DRAW STUFF
@@ -93,6 +100,15 @@ public class ScreenGame extends Screen {
 		
 		showTextButton(leftEnergy, oneEnergy + "/10");
 		showTextButton(rightEnergy, twoEnergy + "/10");
+		
+		showBox(leftPFP);
+		showBox(rightPFP);
+		
+		surface.textSize(25);
+		surface.textAlign(PConstants.LEFT);
+		surface.text(oneName, x/2-340, y/2-220);
+		surface.textAlign(PConstants.RIGHT);
+		surface.text(twoName, x/2+340, y/2-220);
 		
 		surface.popStyle();
 		
