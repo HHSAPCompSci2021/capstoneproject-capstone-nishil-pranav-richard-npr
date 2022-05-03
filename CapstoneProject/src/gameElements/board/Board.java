@@ -36,4 +36,11 @@ public class Board {
 		}
 		return null;
 	}
+	
+	public void set(Location l, int x, int y) {
+		if(x >= 0 && x < board.length && y >= 0 && y < board[0].length) {
+			board[x][y] = l;
+		}
+	}
+	
 }
