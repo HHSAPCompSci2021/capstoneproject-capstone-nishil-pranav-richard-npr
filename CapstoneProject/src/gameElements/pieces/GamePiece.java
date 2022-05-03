@@ -7,6 +7,10 @@ import processing.core.PApplet;
 public abstract class GamePiece {
 	protected int health, damage, x, y;
 	
+	public GamePiece() {
+		
+	}
+	
 	public ArrayList<Location> calcMoveLocs() {return null;}
 	
 	public Location getMoveLoc() {return null;}
