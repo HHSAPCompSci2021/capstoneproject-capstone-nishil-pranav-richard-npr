@@ -1,5 +1,4 @@
 
-
 import java.awt.Color;
 import java.awt.Point;
 import java.awt.Rectangle;
@@ -35,6 +34,7 @@ public class DrawingSurface extends PApplet {
 	private Screen activeScreen;
 	private ArrayList<Screen> screens;
 	private ArrayList<Integer> keys;
+	private ArrayList<PImage> images;
 	private String playerName;
 	
 	// Database stuff
@@ -68,7 +68,7 @@ public class DrawingSurface extends PApplet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		//setup();
+		
 		
 		// SCREEN SETUP
 		screens = new ArrayList<Screen>();
@@ -88,13 +88,33 @@ public class DrawingSurface extends PApplet {
 		
 		activeScreen = screens.get(0);
 		
+		
 		// OTHER
 		playerName = null;
+		images = new ArrayList<PImage>();
 		
 	}
 	
 	public void setup() {
-		System.out.println("WHYYYYYY");
+		
+		// LOAD IMAGES
+//		img = loadImage("PImageTesting.png");
+//		img = loadImage(String.format("ChessPieces%sblackSide%sblackBishop.gif", fileSeparator, fileSeparator));
+		
+		images.add(ImageCodes.BLACK_BISHOP, loadImage(String.format("Images%sChessPieces%sblackSide%sblackBishop.gif", fileSeparator, fileSeparator, fileSeparator)));
+		images.add(ImageCodes.BLACK_KING, loadImage(String.format("Images%sChessPieces%sblackSide%sblackKing.gif", fileSeparator, fileSeparator, fileSeparator)));
+		images.add(ImageCodes.BLACK_KNIGHT, loadImage(String.format("Images%sChessPieces%sblackSide%sblackKnight.gif", fileSeparator, fileSeparator, fileSeparator)));
+		images.add(ImageCodes.BLACK_PAWN, loadImage(String.format("Images%sChessPieces%sblackSide%sblackPawn.gif", fileSeparator, fileSeparator, fileSeparator)));
+		images.add(ImageCodes.BLACK_QUEEN, loadImage(String.format("Images%sChessPieces%sblackSide%sblackQueen.gif", fileSeparator, fileSeparator, fileSeparator)));
+		images.add(ImageCodes.BLACK_ROOK, loadImage(String.format("Images%sChessPieces%sblackSide%sblackRook.gif", fileSeparator, fileSeparator, fileSeparator)));
+		
+		images.add(ImageCodes.WHITE_BISHOP, loadImage(String.format("Images%sChessPieces%swhiteSide%swhiteBishop.gif", fileSeparator, fileSeparator, fileSeparator)));
+		images.add(ImageCodes.WHITE_KING, loadImage(String.format("Images%sChessPieces%swhiteSide%swhiteKing.gif", fileSeparator, fileSeparator, fileSeparator)));
+		images.add(ImageCodes.WHITE_KNIGHT, loadImage(String.format("Images%sChessPieces%swhiteSide%swhiteKnight.gif", fileSeparator, fileSeparator, fileSeparator)));
+		images.add(ImageCodes.WHITE_PAWN, loadImage(String.format("Images%sChessPieces%swhiteSide%swhitePawn.gif", fileSeparator, fileSeparator, fileSeparator)));
+		images.add(ImageCodes.WHITE_QUEEN, loadImage(String.format("Images%sChessPieces%swhiteSide%swhiteQueen.gif", fileSeparator, fileSeparator, fileSeparator)));
+		images.add(ImageCodes.WHITE_ROOK, loadImage(String.format("Images%sChessPieces%swhiteSide%swhiteRook.gif", fileSeparator, fileSeparator, fileSeparator)));
+		
 	}
 
 	public void draw() {
@@ -127,11 +147,11 @@ public class DrawingSurface extends PApplet {
 		scale(ratioX, ratioY);
 		activeScreen.draw();
 		
-	}
-	
-	public PImage getImage() {
-		System.out.println("RETURN HERE DRAWINGSURFACE");
-		return null;
+		// image testing
+//		background(255);
+//		PImage img = images.get(ImageCodes.BLACK_BISHOP);
+//		image(img, 0, 0, img.width/4, img.height/4);
+		
 	}
 	
 	public void keyPressed() {
@@ -154,7 +174,6 @@ public class DrawingSurface extends PApplet {
 	public boolean isPressed(Integer code) {
 		return keys.contains(code);
 	}
-	
 	
 	public void mousePressed() {
 //		String path = "Folder";
@@ -227,6 +246,15 @@ public class DrawingSurface extends PApplet {
 	public void setPlayerName(String name) {
 		if (playerName != null) return;
 		playerName = name;
+	}
+	
+	/**
+	 * Returns a list of all loaded images
+	 * 
+	 * @return a list of all loaded images
+	 */
+	public ArrayList<PImage> getImages() {
+		return images;
 	}
 
 	/**
@@ -313,6 +341,5 @@ public class DrawingSurface extends PApplet {
 		}
 
 	}
-
 
 }
