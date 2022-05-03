@@ -1,6 +1,7 @@
 package gameElements.screens;
 
 import java.awt.event.*;
+import java.util.ArrayList;
 
 import core.DrawingSurface;
 import databaseData.Post;
@@ -15,13 +16,13 @@ public class ScreenSecond extends Screen {
     private String message;
     
     private DrawingSurface surface;
-    private PImage image;
-    private final String fileSeparator = System.getProperty("file.separator");
+    private ArrayList<PImage> images;
     
     
     public ScreenSecond(DrawingSurface surface) {
         super(800,600);
         this.surface = surface;
+        images = surface.getImages();
         x = 600;
         y = 100;
         
