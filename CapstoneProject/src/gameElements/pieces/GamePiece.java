@@ -23,6 +23,12 @@ public abstract class GamePiece {
 		if(health <= 0) {die();}
 	}
 	
+	public GamePiece() {
+		
+	}
+	
+	public ArrayList<Location> calcMoveLocs() {return null;}
+	
 	public  abstract ArrayList<Location> calcMoveLocs();
 	
 	public abstract Location getMoveLoc(ArrayList<Location> moves);

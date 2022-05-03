@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import core.DrawingSurface;
 import databaseData.Post;
+import gameElements.board.Board;
 import processing.core.PImage;
 
 
@@ -12,18 +13,18 @@ public class ScreenSecond extends Screen {
     
     private int x, y;
     private String message;
-    
+    private Board b;
     private DrawingSurface surface;
     private ArrayList<PImage> images;
     
     
     public ScreenSecond(DrawingSurface surface) {
-        super(800,600);
+        super(1200,600);
         this.surface = surface;
         images = surface.getImages();
         x = 600;
         y = 100;
-        
+        b = new Board();
         message = "";
       //  setup();
     }
@@ -66,6 +67,8 @@ public class ScreenSecond extends Screen {
             y -= 5;
         if (surface.isPressed(KeyEvent.VK_DOWN))
             y += 5;
+        
+        b.draw(surface, 0, 0, surface.height, surface.height);
         
     }
     

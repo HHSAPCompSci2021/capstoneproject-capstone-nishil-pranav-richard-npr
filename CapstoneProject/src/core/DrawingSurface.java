@@ -21,6 +21,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import databaseData.Post;
 import databaseData.UserPost;
 import gameElements.screens.Screen;
+import gameElements.screens.ScreenGame;
 import gameElements.screens.ScreenMenu;
 import gameElements.screens.ScreenNameCreate;
 import gameElements.screens.ScreenQueue;
@@ -37,7 +38,7 @@ public class DrawingSurface extends PApplet {
 	// Drawing/screen stuff
 	private final String fileSeparator = System.getProperty("file.separator");
 	public float ratioX, ratioY;
-	private static final int DRAWING_WIDTH = 800, DRAWING_HEIGHT = 600;
+	private static final int DRAWING_WIDTH = 1200, DRAWING_HEIGHT = 600;
 	private Screen activeScreen;
 	private ArrayList<Screen> screens;
 	private ArrayList<Integer> keys;
@@ -98,7 +99,11 @@ public class DrawingSurface extends PApplet {
 		ScreenQueue screen4 = new ScreenQueue(this, ref);
 		screens.add(screen4);
 		
+		ScreenGame screen5 = new ScreenGame(this);
+		screens.add(screen5);
+		
 		activeScreen = screens.get(0);
+//		activeScreen = screens.get(4);
 		
 	}
 	
