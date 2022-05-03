@@ -1,5 +1,7 @@
 package gameElements.board;
 
+import processing.core.PApplet;
+
 public class Board {
 	private Location[][] board;
 	
@@ -7,4 +9,23 @@ public class Board {
 		board = new Location[x][y];
 	}
 	
+	public Board() {
+		board = new Location[10][10];
+	}
+	
+	public void draw(PApplet drawer, float x, float y, float width, float height) {
+		float sqWidth = width/board.length;
+		float sqHeight = height/board[0].length;
+		float tempX = x;
+		for(int i = 0; i < board.length; i++) {
+			for(int j = 0; j < board[i].length; j++) {
+				drawer.fill(0);
+				drawer.stroke(255);
+				drawer.rect(x, y, sqWidth, sqHeight);
+				x+=sqWidth;
+			}
+			y+=sqHeight;
+			x = tempX;
+		}
+	}
 }
