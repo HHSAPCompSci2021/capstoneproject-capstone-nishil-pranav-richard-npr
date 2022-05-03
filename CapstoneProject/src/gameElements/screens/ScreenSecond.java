@@ -25,8 +25,14 @@ public class ScreenSecond extends Screen {
         y = 100;
         
         message = "";
+        setup();
     }
 
+    public void setup() {
+    	for(int i = 0; i < images.size(); i++) {
+    		images.get(i).resize(0, 200);
+    	}
+    }
     
     public void draw() {
         
@@ -49,7 +55,7 @@ public class ScreenSecond extends Screen {
         surface.popStyle();
         
         surface.image(images.get(0), 9, 8);
-
+        surface.rect(190, 190, 20, 20);
         
         // Change stuff
         if (surface.isPressed(KeyEvent.VK_LEFT))
