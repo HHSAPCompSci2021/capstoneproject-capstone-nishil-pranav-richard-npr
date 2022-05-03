@@ -19,7 +19,7 @@ public class ScreenSecond extends Screen {
     
     
     public ScreenSecond(DrawingSurface surface) {
-        super(800,600);
+        super(1200,600);
         this.surface = surface;
         images = surface.getImages();
         x = 600;

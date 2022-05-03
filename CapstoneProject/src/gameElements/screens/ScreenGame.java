@@ -16,11 +16,11 @@ public class ScreenGame extends Screen {
 	
 	private Rectangle board;
 	
-	private final int x = 800;
+	private final int x = 1200;
 	private final int y = 600;
 	
 	public ScreenGame(DrawingSurface surface) {
-		super(800,600);
+		super(1200,600);
 		this.surface = surface;
 		
 		board = new Rectangle(x/2+0,y/2+50,500,400);

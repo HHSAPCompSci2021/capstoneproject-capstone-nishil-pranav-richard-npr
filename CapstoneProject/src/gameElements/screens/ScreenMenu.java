@@ -21,12 +21,12 @@ public class ScreenMenu extends Screen {
 	private Rectangle localButton;
 	
 	public ScreenMenu(DrawingSurface surface) {
-		super(800,600);
+		super(1200,600);
 		this.surface = surface;
 		
-		button = new Rectangle(800/2-100,600/2-50,175,50);
-		multiplayerButton = new Rectangle(800/2-100,600/2+50,175,50);
-		localButton = new Rectangle(800/2-100,600/2+150,175,50);
+		button = new Rectangle(1200/2-100,600/2-50,175,50);
+		multiplayerButton = new Rectangle(1200/2-100,600/2+50,175,50);
+		localButton = new Rectangle(1200/2-100,600/2+150,175,50);
 	}
 	
 	

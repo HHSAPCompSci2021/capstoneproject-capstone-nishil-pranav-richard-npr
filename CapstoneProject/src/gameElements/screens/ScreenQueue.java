@@ -31,11 +31,11 @@ public class ScreenQueue extends Screen {
 	private int i;
 	
 	public ScreenQueue(DrawingSurface surface, DatabaseReference ref) {
-		super(800,600);
+		super(1200,600);
 		this.surface = surface;
 		this.ref = ref;
 		
-		button = new Rectangle(800/2-100,600/2-50,200,50);
+		button = new Rectangle(1200/2-100,600/2-50,200,50);
 		
 	}
 	

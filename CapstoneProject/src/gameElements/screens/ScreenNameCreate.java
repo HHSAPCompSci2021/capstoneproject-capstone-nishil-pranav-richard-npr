@@ -29,11 +29,11 @@ public class ScreenNameCreate extends Screen {
 	private DatabaseReference queueFolder;
 	
 	public ScreenNameCreate(DrawingSurface surface, DatabaseReference queueFolder) {
-		super(800,600);
+		super(1200,600);
 		this.surface = surface;
 		
 		this.boxText = new StringBuffer();
-		this.nameCreationBox = new Rectangle(800/2-100,600/2-50,175,50);
+		this.nameCreationBox = new Rectangle(1200/2-100,600/2-50,175,50);
 		this.boxSelected = false;
 		this.queueFolder = queueFolder;
 	}
