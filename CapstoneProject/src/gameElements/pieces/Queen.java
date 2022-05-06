@@ -2,13 +2,14 @@ package gameElements.pieces;
 
 import java.util.ArrayList;
 
+import gameElements.board.Board;
 import gameElements.board.Location;
 import processing.core.PApplet;
 
 public class Queen extends GamePiece{
 	
-	public Queen(int r, int c) {
-		super(r, c);
+	public Queen(int r, int c, Board brd) {
+		super(r, c, brd);
 	}
 	
 	
