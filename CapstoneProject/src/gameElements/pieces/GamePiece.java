@@ -27,8 +27,6 @@ public abstract class GamePiece {
 		
 	}
 	
-	public ArrayList<Location> calcMoveLocs() {return null;}
-	
 	public  abstract ArrayList<Location> calcMoveLocs();
 	
 	public abstract Location getMoveLoc(ArrayList<Location> moves);
@@ -57,5 +55,7 @@ public abstract class GamePiece {
 	public abstract void draw(PApplet marker);
 	
 	public void die() {}
+	
+	public Location getLoc() {return loc;}
 
 }

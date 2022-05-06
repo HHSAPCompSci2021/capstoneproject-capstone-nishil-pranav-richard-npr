@@ -164,7 +164,7 @@ public class DrawingSurface extends PApplet {
 		ratioY = (float)height/activeScreen.DRAWING_HEIGHT;
 		scale(ratioX, ratioY);
 		activeScreen.draw();
-		
+		//images.get(0).resize(400, 400);
 		// image testing
 //		background(255);
 //		PImage img = images.get(ImageCodes.BLACK_BISHOP);

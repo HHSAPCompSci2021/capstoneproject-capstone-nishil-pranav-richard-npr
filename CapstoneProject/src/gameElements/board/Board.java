@@ -1,5 +1,7 @@
 package gameElements.board;
 
+import java.awt.geom.Point2D;
+
 import processing.core.PApplet;
 
 public class Board {
@@ -19,14 +21,21 @@ public class Board {
 		float tempX = x;
 		for(int i = 0; i < board.length; i++) {
 			for(int j = 0; j < board[i].length; j++) {
-				drawer.fill(0);
-				drawer.stroke(255);
+				drawer.fill(255);
+				drawer.stroke(0);
 				drawer.rect(x, y, sqWidth, sqHeight);
 				x+=sqWidth;
 			}
-			y+=sqHeight;
 			x = tempX;
+			y+=sqHeight;
 		}
+	}
+	
+	public Point2D.Float getCoordFromIndex(float x, float y, float width, float height, int r, int c) {
+		Point2D.Float coords = new Point2D.Float();
+		coords.x = x+(width/board.length)*r;
+		coords.y = y+(height/board[0].length)*c;
+		return coords;
 	}
 	
 	
