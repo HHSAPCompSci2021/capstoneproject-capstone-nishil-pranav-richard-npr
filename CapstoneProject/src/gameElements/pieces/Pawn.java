@@ -2,6 +2,7 @@ package gameElements.pieces;
 
 import java.util.ArrayList;
 
+import core.ImageCodes;
 import gameElements.board.Board;
 import gameElements.board.Location;
 import processing.core.PApplet;
@@ -14,6 +15,11 @@ public class Pawn extends GamePiece{
 		damage = 10;
 		maxDist = 3;
 		range = 3;
+		if (wht) {
+			super.setImgCode(ImageCodes.WHITE_PAWN);
+		} else {
+			super.setImgCode(ImageCodes.BLACK_PAWN);
+		}
 	}
 	
 	public void draw(PApplet marker) {}
