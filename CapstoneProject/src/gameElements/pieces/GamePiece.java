@@ -10,11 +10,14 @@ public abstract class GamePiece {
 	protected GamePiece target;
 	protected Board board;
 	
-	public GamePiece(int r, int c) {
+	public GamePiece(int r, int c, Board brd) {
 		loc = new Location(r, c);
+		board = brd;
+		target = null;
 	}
 	
 	public void act() {
+		if(target == null) { target = getScan(3);}
 		ArrayList<Location> moveLocs = calcMoveLocs();
 		Location optimal = getMoveLoc(moveLocs);
 		moveTo(optimal);
@@ -36,7 +39,30 @@ public abstract class GamePiece {
 		loc.setCol(newLoc.getCol());
 	}
 	
-	public GamePiece getScan(int scanLength) {return null;}
+	public GamePiece getScan(int scanRad) {
+		GamePiece toScan = null;
+		int row = loc.getRow(), col = loc.getCol();
+		for(int r = row-scanRad; r < row + scanRad; r++ ) {
+			for(int c = col-scanRad; c < col+scanRad; c++) {
+				if(r >= 0 && c >= 0 && r <board.getHeight() && c < board.getWidth()) {
+					if(r==row && c == col) {}
+					else {
+						if(board.get(r, c) != null) {
+							if(toScan == null) {
+								toScan = board.get(r, c);
+							}
+							else {
+								if(toScan.getLocation().getDistanceFrom(loc) > board.get(r, c).getLocation().getDistanceFrom(loc)) {
+									toScan = board.get(r, c);
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		return toScan;
+	}
 	
 	public abstract ArrayList<GamePiece> getAttackTargets();
 	
