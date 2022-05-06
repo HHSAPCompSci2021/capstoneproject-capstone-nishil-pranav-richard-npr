@@ -11,6 +11,7 @@ import core.DrawingSurface;
 import gameElements.board.Board;
 import processing.core.PApplet;
 import processing.core.PConstants;
+import core.ImageCodes;
 
 
 public class ScreenMenu extends Screen {
@@ -34,8 +35,8 @@ public class ScreenMenu extends Screen {
 	public void draw() {
 		
 		surface.pushStyle();
-		surface.background(255,255,255);
-		
+		//surface.background(255,255,255);
+		surface.image(surface.getImages().get(ImageCodes.BACKGROUND), 0, 0);
 		
 		surface.textSize(20);
 		showButton(button, "Test Database");

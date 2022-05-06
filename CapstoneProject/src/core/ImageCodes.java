@@ -13,4 +13,6 @@ public interface ImageCodes {
     public static final int WHITE_PAWN = 9;
     public static final int WHITE_QUEEN = 10;
     public static final int WHITE_ROOK = 11;
+    
+    public static final int BACKGROUND = 12;
 }
