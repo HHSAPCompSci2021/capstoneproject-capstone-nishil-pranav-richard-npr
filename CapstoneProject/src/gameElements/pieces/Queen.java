@@ -8,8 +8,12 @@ import processing.core.PApplet;
 
 public class Queen extends GamePiece{
 	
-	public Queen(int r, int c, Board brd) {
-		super(r, c, brd);
+	public Queen(int r, int c, Board brd, boolean wht) {
+		super(r, c, brd, wht);
+		health = 10;
+		damage = 10;
+		maxDist = 3;
+		range = 3;
 	}
 	
 	
@@ -17,23 +21,55 @@ public class Queen extends GamePiece{
 
 
 	@Override
+	public ArrayList<Location> calcMoveLocs() {
+		ArrayList<Location> locs = new ArrayList<Location>();
+		int row = loc.getRow(), col = loc.getCol();
+		for(int i = 0; i < 8; i++) {
+			for(int r = row + moveR[i]; r != row+moveR[i]*maxDist; r += moveR[i]) {
+				for(int c = col + moveC[i]; c != col+moveC[i]*maxDist; c += moveC[i]) {
+					if(board.inBounds(r, c)) {
+						locs.add(new Location(r, c));
+					}
+				}
+			}
+		}
+		return locs;
+	}
+	
+	@Override
 	public Location getMoveLoc(ArrayList<Location> moves) {
-		// TODO Auto-generated method stub
-		return null;
+		Location toPick = loc;
+		if(target == null) {
+			for(Location l : moves) {
+				if(white) {
+					if(l.getCol() > toPick.getCol()) {
+						toPick = l;
+					}
+				} else {
+					if(l.getCol() < toPick.getCol()) {
+						toPick = l;
+					}
+				}
+			}
+		}
+		else {
+			for(Location l : moves) {
+				if(l.getDistanceFrom(target.getLocation()) < toPick.getDistanceFrom(target.getLocation())) {
+					toPick = l;
+				}
+			}
+		}
+		return toPick;
 	}
 
 
 	@Override
 	public ArrayList<GamePiece> getAttackTargets() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-	@Override
-	public ArrayList<Location> calcMoveLocs() {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<GamePiece> toAttack = new ArrayList<GamePiece>();
+		if(loc.getDistanceFrom(target.getLocation()) < Math.sqrt(range*range+range*range)) {
+			toAttack.add(target);
+		}
+		return toAttack;
 	}
 
 }

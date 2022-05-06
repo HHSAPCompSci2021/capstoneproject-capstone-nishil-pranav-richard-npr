@@ -9,11 +9,17 @@ public abstract class GamePiece {
 	protected Location loc;
 	protected GamePiece target;
 	protected Board board;
-	
-	public GamePiece(int r, int c, Board brd) {
+	protected int maxDist;
+	protected boolean white;
+	protected int[] moveR = {1, -1, 0, 0, 1, -1, 1, -1};
+	protected int[] moveC = {0, 0, 1, -1, 1, -1, -1, 1};
+	protected double range;
+			
+	public GamePiece(int r, int c, Board brd, boolean wht) {
 		loc = new Location(r, c);
 		board = brd;
 		target = null;
+		white = wht;
 	}
 	
 	public void act() {
@@ -42,9 +48,9 @@ public abstract class GamePiece {
 	public GamePiece getScan(int scanRad) {
 		GamePiece toScan = null;
 		int row = loc.getRow(), col = loc.getCol();
-		for(int r = row-scanRad; r < row + scanRad; r++ ) {
-			for(int c = col-scanRad; c < col+scanRad; c++) {
-				if(r >= 0 && c >= 0 && r <board.getHeight() && c < board.getWidth()) {
+		for(int r = row-scanRad; r <= row + scanRad; r++ ) {
+			for(int c = col-scanRad; c <= col+scanRad; c++) {
+				if(board.inBounds(r, c)) {
 					if(r==row && c == col) {}
 					else {
 						if(board.get(r, c) != null) {
@@ -82,6 +88,5 @@ public abstract class GamePiece {
 	
 	public void die() {}
 	
-	public Location getLoc() {return loc;}
 
 }

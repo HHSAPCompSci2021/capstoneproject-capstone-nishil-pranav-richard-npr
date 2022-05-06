@@ -61,4 +61,10 @@ public class Board {
 		return board[0].length;
 	}
 	
+	public boolean inBounds(int r, int c) {
+		if(r >= 0 && c >= 0 && r < board.length && c < board[0].length) {
+			return true;
+		}
+		return false;
+	}
 }
