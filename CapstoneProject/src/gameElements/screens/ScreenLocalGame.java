@@ -134,8 +134,8 @@ public class ScreenLocalGame extends Screen {
 //		if (multiplayerButton.contains(p))
 //			surface.switchScreen(ScreenSwitcher.SCREEN3);
 		
-		board.set(new Pawn(0, 0, board, true), 0, 0);
-		board.set(new Pawn(0, 1, board, false), 0, 1);
+		board.add(new Pawn(0, 0, board, true));
+		board.add(new Pawn(0, 1, board, false));
 		
 	}
 	

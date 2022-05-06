@@ -72,6 +72,21 @@ public class Board {
 		}
 	}
 	
+	/**
+	 * Adds a GamePiece piece to this Board using piece's Location
+	 * @param piece GamePiece to add to the board
+	 * @pre piece must not be null. piece must also have properly a initialized Location loc which is in the board 
+	 */
+	public void add(GamePiece piece) {
+		if (piece == null) throw new NullPointerException("piece is null");
+		Location loc = piece.getLocation();
+		if (loc == null) throw new NullPointerException("piece.getLocation() is null");
+		int x = loc.getRow();
+		int y = loc.getCol();
+		if (!(x >= 0 && x < board.length && y >= 0 && y < board[0].length)) throw new ArrayIndexOutOfBoundsException("piece.getLocation() does not fit in the board");
+		board[x][y] = piece;
+	}
+	
 	public int getHeight() {
 		return board.length;
 	}
