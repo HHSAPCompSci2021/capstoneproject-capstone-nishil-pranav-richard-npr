@@ -280,7 +280,7 @@ public class DrawingSurface extends PApplet {
 	/**
 	 * Sets the Board to board 
 	 * 
-	 * @param the new game board
+	 * @param board the new game board
 	 */
 	public void setBoard(Board board) {
 		this.board = board;
