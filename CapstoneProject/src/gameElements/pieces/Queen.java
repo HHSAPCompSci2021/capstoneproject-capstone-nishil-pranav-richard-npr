@@ -27,7 +27,7 @@ public class Queen extends GamePiece{
 		for(int i = 0; i < 8; i++) {
 			for(int r = row + moveR[i]; r != row+moveR[i]*maxDist; r += moveR[i]) {
 				for(int c = col + moveC[i]; c != col+moveC[i]*maxDist; c += moveC[i]) {
-					if(board.inBounds(r, c)) {
+					if(board.inBounds(r, c) && board.get(r, c) == null) {
 						locs.add(new Location(r, c));
 					}
 				}
