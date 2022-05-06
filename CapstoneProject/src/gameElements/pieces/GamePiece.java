@@ -43,8 +43,11 @@ public abstract class GamePiece {
 	public abstract Location getMoveLoc(ArrayList<Location> moves);
 
 	public void moveTo(Location newLoc) {
+		board.set(null, loc.getRow(), loc.getCol());
 		loc.setRow(newLoc.getRow());
 		loc.setCol(newLoc.getCol());
+		board.set(this, loc.getRow(), loc.getCol());
+		
 	}
 	
 	public GamePiece getScan(int scanRad) {

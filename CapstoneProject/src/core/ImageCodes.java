@@ -1,6 +1,6 @@
 package core;
 public interface ImageCodes {
-	public static final int UNKNWON = 0;
+	public static final int UNKNOWN = 0;
 	
     public static final int BLACK_BISHOP = 1;
     public static final int BLACK_KING = 2;
@@ -14,5 +14,5 @@ public interface ImageCodes {
     public static final int WHITE_KNIGHT = 9;
     public static final int WHITE_PAWN = 10;
     public static final int WHITE_QUEEN = 11;
-    public static final int WHITE_ROOK = 12; // ?
+    public static final int WHITE_ROOK = 12;
 }
