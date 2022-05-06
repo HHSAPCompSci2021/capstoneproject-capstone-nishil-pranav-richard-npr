@@ -36,7 +36,7 @@ public class ScreenMenu extends Screen {
 		
 		surface.pushStyle();
 		//surface.background(255,255,255);
-		surface.image(surface.getImages().get(ImageCodes.BACKGROUND), 0, 0);
+		surface.image(surface.getImages().get(ImageCodes.BACKGROUND), 0, 0, 1200, 600);
 		
 		surface.textSize(20);
 		showButton(button, "Test Database");
