@@ -117,7 +117,7 @@ public class DrawingSurface extends PApplet {
 	public void setup() {
 		
 		// LOAD IMAGES
-		images.add(ImageCodes.UNKNWON, loadImage(String.format("Images%sunknown.png", fileSeparator)));
+		images.add(ImageCodes.UNKNOWN, loadImage(String.format("Images%sunknown.png", fileSeparator)));
 		
 		images.add(ImageCodes.BLACK_BISHOP, loadImage(String.format("Images%sChessPieces%sblackSide%sblackBishop.gif", fileSeparator, fileSeparator, fileSeparator)));
 		images.add(ImageCodes.BLACK_KING, loadImage(String.format("Images%sChessPieces%sblackSide%sblackKing.gif", fileSeparator, fileSeparator, fileSeparator)));
