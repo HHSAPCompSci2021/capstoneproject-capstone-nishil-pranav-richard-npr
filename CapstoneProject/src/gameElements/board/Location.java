@@ -22,6 +22,10 @@ public class Location {
 	public void setCol(int newCol) {
 		col = newCol;
 	}
+	public double getDistanceFrom(Location other) {
+		double dRow = (double) row, dCol = (double) col, dRowOther = (double) other.getRow(), dColOther = (double)other.getCol();
+		return Math.sqrt(Math.pow((dRow-dRowOther), 2) + Math.pow((dCol - dColOther), 2));
+	}
 
 /*
 	private GamePiece gp;

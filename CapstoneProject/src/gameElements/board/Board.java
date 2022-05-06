@@ -2,17 +2,18 @@ package gameElements.board;
 
 import java.awt.geom.Point2D;
 
+import gameElements.pieces.GamePiece;
 import processing.core.PApplet;
 
 public class Board {
-	private Location[][] board;
+	private GamePiece[][] board;
 	
 	public Board(int x, int y) {
-		board = new Location[x][y];
+		board = new GamePiece[x][y];
 	}
 	
 	public Board() {
-		board = new Location[10][10];
+		board = new GamePiece[10][10];
 	}
 	
 	public void draw(PApplet drawer, float x, float y, float width, float height) {
@@ -39,17 +40,31 @@ public class Board {
 	}
 	
 	
-	public Location get(int x, int y) {
+	public GamePiece get(int x, int y) {
 		if(x >= 0 && x < board.length && y >= 0 && y < board[0].length) {
 			return board[x][y];
 		}
 		return null;
 	}
 	
-	public void set(Location l, int x, int y) {
+	public void set(GamePiece l, int x, int y) {
 		if(x >= 0 && x < board.length && y >= 0 && y < board[0].length) {
 			board[x][y] = l;
 		}
 	}
 	
+	public int getHeight() {
+		return board.length;
+	}
+	
+	public int getWidth() {
+		return board[0].length;
+	}
+	
+	public boolean inBounds(int r, int c) {
+		if(r >= 0 && c >= 0 && r < board.length && c < board[0].length) {
+			return true;
+		}
+		return false;
+	}
 }

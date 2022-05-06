@@ -117,9 +117,6 @@ public class DrawingSurface extends PApplet {
 	public void setup() {
 		
 		// LOAD IMAGES
-//		img = loadImage("PImageTesting.png");
-//		img = loadImage(String.format("ChessPieces%sblackSide%sblackBishop.gif", fileSeparator, fileSeparator));
-		
 		images.add(ImageCodes.BLACK_BISHOP, loadImage(String.format("Images%sChessPieces%sblackSide%sblackBishop.gif", fileSeparator, fileSeparator, fileSeparator)));
 		images.add(ImageCodes.BLACK_KING, loadImage(String.format("Images%sChessPieces%sblackSide%sblackKing.gif", fileSeparator, fileSeparator, fileSeparator)));
 		images.add(ImageCodes.BLACK_KNIGHT, loadImage(String.format("Images%sChessPieces%sblackSide%sblackKnight.gif", fileSeparator, fileSeparator, fileSeparator)));
@@ -281,7 +278,7 @@ public class DrawingSurface extends PApplet {
 	/**
 	 * Sets the Board to board 
 	 * 
-	 * @param the new game board
+	 * @param board the new game board
 	 */
 	public void setBoard(Board board) {
 		this.board = board;
