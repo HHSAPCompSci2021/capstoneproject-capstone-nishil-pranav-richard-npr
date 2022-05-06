@@ -7,6 +7,8 @@ import java.util.ArrayList;
 
 import core.DrawingSurface;
 import gameElements.board.Board;
+import gameElements.pieces.Bishop;
+import gameElements.pieces.Pawn;
 import processing.core.PApplet;
 import processing.core.PConstants;
 
@@ -87,6 +89,7 @@ public class ScreenLocalGame extends Screen {
 		surface.textSize(15);
 		surface.fill(255);
 		surface.rectMode(PConstants.CENTER);
+		surface.imageMode(PConstants.CENTER);
 		
 		board.draw(surface, (x-450)/2, y/2-130, 500, 400);
 //		showBox(board);
@@ -117,6 +120,8 @@ public class ScreenLocalGame extends Screen {
 		
 		surface.popStyle();
 		
+//		System.out.println(board.get(0,0));
+		
 	}
 	
 	
@@ -128,6 +133,10 @@ public class ScreenLocalGame extends Screen {
 //		
 //		if (multiplayerButton.contains(p))
 //			surface.switchScreen(ScreenSwitcher.SCREEN3);
+		
+		board.set(new Pawn(0, 0, board, true), 0, 0);
+		board.set(new Pawn(0, 1, board, false), 0, 1);
+		
 	}
 	
 	/**

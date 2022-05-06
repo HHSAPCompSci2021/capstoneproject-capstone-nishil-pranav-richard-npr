@@ -1,12 +1,17 @@
 package gameElements.board;
 
 import java.awt.geom.Point2D;
+import java.util.ArrayList;
 
+import core.DrawingSurface;
+import core.ImageCodes;
 import gameElements.pieces.GamePiece;
 import processing.core.PApplet;
+import processing.core.PImage;
 
 public class Board {
 	private GamePiece[][] board;
+	private ArrayList<PImage> images;
 	
 	public Board(int x, int y) {
 		board = new GamePiece[x][y];
@@ -14,17 +19,31 @@ public class Board {
 	
 	public Board() {
 		board = new GamePiece[10][10];
+		images = null;
 	}
 	
-	public void draw(PApplet drawer, float x, float y, float width, float height) {
+	public void draw(DrawingSurface surface, float x, float y, float width, float height) {
+		if (images == null) {
+			images = surface.getImages();
+		}
 		float sqWidth = width/board.length;
 		float sqHeight = height/board[0].length;
 		float tempX = x;
 		for(int i = 0; i < board.length; i++) {
 			for(int j = 0; j < board[i].length; j++) {
-				drawer.fill(255);
-				drawer.stroke(0);
-				drawer.rect(x, y, sqWidth, sqHeight);
+				// draw outer box
+				surface.fill(255);
+				surface.stroke(0);
+				surface.rect(x, y, sqWidth, sqHeight);
+				
+				// draw piece
+				GamePiece piece = board[j][i];
+				if (piece != null) {
+//					System.out.println(piece.getImgCode());
+					PImage img = images.get(piece.getImgCode());
+					surface.image(img, x, y, sqHeight-2, sqHeight-2);		// assumes that height is larger than width
+				}
+				
 				x+=sqWidth;
 			}
 			x = tempX;
