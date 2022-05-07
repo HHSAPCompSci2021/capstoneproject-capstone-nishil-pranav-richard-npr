@@ -8,6 +8,7 @@ import core.DrawingSurface;
 import databaseData.Post;
 import gameElements.board.Board;
 import gameElements.board.Location;
+import core.ImageCodes;
 import processing.core.PImage;
 
 
@@ -46,8 +47,8 @@ public class ScreenSecond extends Screen {
 
         // this is where the drawing magic happens
         Point2D.Float vals = b.getCoordFromIndex(5, 5, surface.height-10, surface.height-10, 5, 6);//TODO hardcoded, can be fixed later
-    	images.get(3).resize(53, 53);
-        surface.image(images.get(3), vals.x+2, vals.y+2); 
+    	images.get(ImageCodes.WHITE_KING).resize(53, 53);
+        surface.image(images.get(ImageCodes.WHITE_KING), vals.x+2, vals.y+2); 
         
     }
     
