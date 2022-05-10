@@ -2,10 +2,25 @@ package gameElements.pieces;
 
 import java.util.ArrayList;
 
+import core.ImageCodes;
+import gameElements.board.Board;
 import gameElements.board.Location;
 import processing.core.PApplet;
 
 public class Knight extends GamePiece {
+	
+	public Knight(int r, int c, Board brd, boolean wht) {
+		super(r, c, brd, wht);
+		health = 8;
+		damage = 6;
+		maxDist = 2;
+		range = 2;
+		if (wht) {
+			super.setImgCode(ImageCodes.WHITE_KNIGHT);
+		} else {
+			super.setImgCode(ImageCodes.BLACK_KNIGHT);
+		}
+	}
 	
 	public void draw(PApplet marker) {}
 
@@ -27,5 +42,7 @@ public class Knight extends GamePiece {
 		return null;
 	}
 	
-
+	public String getName() {
+		return "Knight";
+	}
 }

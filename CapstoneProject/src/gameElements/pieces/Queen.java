@@ -77,5 +77,9 @@ public class Queen extends GamePiece{
 		}
 		return toAttack;
 	}
+	
+	public String getName() {
+		return "Queen";
+	}
 
 }

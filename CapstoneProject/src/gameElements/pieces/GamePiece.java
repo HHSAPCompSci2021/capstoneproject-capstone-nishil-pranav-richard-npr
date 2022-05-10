@@ -101,5 +101,19 @@ public abstract class GamePiece {
 	
 	public void die() {}
 	
+	public abstract String getName();
+	public int getHealth() {return health;}
+	public int getDamage() {return damage;}
+	
+	public static ArrayList<GamePiece> getSet(Board b, boolean wht) {
+		ArrayList<GamePiece> pieces = new ArrayList<GamePiece>();
+		pieces.add(new Queen(0, 0, b, wht));
+		pieces.add(new Knight(0, 0, b, wht));
+		pieces.add(new Rook(0, 0, b, wht));
+		pieces.add(new Bishop(0, 0, b, wht));
+		pieces.add(new Pawn(0, 0, b, wht));
+		return pieces;
+		
+	}
 
 }

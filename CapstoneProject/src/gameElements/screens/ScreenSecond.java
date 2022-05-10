@@ -7,7 +7,10 @@ import java.util.ArrayList;
 import core.DrawingSurface;
 import databaseData.Post;
 import gameElements.board.Board;
+import gameElements.board.Card;
 import gameElements.board.Location;
+import gameElements.board.Player;
+import gameElements.pieces.GamePiece;
 import core.ImageCodes;
 import processing.core.PImage;
 
@@ -19,6 +22,7 @@ public class ScreenSecond extends Screen {
     private Board b;
     private DrawingSurface surface;
     private ArrayList<PImage> images;
+    private Player p;
     
     
     public ScreenSecond(DrawingSurface surface) {
@@ -28,6 +32,7 @@ public class ScreenSecond extends Screen {
         x = 600;
         y = 100;
         b = new Board();
+        p = new Player(b, true);
         message = "";
     }
     
@@ -45,10 +50,19 @@ public class ScreenSecond extends Screen {
         
         b.draw(surface, 5, 5, surface.height-10, surface.height-10);
 
-        // this is where the drawing magic happens
+        // this is where the image drawing magic happens
         Point2D.Float vals = b.getCoordFromIndex(5, 5, surface.height-10, surface.height-10, 5, 6);//TODO hardcoded, can be fixed later
     	images.get(ImageCodes.WHITE_KING).resize(53, 53);
         surface.image(images.get(ImageCodes.WHITE_KING), vals.x+2, vals.y+2); 
+        
+        
+        //Player and Card drawing
+        float tempX = surface.height+10, tempY = 15f;
+        for(int i = 0; i < p.getCards().size() && i < 5; i++) {
+        	Card c = p.getCards().get(i);
+        	c.draw(surface, tempX, tempY, 100, 100);
+        	tempY+=125;
+        }
         
     }
     

@@ -58,7 +58,7 @@ public class Pawn extends GamePiece{
 				toAttack.add(board.get(row-1, col+1));
 			}
 		}
-		if(white) {
+		else {
 			if(board.inBounds(row+1, col-1) && board.get(row+1, col-1) != null) {
 				toAttack.add(board.get(row+1, col-1));
 			} if(board.inBounds(row-1, col-1) && board.get(row-1, col-1) == null) {
@@ -68,4 +68,8 @@ public class Pawn extends GamePiece{
 		return toAttack;
 	}
 
+	
+	public String getName() {
+		return "Pawn";
+	}
 }
