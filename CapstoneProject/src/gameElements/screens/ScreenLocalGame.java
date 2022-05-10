@@ -38,8 +38,8 @@ public class ScreenLocalGame extends Screen {
 	
 	private final int boardX = 375-(50/2);
 	private final int boardY = y/2-130-(40/2);
-	private final int boardHeight = 500;
-	private final int boardWidth = 400;
+	private final int boardWidth = 500;
+	private final int boardHeight = 400;
 	
 	
 	public ScreenLocalGame(DrawingSurface surface) {
@@ -84,16 +84,17 @@ public class ScreenLocalGame extends Screen {
 		
 		surface.textSize(15);
 		surface.fill(255);
-		surface.imageMode(PConstants.CENTER);
+		surface.imageMode(PConstants.CORNER);
 		surface.rectMode(PConstants.CORNER);
 		board = surface.getBoard();
 		
-		board.draw(surface, boardX, boardY, boardHeight, boardWidth);
+		board.draw(surface, boardX, boardY, boardWidth, boardHeight);
+//		surface.rect(boardX, boardY, boardWidth, boardHeight);
 		surface.rectMode(PConstants.CENTER);
-//		surface.rect(boardX, boardY, boardHeight, boardWidth);
+		surface.imageMode(PConstants.CENTER);
 //		showBox(board);
-		showBox(leftKing);
-		showBox(rightKing);
+//		showBox(leftKing);
+//		showBox(rightKing);
 		
 //		showBox(leftCardOne);
 //		showBox(leftCardTwo);
@@ -105,32 +106,32 @@ public class ScreenLocalGame extends Screen {
 //		showBox(rightCardThree);
 //		showBox(rightCardFour);
 		
-        float tempX = x/2-405, tempY = y/2+50-200+(102*0)+(94/2);
-        for(int i = 0; i < p1.getCards().size() && i < 5; i++) {
-        	Card c = p2.getCards().get(i);
-        	c.draw(surface, tempX, tempY, 75, 75, surface);
-        	tempY+=90;
-        }
-        
-        tempX = x/2+405;
-        tempY = y/2+50-200+(102*0)+(94/2);
-        for(int i = 0; i < p1.getCards().size() && i < 5; i++) {
-        	Card c = p2.getCards().get(i);
-        	c.draw(surface, tempX, tempY, 75, 75, surface);
-        	tempY+=90;
-        }
-		
-		showTextButton(leftEnergy, oneEnergy + "/10");
-		showTextButton(rightEnergy, twoEnergy + "/10");
-		
-		showBox(leftPFP);
-		showBox(rightPFP);
-		
-		surface.textSize(25);
-		surface.textAlign(PConstants.LEFT);
-		surface.text(nameOne, x/2-340, y/2-220);
-		surface.textAlign(PConstants.RIGHT);
-		surface.text(nameTwo, x/2+340, y/2-220);
+//        float tempX = x/2-405, tempY = y/2+50-200+(102*0)+(94/2);
+//        for(int i = 0; i < p1.getCards().size() && i < 5; i++) {
+//        	Card c = p2.getCards().get(i);
+//        	c.draw(surface, tempX, tempY, 75, 75, surface);
+//        	tempY+=90;
+//        }
+//        
+//        tempX = x/2+405;
+//        tempY = y/2+50-200+(102*0)+(94/2);
+//        for(int i = 0; i < p1.getCards().size() && i < 5; i++) {
+//        	Card c = p2.getCards().get(i);
+//        	c.draw(surface, tempX, tempY, 75, 75, surface);
+//        	tempY+=90;
+//        }
+//		
+//		showTextButton(leftEnergy, oneEnergy + "/10");
+//		showTextButton(rightEnergy, twoEnergy + "/10");
+//		
+//		showBox(leftPFP);
+//		showBox(rightPFP);
+//		
+//		surface.textSize(25);
+//		surface.textAlign(PConstants.LEFT);
+//		surface.text(nameOne, x/2-340, y/2-220);
+//		surface.textAlign(PConstants.RIGHT);
+//		surface.text(nameTwo, x/2+340, y/2-220);
 		
 		surface.popStyle();
 	//	surface.rect(375, y/2-130, 500, 400);
@@ -153,12 +154,13 @@ public class ScreenLocalGame extends Screen {
 //		board.add(new Pawn(0, 1, board, false));
 		//R C Board White
 		Point click = new Point(surface.mouseX, surface.mouseY);
+		click = surface.actualCoordinatesToAssumed(click);
 //		clickToIndex(click);
 //		System.out.println(click);
-		Point loc = board.clickToIndex(click, 375, y/2-130, 500, 400);
+		Point loc = board.clickToIndex(click, boardX, boardY, boardWidth, boardHeight);
 		System.out.println(loc);
 		if(loc != null) {
-			board.add(new Queen(loc.x, loc.y, board, true));
+			board.add(new Queen(loc.y, loc.x, board, true));
 		}
 		
 	}
@@ -212,8 +214,8 @@ public class ScreenLocalGame extends Screen {
 		x -= boardX;
 		y -= boardY;
 		
-		x /= (double)boardWidth;
-		y /= (double)boardHeight;
+		x /= (double)boardHeight;
+		y /= (double)boardWidth;
 		
 		System.out.println(x + "        " + point.x);
 		Point p = new Point((int)x,(int)y);

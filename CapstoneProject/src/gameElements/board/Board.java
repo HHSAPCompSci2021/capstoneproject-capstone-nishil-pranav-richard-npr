@@ -83,8 +83,8 @@ public class Board {
 		if (piece == null) throw new NullPointerException("piece is null");
 		Location loc = piece.getLocation();
 		if (loc == null) throw new NullPointerException("piece.getLocation() is null");
-		int x = loc.getRow();
-		int y = loc.getCol();
+		int x = loc.getCol();
+		int y = loc.getRow();
 		if (!(x >= 0 && x < board.length && y >= 0 && y < board[0].length)) throw new ArrayIndexOutOfBoundsException("piece.getLocation() does not fit in the board");
 		board[x][y] = piece;
 	}
@@ -111,36 +111,48 @@ public class Board {
 		return false;
 	}
 	/**
-	 * (Graphical UI)
-	 * Determines which element of the grid matches with a particular pixel coordinate.
+	 * Determines the index of the grid which matches with a particular pixel coordinate.
 	 * This supports interaction with the grid using mouse clicks in the window.
+	 * 
+	 * Example usage (given board is a Board and surface is a DrawingSurface:
+	 * Point loc = board.clickToIndex(surface.actualCoordinatesToAssumed(new Point(surface.mouseX, surface.mouseY)), boardX, boardY, boardWidth, boardHeight);
 	 * 
 	 * @param p A Point object containing a graphical pixel coordinate.
 	 * @param x The x pixel coordinate of the upper left corner of the grid drawing. 
 	 * @param y The y pixel coordinate of the upper left corner of the grid drawing.
 	 * @param width The pixel width of the grid drawing.
 	 * @param height The pixel height of the grid drawing.
-	 * @return A Point object representing a coordinate within the game of life grid.
+	 * @return A Point object representing a coordinate within the grid (x, y) (column, row).
 	 */
 	public Point clickToIndex(Point p, float x, float y, float width, float height) {
-		float squareWidth = width/board.length;
-		float squareHeight = height/board[0].length;
-		float i = x, j = y;
-		int iCount = 0, jCount = 0;
+//		float squareWidth = width/board.length;
+//		float squareHeight = height/board[0].length;
+//		float i = x, j = y;
+//		int iCount = 0, jCount = 0;
+//		
+//		if(p.x < x || p.y< y || p.x >= x+width || p.y >= x+height) 
+//			return null;
+//		
+//		while(i < p.x-squareWidth) {
+//			i+= squareWidth;
+//			iCount++;
+//		}
+//		while(j < p.y-squareHeight) {
+//			j += squareHeight;
+//			jCount++;
+//		}
+//		Point index = new Point(iCount, jCount);
+//		return index;
 		
-		if(p.x < x || p.y< y || p.x >= x+width || p.y >= x+height) 
-			return null;
+		x = p.x - x;
+		y = p.y - y;
 		
-		while(i < p.x-squareWidth) {
-			i+= squareWidth;
-			iCount++;
-		}
-		while(j < p.y-squareHeight) {
-			j += squareHeight;
-			jCount++;
-		}
-		Point index = new Point(iCount, jCount);
-		return index;
+		if (x < 0 || y < 0 || x > width || y > height) return null;
+		
+		x = x/width*10;
+		y = y/height*10;
+		
+		return new Point((int)x, (int)y);
 	}
 	
 //	public void play() {
