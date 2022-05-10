@@ -1,6 +1,7 @@
 package gameElements.board;
 
 import core.DrawingSurface;
+import gameElements.pieces.GamePiece;
 import processing.core.PApplet;
 import processing.core.PImage;
 
@@ -29,6 +30,17 @@ public class Card {
 		drawer.image(i, x+width/2-20, y+height/6);
 
 		
+	}
+	
+	public String getPiece() {
+		return cardName;
+	}
+	
+	public boolean isPointInside(float cx, float cy, float x, float y, float width, float height) {
+		if(cx >= x && cx <=x+width && cy >= y && cy <=y+height) {
+			return true;
+		}
+		return false;
 	}
 	
 	

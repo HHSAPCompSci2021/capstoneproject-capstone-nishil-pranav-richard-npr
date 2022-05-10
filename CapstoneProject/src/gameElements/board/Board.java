@@ -1,5 +1,6 @@
 package gameElements.board;
 
+import java.awt.Point;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
@@ -107,6 +108,37 @@ public class Board {
 			return true;
 		}
 		return false;
+	/**
+	 * (Graphical UI)
+	 * Determines which element of the grid matches with a particular pixel coordinate.
+	 * This supports interaction with the grid using mouse clicks in the window.
+	 * 
+	 * @param p A Point object containing a graphical pixel coordinate.
+	 * @param x The x pixel coordinate of the upper left corner of the grid drawing. 
+	 * @param y The y pixel coordinate of the upper left corner of the grid drawing.
+	 * @param width The pixel width of the grid drawing.
+	 * @param height The pixel height of the grid drawing.
+	 * @return A Point object representing a coordinate within the game of life grid.
+	 */
+	public Point clickToIndex(Point p, float x, float y, float width, float height) {
+		float squareWidth = width/board.length;
+		float squareHeight = height/board[0].length;
+		float i = 0, j = 0;
+		int iCount = 0, jCount = 0;
+		
+		if(p.x >= width || p.y >= height) 
+			return null;
+		
+		while(i < p.x - squareWidth) {
+			i+= squareWidth;
+			iCount++;
+		}
+		while(j < p.y - squareHeight) {
+			j += squareHeight;
+			jCount++;
+		}
+		Point index = new Point(iCount, jCount);
+		return index;
 	}
 	
 //	public void play() {
