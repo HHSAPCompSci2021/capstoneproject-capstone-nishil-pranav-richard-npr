@@ -10,7 +10,7 @@ import gameElements.board.Board;
 import gameElements.board.Card;
 import gameElements.board.Player;
 import gameElements.pieces.Bishop;
-import gameElements.pieces.GamePiece;
+import gameElements.pieces.*;
 import gameElements.pieces.Pawn;
 import processing.core.PApplet;
 import processing.core.PConstants;
@@ -98,7 +98,7 @@ public class ScreenLocalGame extends Screen {
 		surface.imageMode(PConstants.CENTER);
 		board = surface.getBoard();
 		
-		board.draw(surface, (x-450)/2, y/2-130, 500, 400);
+		board.draw(surface, 375, y/2-130, 500, 400);
 //		showBox(board);
 		showBox(leftKing);
 		showBox(rightKing);
@@ -141,6 +141,7 @@ public class ScreenLocalGame extends Screen {
 		surface.text(nameTwo, x/2+340, y/2-220);
 		
 		surface.popStyle();
+	//	surface.rect(375, y/2-130, 500, 400);
 		
 //		System.out.println(board.get(0,0));
 		
@@ -160,11 +161,11 @@ public class ScreenLocalGame extends Screen {
 //		board.add(new Pawn(0, 1, board, false));
 		//R C Board White
 		Point click = new Point(surface.mouseX, surface.mouseY);
-		Point loc = board.clickToIndex(click, x, y, surface.getBoard().getWidth(), surface.getBoard().getHeight());
+		Point loc = board.clickToIndex(click, 375, y/2-130, 500, 400);
+		System.out.println(loc);
 		if(loc != null) {
 			
-			
-			GamePiece g = null;
+			board.add(new Queen(loc.x, loc.y, board, true));
 		}
 		
 	}

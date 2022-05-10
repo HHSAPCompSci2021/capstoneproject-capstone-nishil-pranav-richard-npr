@@ -108,6 +108,7 @@ public class Board {
 			return true;
 		}
 		return false;
+	}
 	/**
 	 * (Graphical UI)
 	 * Determines which element of the grid matches with a particular pixel coordinate.
@@ -123,17 +124,17 @@ public class Board {
 	public Point clickToIndex(Point p, float x, float y, float width, float height) {
 		float squareWidth = width/board.length;
 		float squareHeight = height/board[0].length;
-		float i = 0, j = 0;
+		float i = x, j = y;
 		int iCount = 0, jCount = 0;
 		
-		if(p.x >= width || p.y >= height) 
+		if(p.x < x || p.y< y || p.x >= x+width || p.y >= x+height) 
 			return null;
 		
-		while(i < p.x - squareWidth) {
+		while(i < p.x-squareWidth) {
 			i+= squareWidth;
 			iCount++;
 		}
-		while(j < p.y - squareHeight) {
+		while(j < p.y-squareHeight) {
 			j += squareHeight;
 			jCount++;
 		}
