@@ -167,21 +167,6 @@ public class ScreenLocalGame extends Screen {
 	private void showBox(Rectangle rectangle) {
 		showBox(rectangle, true);
 	}
-	
-	private Point clickToIndex(Point point) {
-		double x = point.x;
-		double y = point.y;
-		
-		x -= boardX;
-		y -= boardY;
-		
-		x /= (double)boardHeight;
-		y /= (double)boardWidth;
-		
-		System.out.println(x + "        " + point.x);
-		Point p = new Point((int)x,(int)y);
-		return p;
-	}
 
 }
 
