@@ -22,6 +22,7 @@ import databaseData.Post;
 import databaseData.UserPost;
 import gameElements.board.Board;
 import gameElements.screens.Screen;
+import gameElements.screens.ScreenInstructions;
 import gameElements.screens.ScreenLocalGame;
 import gameElements.screens.ScreenLocalNameCreate;
 import gameElements.screens.ScreenMenu;
@@ -109,6 +110,9 @@ public class DrawingSurface extends PApplet {
 		ScreenLocalNameCreate screen6 = new ScreenLocalNameCreate(this, screen5);
 		screens.add(screen6);
 		
+		ScreenInstructions screen7 = new ScreenInstructions(this);
+		screens.add(screen7);
+		
 //		activeScreen = screens.get(4);
 		activeScreen = screens.get(0);
 		
@@ -132,7 +136,9 @@ public class DrawingSurface extends PApplet {
 		images.add(ImageCodes.WHITE_PAWN, loadImage(String.format("Images%sChessPieces%swhiteSide%swhitePawn.gif", fileSeparator, fileSeparator, fileSeparator)));
 		images.add(ImageCodes.WHITE_QUEEN, loadImage(String.format("Images%sChessPieces%swhiteSide%swhiteQueen.gif", fileSeparator, fileSeparator, fileSeparator)));
 		images.add(ImageCodes.WHITE_ROOK, loadImage(String.format("Images%sChessPieces%swhiteSide%swhiteRook.gif", fileSeparator, fileSeparator, fileSeparator)));
+		
 		images.add(ImageCodes.BACKGROUND, loadImage(String.format("Images%sbackground.jpg", fileSeparator, fileSeparator, fileSeparator)));
+		images.add(ImageCodes.BLACK_SQUARE, loadImage(String.format("Images%sblackSquare.png", fileSeparator, fileSeparator, fileSeparator)));
 	}
 
 	public void draw() {

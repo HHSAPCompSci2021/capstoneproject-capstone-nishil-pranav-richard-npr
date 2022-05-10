@@ -17,4 +17,5 @@ public interface ImageCodes {
     public static final int WHITE_ROOK = 12;
     
     public static final int BACKGROUND = 13;
+    public static final int BLACK_SQUARE = 14;
 }
