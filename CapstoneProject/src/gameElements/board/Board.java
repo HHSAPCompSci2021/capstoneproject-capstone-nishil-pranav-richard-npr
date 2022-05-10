@@ -127,18 +127,18 @@ public class Board {
 		float i = x, j = y;
 		int iCount = 0, jCount = 0;
 		
-		if(p.x < x || p.y < y || p.x >= x+width || p.y >= x+height) 
+		if(p.x < x || p.y< y || p.x >= x+width || p.y >= x+height) 
 			return null;
 		
-		while(i < p.x) {
+		while(i < p.x-squareWidth) {
 			i+= squareWidth;
 			iCount++;
 		}
-		while(j < p.y) {
+		while(j < p.y-squareHeight) {
 			j += squareHeight;
 			jCount++;
 		}
-		Point index = new Point(iCount-1, jCount-1);
+		Point index = new Point(iCount, jCount);
 		return index;
 	}
 	
