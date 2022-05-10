@@ -46,19 +46,9 @@ public class ScreenLocalGame extends Screen {
 		super(1200,600);
 		this.surface = surface;
 		
-//		board = new Rectangle(x/2+0,y/2+50,700,400);
 		 leftKing = new Rectangle(x/2-300,y/2+50,100,400);
 		rightKing = new Rectangle(x/2+300,y/2+50,100,400);
 		
-//		  leftCardOne = new Rectangle(x/2-405,y/2+50-200+(102*0)+(94/2),94,94);
-//		  leftCardTwo = new Rectangle(x/2-405,y/2+50-200+(102*1)+(94/2),94,94);
-//		leftCardThree = new Rectangle(x/2-405,y/2+50-200+(102*2)+(94/2),94,94);
-//		 leftCardFour = new Rectangle(x/2-405,y/2+50-200+(102*3)+(94/2),94,94);
-//		 
-//		  rightCardOne = new Rectangle(x/2+405,y/2+50-200+(102*0)+(94/2),94,94);
-//		  rightCardTwo = new Rectangle(x/2+405,y/2+50-200+(102*1)+(94/2),94,94);
-//		rightCardThree = new Rectangle(x/2+405,y/2+50-200+(102*2)+(94/2),94,94);
-//		 rightCardFour = new Rectangle(x/2+405,y/2+50-200+(102*3)+(94/2),94,94);
 		board = surface.getBoard();
 		p1 = new Player(board, true);
 		p2 = new Player(board, false);
@@ -89,80 +79,51 @@ public class ScreenLocalGame extends Screen {
 		board = surface.getBoard();
 		
 		board.draw(surface, boardX, boardY, boardWidth, boardHeight);
-//		surface.rect(boardX, boardY, boardWidth, boardHeight);
 		surface.rectMode(PConstants.CENTER);
 		surface.imageMode(PConstants.CENTER);
-//		showBox(board);
-//		showBox(leftKing);
-//		showBox(rightKing);
+		showBox(leftKing);
+		showBox(rightKing);
 		
-//		showBox(leftCardOne);
-//		showBox(leftCardTwo);
-//		showBox(leftCardThree);
-//		showBox(leftCardFour);
-//		
-//		showBox(rightCardOne);
-//		showBox(rightCardTwo);
-//		showBox(rightCardThree);
-//		showBox(rightCardFour);
+        float tempX = x/2-405, tempY = y/2+50-200+(102*0)+(94/2);
+        for(int i = 0; i < p1.getCards().size() && i < 5; i++) {
+        	Card c = p2.getCards().get(i);
+        	c.draw(surface, tempX, tempY, 75, 75, surface);
+        	tempY+=90;
+        }
+        
+        tempX = x/2+405;
+        tempY = y/2+50-200+(102*0)+(94/2);
+        for(int i = 0; i < p1.getCards().size() && i < 5; i++) {
+        	Card c = p2.getCards().get(i);
+        	c.draw(surface, tempX, tempY, 75, 75, surface);
+        	tempY+=90;
+        }
 		
-//        float tempX = x/2-405, tempY = y/2+50-200+(102*0)+(94/2);
-//        for(int i = 0; i < p1.getCards().size() && i < 5; i++) {
-//        	Card c = p2.getCards().get(i);
-//        	c.draw(surface, tempX, tempY, 75, 75, surface);
-//        	tempY+=90;
-//        }
-//        
-//        tempX = x/2+405;
-//        tempY = y/2+50-200+(102*0)+(94/2);
-//        for(int i = 0; i < p1.getCards().size() && i < 5; i++) {
-//        	Card c = p2.getCards().get(i);
-//        	c.draw(surface, tempX, tempY, 75, 75, surface);
-//        	tempY+=90;
-//        }
-//		
-//		showTextButton(leftEnergy, oneEnergy + "/10");
-//		showTextButton(rightEnergy, twoEnergy + "/10");
-//		
-//		showBox(leftPFP);
-//		showBox(rightPFP);
-//		
-//		surface.textSize(25);
-//		surface.textAlign(PConstants.LEFT);
-//		surface.text(nameOne, x/2-340, y/2-220);
-//		surface.textAlign(PConstants.RIGHT);
-//		surface.text(nameTwo, x/2+340, y/2-220);
+		showTextButton(leftEnergy, oneEnergy + "/10");
+		showTextButton(rightEnergy, twoEnergy + "/10");
+		
+		showBox(leftPFP);
+		showBox(rightPFP);
+		
+		surface.textSize(25);
+		surface.textAlign(PConstants.LEFT);
+		surface.text(nameOne, x/2-340, y/2-220);
+		surface.textAlign(PConstants.RIGHT);
+		surface.text(nameTwo, x/2+340, y/2-220);
 		
 		surface.popStyle();
-	//	surface.rect(375, y/2-130, 500, 400);
-		
-//		System.out.println(board.get(0,0));
 		
 	}
 	
 	
 	public void mousePressed() {
-//		Point p = surface.actualCoordinatesToAssumed(new Point(surface.mouseX,surface.mouseY));
-//		
-//		if (button.contains(p))
-//			surface.switchScreen(ScreenSwitcher.SCREEN2);
-//		
-//		if (multiplayerButton.contains(p))
-//			surface.switchScreen(ScreenSwitcher.SCREEN3);
-		
-//		board.add(new Pawn(0, 0, board, true));
-//		board.add(new Pawn(0, 1, board, false));
-		//R C Board White
 		Point click = new Point(surface.mouseX, surface.mouseY);
 		click = surface.actualCoordinatesToAssumed(click);
-//		clickToIndex(click);
-//		System.out.println(click);
 		Point loc = board.clickToIndex(click, boardX, boardY, boardWidth, boardHeight);
 		System.out.println(loc);
 		if(loc != null) {
 			board.add(new Queen(loc.y, loc.x, board, true));
 		}
-		
 	}
 	
 	/**

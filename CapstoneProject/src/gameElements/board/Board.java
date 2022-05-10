@@ -125,25 +125,6 @@ public class Board {
 	 * @return A Point object representing a coordinate within the grid (x, y) (column, row).
 	 */
 	public Point clickToIndex(Point p, float x, float y, float width, float height) {
-//		float squareWidth = width/board.length;
-//		float squareHeight = height/board[0].length;
-//		float i = x, j = y;
-//		int iCount = 0, jCount = 0;
-//		
-//		if(p.x < x || p.y< y || p.x >= x+width || p.y >= x+height) 
-//			return null;
-//		
-//		while(i < p.x-squareWidth) {
-//			i+= squareWidth;
-//			iCount++;
-//		}
-//		while(j < p.y-squareHeight) {
-//			j += squareHeight;
-//			jCount++;
-//		}
-//		Point index = new Point(iCount, jCount);
-//		return index;
-		
 		x = p.x - x;
 		y = p.y - y;
 		
