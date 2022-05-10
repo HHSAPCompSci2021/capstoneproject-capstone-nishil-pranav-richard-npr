@@ -25,6 +25,12 @@ public class Rook extends GamePiece{
 	public void draw(PApplet marker) {}
 
 	@Override
+	public ArrayList<Location> calcMoveLocs() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	@Override
 	public Location getMoveLoc(ArrayList<Location> moves) {
 		// TODO Auto-generated method stub
 		return null;
@@ -32,12 +38,6 @@ public class Rook extends GamePiece{
 
 	@Override
 	public ArrayList<GamePiece> getAttackTargets() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public ArrayList<Location> calcMoveLocs() {
 		// TODO Auto-generated method stub
 		return null;
 	}

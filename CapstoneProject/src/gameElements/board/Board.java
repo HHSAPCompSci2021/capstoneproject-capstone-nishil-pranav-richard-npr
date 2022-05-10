@@ -102,6 +102,13 @@ public class Board {
 		return false;
 	}
 	
+	public boolean isEmpty(int r, int c) {
+		if(board[r][c] == null) {
+			return true;
+		}
+		return false;
+	}
+	
 //	public void play() {
 //		
 //	}

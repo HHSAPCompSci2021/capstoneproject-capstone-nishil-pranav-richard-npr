@@ -30,12 +30,12 @@ public class Pawn extends GamePiece{
 		locs.add(loc);
 		int row = loc.getRow(), col = loc.getCol();
 		if(white) {
-			if(board.inBounds(row, col+1) && board.get(row, col+1) == null) {
+			if(board.inBounds(row, col+1) && board.isEmpty(row, col+1)) {
 				locs.add(new Location(row, col+1));
 			}
 		}
 		else {
-			if(board.inBounds(row, col-1) && board.get(row, col-1) == null) {
+			if(board.inBounds(row, col-1) && board.isEmpty(row, col-1)) {
 				locs.add(new Location(row, col-1));
 			}
 		}

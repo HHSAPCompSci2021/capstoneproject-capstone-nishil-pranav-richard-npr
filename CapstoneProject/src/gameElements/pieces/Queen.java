@@ -30,10 +30,13 @@ public class Queen extends GamePiece{
 	public ArrayList<Location> calcMoveLocs() {
 		ArrayList<Location> locs = new ArrayList<Location>();
 		int row = loc.getRow(), col = loc.getCol();
-		for(int i = 0; i < 8; i++) {
-			for(int r = row + moveR[i]; r != row+moveR[i]*maxDist; r += moveR[i]) {
-				for(int c = col + moveC[i]; c != col+moveC[i]*maxDist; c += moveC[i]) {
-					if(board.inBounds(r, c) && board.get(r, c) == null) {
+		for(int r = row-2; r <= row+2; r++) {
+			for(int c = col-2; col <= row+2; col++) {
+				if(board.inBounds(r,  c)) {
+					if(loc.getDistanceFrom(new Location(r, c)) > 2 && loc.getDistanceFrom(new Location(r, c)) < 2.8) {
+						//invalid pos 
+					}
+					else if (board.isEmpty(r, c)){
 						locs.add(new Location(r, c));
 					}
 				}
@@ -72,8 +75,9 @@ public class Queen extends GamePiece{
 	@Override
 	public ArrayList<GamePiece> getAttackTargets() {
 		ArrayList<GamePiece> toAttack = new ArrayList<GamePiece>();
-		if(loc.getDistanceFrom(target.getLocation()) < Math.sqrt(range*range+range*range)) {
+		if(loc.getDistanceFrom(target.getLocation()) <= Math.sqrt(range*range+range*range)+0.001) {
 			toAttack.add(target);
+			return toAttack;
 		}
 		return toAttack;
 	}
