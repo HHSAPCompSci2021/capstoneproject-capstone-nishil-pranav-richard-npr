@@ -7,6 +7,8 @@ import java.util.ArrayList;
 
 import core.DrawingSurface;
 import gameElements.board.Board;
+import gameElements.board.Card;
+import gameElements.board.Player;
 import gameElements.pieces.Bishop;
 import gameElements.pieces.Pawn;
 import processing.core.PApplet;
@@ -25,15 +27,16 @@ public class ScreenLocalGame extends Screen {
 	private Rectangle leftKing;
 	private Rectangle rightKing;
 	
-	private Rectangle leftCardOne;
-	private Rectangle leftCardTwo;
-	private Rectangle leftCardThree;
-	private Rectangle leftCardFour;
-
-	private Rectangle rightCardOne;
-	private Rectangle rightCardTwo;
-	private Rectangle rightCardThree;
-	private Rectangle rightCardFour;
+//	private Rectangle leftCardOne;
+//	private Rectangle leftCardTwo;
+//	private Rectangle leftCardThree;
+//	private Rectangle leftCardFour;
+//
+//	private Rectangle rightCardOne;
+//	private Rectangle rightCardTwo;
+//	private Rectangle rightCardThree;
+//	private Rectangle rightCardFour;
+	private Player p1, p2;
 	
 	private Rectangle leftEnergy;
 	private Rectangle rightEnergy;
@@ -56,15 +59,18 @@ public class ScreenLocalGame extends Screen {
 		 leftKing = new Rectangle(x/2-300,y/2+50,100,400);
 		rightKing = new Rectangle(x/2+300,y/2+50,100,400);
 		
-		  leftCardOne = new Rectangle(x/2-405,y/2+50-200+(102*0)+(94/2),94,94);
-		  leftCardTwo = new Rectangle(x/2-405,y/2+50-200+(102*1)+(94/2),94,94);
-		leftCardThree = new Rectangle(x/2-405,y/2+50-200+(102*2)+(94/2),94,94);
-		 leftCardFour = new Rectangle(x/2-405,y/2+50-200+(102*3)+(94/2),94,94);
-		 
-		  rightCardOne = new Rectangle(x/2+405,y/2+50-200+(102*0)+(94/2),94,94);
-		  rightCardTwo = new Rectangle(x/2+405,y/2+50-200+(102*1)+(94/2),94,94);
-		rightCardThree = new Rectangle(x/2+405,y/2+50-200+(102*2)+(94/2),94,94);
-		 rightCardFour = new Rectangle(x/2+405,y/2+50-200+(102*3)+(94/2),94,94);
+//		  leftCardOne = new Rectangle(x/2-405,y/2+50-200+(102*0)+(94/2),94,94);
+//		  leftCardTwo = new Rectangle(x/2-405,y/2+50-200+(102*1)+(94/2),94,94);
+//		leftCardThree = new Rectangle(x/2-405,y/2+50-200+(102*2)+(94/2),94,94);
+//		 leftCardFour = new Rectangle(x/2-405,y/2+50-200+(102*3)+(94/2),94,94);
+//		 
+//		  rightCardOne = new Rectangle(x/2+405,y/2+50-200+(102*0)+(94/2),94,94);
+//		  rightCardTwo = new Rectangle(x/2+405,y/2+50-200+(102*1)+(94/2),94,94);
+//		rightCardThree = new Rectangle(x/2+405,y/2+50-200+(102*2)+(94/2),94,94);
+//		 rightCardFour = new Rectangle(x/2+405,y/2+50-200+(102*3)+(94/2),94,94);
+		board = surface.getBoard();
+		p1 = new Player(board, true);
+		p2 = new Player(board, false);
 		 
 		 leftEnergy = new Rectangle(x/2-507,y/2+50,50,20);
 		rightEnergy = new Rectangle(x/2+507,y/2+50,50,20);
@@ -79,7 +85,6 @@ public class ScreenLocalGame extends Screen {
 		// DO STUFF
 		int oneEnergy = 3;		// how much energy does player 1 have
 		int twoEnergy = 5;		// how much energy does player 2 have
-		board = surface.getBoard();
 		
 		
 		// DRAW STUFF
@@ -90,21 +95,37 @@ public class ScreenLocalGame extends Screen {
 		surface.fill(255);
 		surface.rectMode(PConstants.CENTER);
 		surface.imageMode(PConstants.CENTER);
+		board = surface.getBoard();
 		
 		board.draw(surface, (x-450)/2, y/2-130, 500, 400);
 //		showBox(board);
 		showBox(leftKing);
 		showBox(rightKing);
 		
-		showBox(leftCardOne);
-		showBox(leftCardTwo);
-		showBox(leftCardThree);
-		showBox(leftCardFour);
+//		showBox(leftCardOne);
+//		showBox(leftCardTwo);
+//		showBox(leftCardThree);
+//		showBox(leftCardFour);
+//		
+//		showBox(rightCardOne);
+//		showBox(rightCardTwo);
+//		showBox(rightCardThree);
+//		showBox(rightCardFour);
 		
-		showBox(rightCardOne);
-		showBox(rightCardTwo);
-		showBox(rightCardThree);
-		showBox(rightCardFour);
+        float tempX = x/2-405, tempY = y/2+50-200+(102*0)+(94/2);
+        for(int i = 0; i < p1.getCards().size() && i < 5; i++) {
+        	Card c = p2.getCards().get(i);
+        	c.draw(surface, tempX, tempY, 75, 75, surface);
+        	tempY+=90;
+        }
+        
+        tempX = x/2+405;
+        tempY = y/2+50-200+(102*0)+(94/2);
+        for(int i = 0; i < p1.getCards().size() && i < 5; i++) {
+        	Card c = p2.getCards().get(i);
+        	c.draw(surface, tempX, tempY, 75, 75, surface);
+        	tempY+=90;
+        }
 		
 		showTextButton(leftEnergy, oneEnergy + "/10");
 		showTextButton(rightEnergy, twoEnergy + "/10");

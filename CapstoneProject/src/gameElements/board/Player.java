@@ -9,7 +9,7 @@ public class Player {
 		ArrayList<GamePiece> p = GamePiece.getSet(b, white);
 		cards = new ArrayList<Card>();
 		for(GamePiece piece : p) {
-			cards.add(new Card(piece.getName(), piece.getHealth(), piece.getDamage()));
+			cards.add(new Card(piece.getName(), piece.getHealth(), piece.getDamage(), piece.getImgCode()));
 		}
 		
 	}

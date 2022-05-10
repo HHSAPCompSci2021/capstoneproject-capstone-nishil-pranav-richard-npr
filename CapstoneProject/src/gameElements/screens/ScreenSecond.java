@@ -57,11 +57,11 @@ public class ScreenSecond extends Screen {
         
         
         //Player and Card drawing
-        float tempX = surface.height+10, tempY = 15f;
+        float tempX = surface.height+10, tempY = 10f;
         for(int i = 0; i < p.getCards().size() && i < 5; i++) {
         	Card c = p.getCards().get(i);
-        	c.draw(surface, tempX, tempY, 100, 100);
-        	tempY+=125;
+        	c.draw(surface, tempX, tempY, 100, 100, surface);
+        	tempY+=120;
         }
         
     }

@@ -58,7 +58,6 @@ public class DrawingSurface extends PApplet {
 		// SETUP NORMAL FIELDS
 		playerName = null;
 		board = null;
-		images = new ArrayList<PImage>();
 		
 		
 		// DATABASE SETUP
@@ -90,6 +89,7 @@ public class DrawingSurface extends PApplet {
 		// SCREEN SETUP
 		screens = new ArrayList<Screen>();
 		keys = new ArrayList<Integer>();
+		images = new ArrayList<PImage>();
 		
 		ScreenMenu screen1 = new ScreenMenu(this);
 		screens.add(screen1);
