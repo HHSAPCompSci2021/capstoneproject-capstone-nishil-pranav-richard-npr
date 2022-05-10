@@ -3,16 +3,10 @@ package gameElements.screens;
 
 import java.awt.Point;
 import java.awt.Rectangle;
-import java.util.ArrayList;
-
+//import java.util.ArrayList;
 import core.DrawingSurface;
-import gameElements.board.Board;
-import gameElements.board.Card;
-import gameElements.board.Player;
-import gameElements.pieces.Bishop;
+import gameElements.board.*;
 import gameElements.pieces.*;
-import gameElements.pieces.Pawn;
-import processing.core.PApplet;
 import processing.core.PConstants;
 
 
@@ -24,19 +18,9 @@ public class ScreenLocalGame extends Screen {
 	private String nameTwo;
 	
 	private Board board;
-//	private Rectangle board;
 	private Rectangle leftKing;
 	private Rectangle rightKing;
 	
-//	private Rectangle leftCardOne;
-//	private Rectangle leftCardTwo;
-//	private Rectangle leftCardThree;
-//	private Rectangle leftCardFour;
-//
-//	private Rectangle rightCardOne;
-//	private Rectangle rightCardTwo;
-//	private Rectangle rightCardThree;
-//	private Rectangle rightCardFour;
 	private Player p1, p2;
 	
 	private Rectangle leftEnergy;
@@ -164,7 +148,6 @@ public class ScreenLocalGame extends Screen {
 		Point loc = board.clickToIndex(click, 375, y/2-130, 500, 400);
 		System.out.println(loc);
 		if(loc != null) {
-			
 			board.add(new Queen(loc.x, loc.y, board, true));
 		}
 		
