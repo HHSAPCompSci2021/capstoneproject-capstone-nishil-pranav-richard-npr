@@ -8,6 +8,7 @@ import core.DrawingSurface;
 import core.ImageCodes;
 import gameElements.pieces.GamePiece;
 import processing.core.PApplet;
+import processing.core.PConstants;
 import processing.core.PImage;
 
 public class Board {

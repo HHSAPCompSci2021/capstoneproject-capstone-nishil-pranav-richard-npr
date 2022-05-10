@@ -36,6 +36,12 @@ public class ScreenLocalGame extends Screen {
 	private final int x = 1200;
 	private final int y = 600;
 	
+	private final int boardX = 375-(50/2);
+	private final int boardY = y/2-130-(40/2);
+	private final int boardHeight = 500;
+	private final int boardWidth = 400;
+	
+	
 	public ScreenLocalGame(DrawingSurface surface) {
 		super(1200,600);
 		this.surface = surface;
@@ -78,11 +84,13 @@ public class ScreenLocalGame extends Screen {
 		
 		surface.textSize(15);
 		surface.fill(255);
-		surface.rectMode(PConstants.CENTER);
 		surface.imageMode(PConstants.CENTER);
+		surface.rectMode(PConstants.CORNER);
 		board = surface.getBoard();
 		
-		board.draw(surface, 375, y/2-130, 500, 400);
+		board.draw(surface, boardX, boardY, boardHeight, boardWidth);
+		surface.rectMode(PConstants.CENTER);
+//		surface.rect(boardX, boardY, boardHeight, boardWidth);
 //		showBox(board);
 		showBox(leftKing);
 		showBox(rightKing);
@@ -145,6 +153,8 @@ public class ScreenLocalGame extends Screen {
 //		board.add(new Pawn(0, 1, board, false));
 		//R C Board White
 		Point click = new Point(surface.mouseX, surface.mouseY);
+//		clickToIndex(click);
+//		System.out.println(click);
 		Point loc = board.clickToIndex(click, 375, y/2-130, 500, 400);
 		System.out.println(loc);
 		if(loc != null) {
@@ -193,6 +203,21 @@ public class ScreenLocalGame extends Screen {
 	
 	private void showBox(Rectangle rectangle) {
 		showBox(rectangle, true);
+	}
+	
+	private Point clickToIndex(Point point) {
+		double x = point.x;
+		double y = point.y;
+		
+		x -= boardX;
+		y -= boardY;
+		
+		x /= (double)boardWidth;
+		y /= (double)boardHeight;
+		
+		System.out.println(x + "        " + point.x);
+		Point p = new Point((int)x,(int)y);
+		return p;
 	}
 
 }
