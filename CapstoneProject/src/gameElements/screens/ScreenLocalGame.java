@@ -10,6 +10,7 @@ import gameElements.board.Board;
 import gameElements.board.Card;
 import gameElements.board.Player;
 import gameElements.pieces.Bishop;
+import gameElements.pieces.GamePiece;
 import gameElements.pieces.Pawn;
 import processing.core.PApplet;
 import processing.core.PConstants;
@@ -155,8 +156,16 @@ public class ScreenLocalGame extends Screen {
 //		if (multiplayerButton.contains(p))
 //			surface.switchScreen(ScreenSwitcher.SCREEN3);
 		
-		board.add(new Pawn(0, 0, board, true));
-		board.add(new Pawn(0, 1, board, false));
+//		board.add(new Pawn(0, 0, board, true));
+//		board.add(new Pawn(0, 1, board, false));
+		//R C Board White
+		Point click = new Point(surface.mouseX, surface.mouseY);
+		Point loc = board.clickToIndex(click, x, y, surface.getBoard().getWidth(), surface.getBoard().getHeight());
+		if(loc != null) {
+			
+			
+			GamePiece g = null;
+		}
 		
 	}
 	
