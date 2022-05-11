@@ -45,6 +45,7 @@ public abstract class GamePiece {
 	public void moveTo(Location newLoc) {
 		board.set(null, loc.getRow(), loc.getCol());
 		loc = new Location(newLoc.getRow(), newLoc.getCol());
+		board.set(this, loc.getRow(), loc.getCol());
 		
 	}
 	
