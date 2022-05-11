@@ -3,8 +3,8 @@ package gameElements.screens;
 
 import java.awt.Point;
 import java.awt.Rectangle;
-//import java.util.ArrayList;
 import core.DrawingSurface;
+import core.ImageCodes;
 import gameElements.board.*;
 import gameElements.pieces.*;
 import processing.core.PConstants;
@@ -71,8 +71,16 @@ public class ScreenLocalGame extends Screen {
 		blackKingHP = 100;
 	}
 	
-	
 	public void draw() {
+		if (gameInProgress) {
+			drawGame();
+		} else {
+			drawVictory();
+		}
+	}
+	
+	
+	public void drawGame() {
 		
 		// DO STUFF
 		int oneEnergy = 3;		// how much energy does player 1 have
@@ -100,9 +108,6 @@ public class ScreenLocalGame extends Screen {
         	Card c = p1.getCards().get(i);
         	c.draw(surface, tempX, tempY, 75, 75);
         	tempY+=90;
-//        	if (i == 4) {
-//        		System.out.println(tempY);
-//        	}
         }
         
         tempX = x/2+405;
@@ -126,18 +131,54 @@ public class ScreenLocalGame extends Screen {
 		surface.text(nameTwo, x/2+340, y/2-220);
 		String s = "";
 		if(activePlayer.equals(p1)) {
-			s = nameOne;
+			s = "White's Turn";
 		} else if(activePlayer.equals(p2)) {
-			s = nameTwo;
+			s = "Black's Turn";
 		}
-		surface.text(s, surface.width/2-50, 100);
+		surface.textAlign(PConstants.CENTER);
+		surface.text(s, x/2, 100);
+		if (activePiece != null) {
+			surface.textSize(15);
+			surface.text("Selected " + activePiece, x/2, 120);
+		}
 		
 		surface.popStyle();
 		
-//		surface.rectMode(PConstants.CORNER);
-//		surface.rect(x/2+405-75/2, 197-75/2+90+90+90+90, 75, 75);
-//		System.out.println(197-75/2+90+90+90+90);
+	}
+	
+	public void drawVictory() {
 		
+		surface.pushStyle();
+		surface.background(255);
+		surface.imageMode(PConstants.CENTER);
+		surface.textAlign(PConstants.CENTER, PConstants.CENTER);
+		
+		surface.image(surface.getImages().get(ImageCodes.BACKGROUND), 1200/2, 600/2, 1200, 600);
+		
+		surface.tint(255, (float)(255*(3.0/5.0)));
+		float squareY = 600/2-20;
+		float squareWidth = 1200-(200*2);
+		surface.image(surface.getImages().get(ImageCodes.BLACK_SQUARE), 1200/2, 600/2-20, squareWidth, 600-(250*2));
+		
+		surface.fill(255);
+		
+		surface.textSize(40);
+		surface.text("VICTORY!", 1200/2, 200);
+		
+		int textSize = 60;
+		String text = "";
+		if (activePlayer.equals(p1)) {		// player1 (white) won
+			text = nameOne + " has won!";
+		} else {							// player2 (black) won
+			text = nameTwo + " has won!";
+		}
+		while (surface.textWidth(text) >= squareWidth) {
+			textSize -= 5;
+			surface.textSize(textSize);
+		}
+		surface.text(text, x/2, squareY);
+		
+		surface.popStyle();
 		
 	}
 	
@@ -208,6 +249,7 @@ public class ScreenLocalGame extends Screen {
 				whiteKingHP = 0;
 				System.out.println("white won");
 				gameInProgress = false;
+				activePlayer = p1;
 			}
 		} else {
 			blackKingHP -= dmg;
@@ -215,6 +257,7 @@ public class ScreenLocalGame extends Screen {
 				blackKingHP = 0;
 				System.out.println("black won");
 				gameInProgress = false;
+				activePlayer = p2;
 			}
 		}
 	}
