@@ -35,6 +35,7 @@ public class ScreenLocalGame extends Screen {
 	// (400-(3*8))/4
 	// = 94
 	
+	private boolean gameInProgress;
 	private int whiteKingHP;
 	private int blackKingHP;
 	
@@ -65,6 +66,7 @@ public class ScreenLocalGame extends Screen {
 		rightPFP = new Rectangle(x/2+405,y/2-275+(94/2),94,94);
 		activePlayer = p1;
 		
+		gameInProgress = true;
 		whiteKingHP = 100;
 		blackKingHP = 100;
 	}
@@ -197,7 +199,7 @@ public class ScreenLocalGame extends Screen {
 	}
 	
 	/**
-	 * Damages the king.
+	 * Damages the king. If the king dies, prints that the game has ended and updates gameInProgress.
 	 * 
 	 * @param dmg how much damage to inflict
 	 * @param white true to damage white king, false to damage black king
@@ -205,8 +207,18 @@ public class ScreenLocalGame extends Screen {
 	public void damageKing(int dmg, boolean white) {
 		if (white) {
 			whiteKingHP -= dmg;
+			if (whiteKingHP <= 0) {
+				whiteKingHP = 0;
+				System.out.println("white won");
+				gameInProgress = false;
+			}
 		} else {
 			blackKingHP -= dmg;
+			if (blackKingHP <= 0) {
+				blackKingHP = 0;
+				System.out.println("black won");
+				gameInProgress = false;
+			}
 		}
 	}
 	
