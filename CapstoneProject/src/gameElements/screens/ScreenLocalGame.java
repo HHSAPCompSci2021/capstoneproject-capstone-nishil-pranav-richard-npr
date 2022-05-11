@@ -21,7 +21,8 @@ public class ScreenLocalGame extends Screen {
 	private Rectangle leftKing;
 	private Rectangle rightKing;
 	
-	private Player p1, p2;
+	private Player p1, p2, activePlayer;
+	private String activePiece;
 	
 	private Rectangle leftEnergy;
 	private Rectangle rightEnergy;
@@ -58,6 +59,7 @@ public class ScreenLocalGame extends Screen {
 		
 		 leftPFP = new Rectangle(x/2-405,y/2-275+(94/2),94,94);
 		rightPFP = new Rectangle(x/2+405,y/2-275+(94/2),94,94);
+		activePlayer = p1;
 	}
 	
 	
@@ -70,11 +72,11 @@ public class ScreenLocalGame extends Screen {
 		
 		// DRAW STUFF
 		surface.pushStyle();
-		surface.background(255,255,255);
+		surface.background(198, 46, 46);
 		
 		surface.textSize(15);
 		surface.fill(255);
-		surface.imageMode(PConstants.CORNER);
+		surface.imageMode(PConstants.CENTER);
 		surface.rectMode(PConstants.CORNER);
 		board = surface.getBoard();
 		
@@ -86,14 +88,14 @@ public class ScreenLocalGame extends Screen {
 		
         float tempX = x/2-405, tempY = y/2+50-200+(102*0)+(94/2);
         for(int i = 0; i < p1.getCards().size() && i < 5; i++) {
-        	Card c = p2.getCards().get(i);
+        	Card c = p1.getCards().get(i);
         	c.draw(surface, tempX, tempY, 75, 75, surface);
         	tempY+=90;
         }
         
         tempX = x/2+405;
         tempY = y/2+50-200+(102*0)+(94/2);
-        for(int i = 0; i < p1.getCards().size() && i < 5; i++) {
+        for(int i = 0; i < p2.getCards().size() && i < 5; i++) {
         	Card c = p2.getCards().get(i);
         	c.draw(surface, tempX, tempY, 75, 75, surface);
         	tempY+=90;
@@ -117,12 +119,42 @@ public class ScreenLocalGame extends Screen {
 	
 	
 	public void mousePressed() {
-		Point click = new Point(surface.mouseX, surface.mouseY);
-		click = surface.actualCoordinatesToAssumed(click);
-		Point loc = board.clickToIndex(click, boardX, boardY, boardWidth, boardHeight);
-		System.out.println(loc);
-		if(loc != null) {
-			board.add(new Queen(loc.y, loc.x, board, true));
+		if(surface.mouseButton == PConstants.RIGHT) { //right button is clicked
+	        float tempX = 195-75/2, tempY = 197-75/2;
+	        for(int i = 0; i < p1.getCards().size() && i < 5; i++) {
+	        	Card c = p1.getCards().get(i);
+	        //	System.out.println(tempX + "     " + tempY);
+	        //	System.out.println(surface.mouseX + "     " + surface.mouseY);
+	        	if(c.isPointInside(surface.mouseX, surface.mouseY, tempX, tempY, 75, 75)) { 
+	        		activePiece = c.getPiece();
+	        		return;
+	        	}
+	        	tempY+=90;
+	        }
+	        
+//	        
+//	        tempX = x/2+405;
+//	        tempY = y/2+50-200+(102*0)+(94/2);
+//	        for(int i = 0; i < p2.getCards().size() && i < 5; i++) {
+//	        	Card c = p2.getCards().get(i);
+//	        	if(c.isPointInside(surface.mouseX, surface.mouseY, tempX, tempY, 75, 75)) {
+//	        		activePiece = gpFromString(c.getPiece(), false);
+//	        	}
+//	        }
+		} else {
+			Point click = new Point(surface.mouseX, surface.mouseY);
+			click = surface.actualCoordinatesToAssumed(click);
+			Point loc = board.clickToIndex(click, boardX, boardY, boardWidth, boardHeight);
+			if(loc != null && activePiece != null) {
+				GamePiece p = gpFromString(activePiece, true, loc.x, loc.y);
+				board.add(p);
+				//TODO remove
+				if(activePlayer.equals(p1)) {
+					activePlayer = p2;
+				} else {
+					activePlayer = p1;
+				}
+			}
 		}
 	}
 	
@@ -166,6 +198,17 @@ public class ScreenLocalGame extends Screen {
 	
 	private void showBox(Rectangle rectangle) {
 		showBox(rectangle, true);
+	}
+	
+	private GamePiece gpFromString(String name, boolean white, int row, int col) {
+		switch(name) {
+		case "Queen": return new Queen(col, row, board, white);
+		case "Knight": return new Knight(col, row, board, white);
+		case "Bishop": return new Bishop(col, row, board, white);
+		case "Rook": return new Rook(col, row, board, white);
+		case "Pawn": return new Pawn(col, row, board, white);
+		}
+		return null;
 	}
 
 }

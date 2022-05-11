@@ -32,7 +32,7 @@ public class ScreenSecond extends Screen {
         x = 600;
         y = 100;
         b = new Board();
-        p = new Player(b, true);
+     //   p = new Player(b, true);
         message = "";
     }
     

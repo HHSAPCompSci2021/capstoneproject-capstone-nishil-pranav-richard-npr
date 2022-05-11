@@ -36,7 +36,7 @@ public class ScreenLocalNameCreate extends Screen {
 		this.surface = surface;
 		
 		this.boxText = new StringBuffer();
-		this.nameCreationBox = new Rectangle(1200/2-100,600/2-50,175,50);
+		this.nameCreationBox = new Rectangle(1200/2-75,600/2-50,200,50);
 		this.boxSelected = false;
 		this.screenLocalGame = screenLocalGame;
 	}
@@ -51,9 +51,9 @@ public class ScreenLocalNameCreate extends Screen {
 		
 		String str;
 		if (player1 == null) {
-			str = "Enter Player1 Name";
+			str = "Enter Player 1 Name";
 		} else {
-			str = "Enter Player2 Name";
+			str = "Enter Player 2 Name";
 		}
 		if (boxSelected) {
 			str = boxText.toString();

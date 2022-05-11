@@ -1,5 +1,7 @@
 package gameElements.board;
 
+import java.util.HashMap;
+
 import core.DrawingSurface;
 import gameElements.pieces.GamePiece;
 import processing.core.PApplet;
@@ -24,7 +26,6 @@ public class Card {
 		drawer.fill(0);
 		drawer.text(cardName, x-25, y-20);
 		drawer.text(health+"\n"+damage, x-25, y);
-		
 		PImage i = s.getImages().get(imgIndex);
 		i.resize((int)(width/2), (int)(height/2));
 		drawer.image(i, x+width/2-20, y+height/6);
@@ -37,11 +38,29 @@ public class Card {
 	}
 	
 	public boolean isPointInside(float cx, float cy, float x, float y, float width, float height) {
-		if(cx >= x && cx <=x+width && cy >= y && cy <=y+height) {
-			return true;
+		if(cx < x) {
+//			System.out.println("1");
+			return false;
 		}
-		return false;
+		if(cx > x+width) {
+//			System.out.println("2");
+			return false;
+		}
+		if(cy < y) {
+			System.out.println(cy + " < " + y);
+			return false;
+		}
+		if(cy > y+height) {
+			System.out.println(cy + " > " + y+height);
+			return false;
+		}
+//		if(cx >= x && cx <=x+width && cy >= y && cy <=y+height) {
+//			return true;
+//		}
+		System.out.println("SUCESS");
+		return true;
 	}
+	
 	
 	
 }
