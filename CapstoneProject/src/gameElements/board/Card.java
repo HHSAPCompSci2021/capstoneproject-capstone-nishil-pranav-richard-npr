@@ -47,11 +47,9 @@ public class Card {
 			return false;
 		}
 		if(cy < y) {
-			System.out.println(cy + " < " + y);
 			return false;
 		}
 		if(cy > y+height) {
-			System.out.println(cy + " > " + y+height);
 			return false;
 		}
 //		if(cx >= x && cx <=x+width && cy >= y && cy <=y+height) {

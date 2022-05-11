@@ -135,8 +135,14 @@ public class Board {
 		return new Point((int)x, (int)y);
 	}
 	
-//	public void play() {
-//		
-//	}
+	public void play() {
+		for(GamePiece[] pieces : board) {
+			for(GamePiece p : pieces) {
+				if(p != null) {
+					p.act();
+				}
+			}
+		}
+	}
 	
 }

@@ -173,6 +173,7 @@ public class ScreenLocalGame extends Screen {
 					activePlayer = p1;
 				}
 				activePiece = null;
+				board.play();
 			}
 		}
 	}
