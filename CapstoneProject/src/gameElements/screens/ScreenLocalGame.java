@@ -149,6 +149,7 @@ public class ScreenLocalGame extends Screen {
 		        //	System.out.println(surface.mouseX + "     " + surface.mouseY);
 		        	if(c.isPointInside(surface.mouseX, surface.mouseY, tempX, tempY, 75, 75)) { 
 		        		activePiece = c.getPiece();
+		        		System.out.println("click pawn");
 		        		return;
 		        	}
 		        	tempY+=90;
@@ -162,6 +163,7 @@ public class ScreenLocalGame extends Screen {
 		        //	System.out.println(surface.mouseX + "     " + surface.mouseY);
 		        	if(c.isPointInside(surface.mouseX, surface.mouseY, tempX, tempY, 75, 75)) { 
 		        		activePiece = c.getPiece();
+		        		System.out.println("click pawn");
 		        		return; 
 		        	} 
 		        	tempY+=90; 

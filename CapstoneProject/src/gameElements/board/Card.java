@@ -20,16 +20,16 @@ public class Card {
 	}
 	
 	
-	public void draw(PApplet drawer, float x, float y, float width, float height, DrawingSurface s) {
-		drawer.stroke(0);
-		drawer.fill(200);
-		drawer.rect(x, y, width, height);
-		drawer.fill(0);
-		drawer.text(cardName, x-25, y-20);
-		drawer.text(health+"\n"+damage+"\n"+energy, x-25, y);
-		PImage i = s.getImages().get(imgIndex);
+	public void draw(DrawingSurface surface, float x, float y, float width, float height) {
+		surface.stroke(0);
+		surface.fill(200);
+		surface.rect(x, y, width, height);
+		surface.fill(0);
+		surface.text(cardName, x-25, y-20);
+		surface.text(health+"\n"+damage+"\n"+energy, x-25, y);
+		PImage i = surface.getImages().get(imgIndex);
 		i.resize((int)(width/2), (int)(height/2));
-		drawer.image(i, x+width/2-20, y+height/6);
+		surface.image(i, x+width/2-20, y+height/6);
 
 		
 	}
