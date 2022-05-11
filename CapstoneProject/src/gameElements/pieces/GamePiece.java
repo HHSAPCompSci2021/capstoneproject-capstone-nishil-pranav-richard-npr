@@ -5,7 +5,7 @@ import gameElements.board.*;
 import processing.core.PApplet;
 
 public abstract class GamePiece {
-	protected int health, damage;
+	protected int health, damage, energy;
 	protected Location loc;
 	protected GamePiece target;
 	protected Board board;
@@ -45,7 +45,6 @@ public abstract class GamePiece {
 	public void moveTo(Location newLoc) {
 		board.set(null, loc.getRow(), loc.getCol());
 		loc = new Location(newLoc.getRow(), newLoc.getCol());
-		board.set(this, loc.getRow(), loc.getCol());
 		
 	}
 	
@@ -114,5 +113,7 @@ public abstract class GamePiece {
 		return pieces;
 		
 	}
+	
+	public int getEnergy() {return energy;}
 
 }
