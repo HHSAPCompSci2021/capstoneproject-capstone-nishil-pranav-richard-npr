@@ -112,41 +112,59 @@ public class ScreenLocalGame extends Screen {
 		surface.text(nameOne, x/2-340, y/2-220);
 		surface.textAlign(PConstants.RIGHT);
 		surface.text(nameTwo, x/2+340, y/2-220);
+		String s ="";
+		if(activePlayer.equals(p1)) {
+			s="Player1";
+		} else if(activePlayer.equals(p2)) {
+			s="Player2";
+		}
+		surface.text(s, surface.width/2-50, 100);
 		
 		surface.popStyle();
+		
+//		surface.rectMode(PConstants.CORNER);
+//		surface.rect(x/2+405-75/2, 197-75/2+90+90+90+90, 75, 75);
+//		System.out.println(197-75/2+90+90+90+90);
+		
 		
 	}
 	
 	
 	public void mousePressed() {
 		if(surface.mouseButton == PConstants.RIGHT) { //right button is clicked
-	        float tempX = 195-75/2, tempY = 197-75/2;
-	        for(int i = 0; i < p1.getCards().size() && i < 5; i++) {
-	        	Card c = p1.getCards().get(i);
-	        //	System.out.println(tempX + "     " + tempY);
-	        //	System.out.println(surface.mouseX + "     " + surface.mouseY);
-	        	if(c.isPointInside(surface.mouseX, surface.mouseY, tempX, tempY, 75, 75)) { 
-	        		activePiece = c.getPiece();
-	        		return;
-	        	}
-	        	tempY+=90;
-	        }
-	        
-//	        
-//	        tempX = x/2+405;
-//	        tempY = y/2+50-200+(102*0)+(94/2);
-//	        for(int i = 0; i < p2.getCards().size() && i < 5; i++) {
-//	        	Card c = p2.getCards().get(i);
-//	        	if(c.isPointInside(surface.mouseX, surface.mouseY, tempX, tempY, 75, 75)) {
-//	        		activePiece = gpFromString(c.getPiece(), false);
-//	        	}
-//	        }
-		} else {
-			Point click = new Point(surface.mouseX, surface.mouseY);
-			click = surface.actualCoordinatesToAssumed(click);
-			Point loc = board.clickToIndex(click, boardX, boardY, boardWidth, boardHeight);
-			if(loc != null && activePiece != null) {
-				GamePiece p = gpFromString(activePiece, true, loc.x, loc.y);
+			if(activePlayer.equals(p1)) {
+				float tempX = 195-75/2, tempY = 197-75/2;
+		        for(int i = 0; i < p1.getCards().size() && i < 5; i++) {
+		        	Card c = p1.getCards().get(i);
+		        //	System.out.println(tempX + "     " + tempY);
+		        //	System.out.println(surface.mouseX + "     " + surface.mouseY);
+		        	if(c.isPointInside(surface.mouseX, surface.mouseY, tempX, tempY, 75, 75)) { 
+		        		activePiece = c.getPiece();
+		        		return;
+		        	}
+		        	tempY+=90;
+		        }
+			} else if(activePlayer.equals(p2)) {
+		       float tempX = x/2+405-75/2;
+		       float tempY = 197-75/2;
+		        for(int i = 0; i < p2.getCards().size() && i < 5; i++) {
+		        	Card c = p2.getCards().get(i);
+		        //	System.out.println(tempX + "     " + tempY);
+		        //	System.out.println(surface.mouseX + "     " + surface.mouseY);
+		        	if(c.isPointInside(surface.mouseX, surface.mouseY, tempX, tempY, 75, 75)) { 
+		        		activePiece = c.getPiece();
+		        		return; 
+		        	} 
+		        	tempY+=90; 
+		        } 
+			}
+	         
+		} else { 
+			Point click = new Point(surface.mouseX, surface.mouseY); 
+			click = surface.actualCoordinatesToAssumed(click); 
+			Point loc = board.clickToIndex(click, boardX, boardY, boardWidth, boardHeight); 
+			if(loc != null && activePiece != null) { 
+				GamePiece p = gpFromString(activePiece, activePlayer.isWhite(), loc.x, loc.y);
 				board.add(p);
 				//TODO remove
 				if(activePlayer.equals(p1)) {
@@ -154,6 +172,7 @@ public class ScreenLocalGame extends Screen {
 				} else {
 					activePlayer = p1;
 				}
+				activePiece = null;
 			}
 		}
 	}
