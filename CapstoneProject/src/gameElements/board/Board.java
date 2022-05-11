@@ -41,8 +41,8 @@ public class Board {
 				if (piece != null) {
 //					System.out.println(piece.getImgCode());
 					PImage img = images.get(piece.getImgCode());
-					img.resize((int)sqHeight-2, (int)sqHeight-2);
-					surface.image(img, x+sqWidth/2, y+sqHeight/2);		// assumes that height is larger than width
+					//img.resize((int)sqHeight-2, (int)sqHeight-2);
+					surface.image(img, x+sqWidth/2, y+sqHeight/2, (int)sqHeight-2, (int)sqHeight-2);		// assumes that height is larger than width
 				}
 				
 				x+=sqWidth;
