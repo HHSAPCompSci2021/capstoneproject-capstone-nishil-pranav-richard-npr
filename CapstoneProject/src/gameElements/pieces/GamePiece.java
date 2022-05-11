@@ -30,8 +30,14 @@ public abstract class GamePiece {
 		Location optimal = getMoveLoc(moveLocs);
 		moveTo(optimal);
 		ArrayList<GamePiece> toAttack = getAttackTargets();
-		if(toAttack != null) {for(GamePiece gp : toAttack) {attack(gp);}}
-		if(health <= 0) {die();}
+		if(toAttack != null) {
+			for(GamePiece gp : toAttack) {
+				attack(gp);
+			}
+		}
+		if(health <= 0) {
+			die();
+		}
 	}
 	
 	public GamePiece() {
@@ -43,10 +49,9 @@ public abstract class GamePiece {
 	public abstract Location getMoveLoc(ArrayList<Location> moves);
 
 	public void moveTo(Location newLoc) {
-		board.set(null, loc.getRow(), loc.getCol());
-		loc = new Location(newLoc.getRow(), newLoc.getCol());
-		board.set(this, loc.getRow(), loc.getCol());
-		
+		board.set(null, loc.getCol(), loc.getRow());
+		loc = newLoc;
+		board.add(this);
 	}
 	
 	public GamePiece getScan(int scanRad) {
