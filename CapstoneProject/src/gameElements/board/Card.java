@@ -30,8 +30,6 @@ public class Card {
 		PImage i = surface.getImages().get(imgIndex);
 		i.resize((int)(width/2), (int)(height/2));
 		surface.image(i, x+width/2-20, y+height/6);
-
-		
 	}
 	
 	public String getPiece() {

@@ -98,15 +98,18 @@ public class ScreenLocalGame extends Screen {
         float tempX = x/2-405, tempY = y/2+50-200+(102*0)+(94/2);
         for(int i = 0; i < p1.getCards().size() && i < 5; i++) {
         	Card c = p1.getCards().get(i);
-        	c.draw(surface, tempX, tempY, 75, 75, surface);
+        	c.draw(surface, tempX, tempY, 75, 75);
         	tempY+=90;
+//        	if (i == 4) {
+//        		System.out.println(tempY);
+//        	}
         }
         
         tempX = x/2+405;
         tempY = y/2+50-200+(102*0)+(94/2);
         for(int i = 0; i < p2.getCards().size() && i < 5; i++) {
         	Card c = p2.getCards().get(i);
-        	c.draw(surface, tempX, tempY, 75, 75, surface);
+        	c.draw(surface, tempX, tempY, 75, 75);
         	tempY+=90;
         }
 		
@@ -140,14 +143,18 @@ public class ScreenLocalGame extends Screen {
 	
 	
 	public void mousePressed() {
+		
+		Point click= surface.actualCoordinatesToAssumed(new Point(surface.mouseX, surface.mouseY)); 
+
 		if(surface.mouseButton == PConstants.RIGHT) { //right button is clicked
 			if(activePlayer.equals(p1)) {
 				float tempX = 195-75/2, tempY = 197-75/2;
+				
 		        for(int i = 0; i < p1.getCards().size() && i < 5; i++) {
 		        	Card c = p1.getCards().get(i);
 		        //	System.out.println(tempX + "     " + tempY);
 		        //	System.out.println(surface.mouseX + "     " + surface.mouseY);
-		        	if(c.isPointInside(surface.mouseX, surface.mouseY, tempX, tempY, 75, 75)) { 
+		        	if(c.isPointInside(click.x, click.y, tempX, tempY, 75, 75)) { 
 		        		activePiece = c.getPiece();
 		        		System.out.println("click pawn");
 		        		return;
@@ -161,7 +168,7 @@ public class ScreenLocalGame extends Screen {
 		        	Card c = p2.getCards().get(i);
 		        //	System.out.println(tempX + "     " + tempY);
 		        //	System.out.println(surface.mouseX + "     " + surface.mouseY);
-		        	if(c.isPointInside(surface.mouseX, surface.mouseY, tempX, tempY, 75, 75)) { 
+		        	if(c.isPointInside(click.x, click.y, tempX, tempY, 75, 75)) { 
 		        		activePiece = c.getPiece();
 		        		System.out.println("click pawn");
 		        		return; 
@@ -171,8 +178,6 @@ public class ScreenLocalGame extends Screen {
 			}
 	         
 		} else { 
-			Point click = new Point(surface.mouseX, surface.mouseY); 
-			click = surface.actualCoordinatesToAssumed(click); 
 			Point loc = board.clickToIndex(click, boardX, boardY, boardWidth, boardHeight); 
 			if(loc != null && activePiece != null) { 
 				GamePiece p = gpFromString(activePiece, activePlayer.isWhite(), loc.x, loc.y);
@@ -184,7 +189,7 @@ public class ScreenLocalGame extends Screen {
 					activePlayer = p1;
 				}
 				activePiece = null;
-				board.play();
+//				board.play();
 			}
 		}
 	}
@@ -255,7 +260,7 @@ public class ScreenLocalGame extends Screen {
 		showBox(rectangle, true);
 	}
 	
-	private GamePiece gpFromString(String name, boolean white, int row, int col) {
+	private GamePiece gpFromString(String name, boolean white, int col, int row) {
 		switch(name) {
 		case "Queen": return new Queen(row, col, board, white);
 		case "Knight": return new Knight(row, col, board, white);
