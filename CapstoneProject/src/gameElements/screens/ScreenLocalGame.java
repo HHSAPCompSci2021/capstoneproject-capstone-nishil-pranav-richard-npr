@@ -255,11 +255,11 @@ public class ScreenLocalGame extends Screen {
 	
 	private GamePiece gpFromString(String name, boolean white, int row, int col) {
 		switch(name) {
-		case "Queen": return new Queen(col, row, board, white);
-		case "Knight": return new Knight(col, row, board, white);
-		case "Bishop": return new Bishop(col, row, board, white);
-		case "Rook": return new Rook(col, row, board, white);
-		case "Pawn": return new Pawn(col, row, board, white);
+		case "Queen": return new Queen(row, col, board, white);
+		case "Knight": return new Knight(row, col, board, white);
+		case "Bishop": return new Bishop(row, col, board, white);
+		case "Rook": return new Rook(row, col, board, white);
+		case "Pawn": return new Pawn(row, col, board, white);
 		}
 		return null;
 	}

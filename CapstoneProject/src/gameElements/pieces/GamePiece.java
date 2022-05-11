@@ -25,12 +25,12 @@ public abstract class GamePiece {
 	}
 	
 	public void act() {
-		if(target == null) { target = getScan(3);}
+		//if(target == null) { target = getScan(3);}
 		ArrayList<Location> moveLocs = calcMoveLocs();
 		Location optimal = getMoveLoc(moveLocs);
 		moveTo(optimal);
 		ArrayList<GamePiece> toAttack = getAttackTargets();
-		for(GamePiece gp : toAttack) {attack(gp);}
+		if(toAttack != null) {for(GamePiece gp : toAttack) {attack(gp);}}
 		if(health <= 0) {die();}
 	}
 	
@@ -44,9 +44,7 @@ public abstract class GamePiece {
 
 	public void moveTo(Location newLoc) {
 		board.set(null, loc.getRow(), loc.getCol());
-		loc.setRow(newLoc.getRow());
-		loc.setCol(newLoc.getCol());
-		board.set(this, loc.getRow(), loc.getCol());
+		loc = new Location(newLoc.getRow(), newLoc.getCol());
 		
 	}
 	
@@ -116,8 +114,6 @@ public abstract class GamePiece {
 		
 	}
 	
-	public int getEnergy() {
-		return energy;
-	}
+	public int getEnergy() {return energy;}
 
 }

@@ -32,12 +32,12 @@ public class Pawn extends GamePiece{
 		int row = loc.getRow(), col = loc.getCol();
 		if(white) {
 			if(board.inBounds(row, col+1) && board.isEmpty(row, col+1)) {
-				locs.add(new Location(row, col+1));
+				locs.add(0, new Location(row, col+1));
 			}
 		}
 		else {
 			if(board.inBounds(row, col-1) && board.isEmpty(row, col-1)) {
-				locs.add(new Location(row, col-1));
+				locs.add(0, new Location(row, col-1));
 			}
 		}
 		return locs;
@@ -45,7 +45,8 @@ public class Pawn extends GamePiece{
 
 	@Override
 	public Location getMoveLoc(ArrayList<Location> moves) {
-		return moves.get(moves.size()-1);
+		//return moves.get(0);
+		return loc;
 	}
 
 	@Override
@@ -55,14 +56,14 @@ public class Pawn extends GamePiece{
 		if(white) {
 			if(board.inBounds(row+1, col+1) && board.get(row+1, col+1) != null) {
 				toAttack.add(board.get(row+1, col+1));
-			} if(board.inBounds(row-1, col+1) && board.get(row-1, col+1) == null) {
+			} if(board.inBounds(row-1, col+1) && board.get(row-1, col+1) != null) {
 				toAttack.add(board.get(row-1, col+1));
 			}
 		}
 		else {
 			if(board.inBounds(row+1, col-1) && board.get(row+1, col-1) != null) {
 				toAttack.add(board.get(row+1, col-1));
-			} if(board.inBounds(row-1, col-1) && board.get(row-1, col-1) == null) {
+			} if(board.inBounds(row-1, col-1) && board.get(row-1, col-1) != null) {
 				toAttack.add(board.get(row-1, col-1));
 			}
 		}
