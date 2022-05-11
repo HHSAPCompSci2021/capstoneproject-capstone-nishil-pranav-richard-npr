@@ -21,6 +21,9 @@ public class ScreenLocalGame extends Screen {
 	private Rectangle leftKing;
 	private Rectangle rightKing;
 	
+	private Rectangle leftKingHP;
+	private Rectangle rightKingHP;
+	
 	private Player p1, p2, activePlayer;
 	private String activePiece;
 	
@@ -47,6 +50,8 @@ public class ScreenLocalGame extends Screen {
 	private final int boardWidth = 500;
 	private final int boardHeight = 400;
 	
+	private final int MAX_KING_HP = 100;
+	
 	
 	public ScreenLocalGame(DrawingSurface surface) {
 		super(1200,600);
@@ -54,6 +59,9 @@ public class ScreenLocalGame extends Screen {
 		
 		 leftKing = new Rectangle(x/2-300,y/2+50,100,400);
 		rightKing = new Rectangle(x/2+300,y/2+50,100,400);
+		
+		 leftKingHP = new Rectangle(x/2-300,y/2+50,50,20);
+		rightKingHP = new Rectangle(x/2+300,y/2+50,50,20);
 		
 		board = surface.getBoard();
 		p1 = new Player(board, true);
@@ -67,8 +75,8 @@ public class ScreenLocalGame extends Screen {
 		activePlayer = p1;
 		
 		gameInProgress = true;
-		whiteKingHP = 100;
-		blackKingHP = 100;
+		whiteKingHP = MAX_KING_HP;
+		blackKingHP = MAX_KING_HP;
 	}
 	
 	public void draw() {
@@ -83,8 +91,8 @@ public class ScreenLocalGame extends Screen {
 	public void drawGame() {
 		
 		// DO STUFF
-		int oneEnergy = 3;		// how much energy does player 1 have
-		int twoEnergy = 5;		// how much energy does player 2 have
+		int oneEnergy = p1.getEnergy();
+		int twoEnergy = p2.getEnergy();
 		
 		
 		// DRAW STUFF
@@ -102,6 +110,8 @@ public class ScreenLocalGame extends Screen {
 		surface.imageMode(PConstants.CENTER);
 		showBox(leftKing);
 		showBox(rightKing);
+		showTextButton(leftKingHP, whiteKingHP + "/" + MAX_KING_HP, false);
+		showTextButton(rightKingHP, blackKingHP + "/" + MAX_KING_HP, false);
 		
         float tempX = x/2-405, tempY = y/2+50-200+(102*0)+(94/2);
         for(int i = 0; i < p1.getCards().size() && i < 5; i++) {
