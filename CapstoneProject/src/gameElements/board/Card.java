@@ -39,25 +39,10 @@ public class Card {
 	}
 	
 	public boolean isPointInside(float cx, float cy, float x, float y, float width, float height) {
-		if(cx < x) {
-//			System.out.println("1");
-			return false;
+		if(cx >= x && cx <=x+width && cy >= y && cy <=y+height) {
+			return true;
 		}
-		if(cx > x+width) {
-//			System.out.println("2");
-			return false;
-		}
-		if(cy < y) {
-			return false;
-		}
-		if(cy > y+height) {
-			return false;
-		}
-//		if(cx >= x && cx <=x+width && cy >= y && cy <=y+height) {
-//			return true;
-//		}
-		System.out.println("SUCESS");
-		return true;
+		return false;
 	}
 	
 	
