@@ -30,9 +30,13 @@ public class ScreenLocalGame extends Screen {
 	private Rectangle leftPFP;
 	private Rectangle rightPFP;
 	
+	
 	// (total height-((number of cards-1)*spacing))/number of cards
 	// (400-(3*8))/4
 	// = 94
+	
+	private int whiteKingHP;
+	private int blackKingHP;
 	
 	private final int x = 1200;
 	private final int y = 600;
@@ -60,6 +64,9 @@ public class ScreenLocalGame extends Screen {
 		 leftPFP = new Rectangle(x/2-405,y/2-275+(94/2),94,94);
 		rightPFP = new Rectangle(x/2+405,y/2-275+(94/2),94,94);
 		activePlayer = p1;
+		
+		whiteKingHP = 100;
+		blackKingHP = 100;
 	}
 	
 	
@@ -187,6 +194,20 @@ public class ScreenLocalGame extends Screen {
 	public void setNames(String nameOne, String nameTwo) {
 		this.nameOne = nameOne;
 		this.nameTwo = nameTwo;
+	}
+	
+	/**
+	 * Damages the king.
+	 * 
+	 * @param dmg how much damage to inflict
+	 * @param white true to damage white king, false to damage black king
+	 */
+	public void damageKing(int dmg, boolean white) {
+		if (white) {
+			whiteKingHP -= dmg;
+		} else {
+			blackKingHP -= dmg;
+		}
 	}
 	
 	private void showTextButton(Rectangle rectangle, String buttonText, boolean border) {
