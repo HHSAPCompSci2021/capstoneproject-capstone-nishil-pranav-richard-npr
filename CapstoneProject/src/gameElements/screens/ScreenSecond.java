@@ -60,7 +60,7 @@ public class ScreenSecond extends Screen {
         float tempX = surface.height+10, tempY = 10f;
         for(int i = 0; i < p.getCards().size() && i < 5; i++) {
         	Card c = p.getCards().get(i);
-        	c.draw(surface, tempX, tempY, 100, 100, surface);
+        	c.draw(surface, tempX, tempY, 100, 100);
         	tempY+=120;
         }
         

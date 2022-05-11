@@ -124,11 +124,11 @@ public class ScreenLocalGame extends Screen {
 		surface.text(nameOne, x/2-340, y/2-220);
 		surface.textAlign(PConstants.RIGHT);
 		surface.text(nameTwo, x/2+340, y/2-220);
-		String s ="";
+		String s = "";
 		if(activePlayer.equals(p1)) {
-			s="Player1";
+			s = nameOne;
 		} else if(activePlayer.equals(p2)) {
-			s="Player2";
+			s = nameTwo;
 		}
 		surface.text(s, surface.width/2-50, 100);
 		
@@ -145,38 +145,28 @@ public class ScreenLocalGame extends Screen {
 	public void mousePressed() {
 		
 		Point click= surface.actualCoordinatesToAssumed(new Point(surface.mouseX, surface.mouseY)); 
-
+		
 		if(surface.mouseButton == PConstants.RIGHT) { //right button is clicked
+			
+			float tempX;
+			float tempY = 197-75/2;
+			
 			if(activePlayer.equals(p1)) {
-				float tempX = 195-75/2, tempY = 197-75/2;
-				
-		        for(int i = 0; i < p1.getCards().size() && i < 5; i++) {
-		        	Card c = p1.getCards().get(i);
-		        //	System.out.println(tempX + "     " + tempY);
-		        //	System.out.println(surface.mouseX + "     " + surface.mouseY);
-		        	if(c.isPointInside(click.x, click.y, tempX, tempY, 75, 75)) { 
-		        		activePiece = c.getPiece();
-		        		System.out.println("click pawn");
-		        		return;
-		        	}
-		        	tempY+=90;
-		        }
-			} else if(activePlayer.equals(p2)) {
-		       float tempX = x/2+405-75/2;
-		       float tempY = 197-75/2;
-		        for(int i = 0; i < p2.getCards().size() && i < 5; i++) {
-		        	Card c = p2.getCards().get(i);
-		        //	System.out.println(tempX + "     " + tempY);
-		        //	System.out.println(surface.mouseX + "     " + surface.mouseY);
-		        	if(c.isPointInside(click.x, click.y, tempX, tempY, 75, 75)) { 
-		        		activePiece = c.getPiece();
-		        		System.out.println("click pawn");
-		        		return; 
-		        	} 
-		        	tempY+=90; 
-		        } 
+				tempX = 195-75/2;
+			} else {
+				tempX = x/2+405-75/2;
 			}
-	         
+			
+	        for(int i = 0; i < activePlayer.getCards().size() && i < 5; i++) {
+	        	Card c = activePlayer.getCards().get(i);
+	        	if(c.isPointInside(click.x, click.y, tempX, tempY, 75, 75)) { 
+	        		activePiece = c.getPiece();
+	        		System.out.println("clicked " + activePiece);
+	        		return;
+	        	}
+	        	tempY+=90;
+	        }
+	        
 		} else { 
 			Point loc = board.clickToIndex(click, boardX, boardY, boardWidth, boardHeight); 
 			if(loc != null && activePiece != null) { 
