@@ -5,7 +5,7 @@ import gameElements.board.*;
 import processing.core.PApplet;
 
 public abstract class GamePiece {
-	protected int health, damage;
+	protected int health, damage, energy;
 	protected Location loc;
 	protected GamePiece target;
 	protected Board board;
