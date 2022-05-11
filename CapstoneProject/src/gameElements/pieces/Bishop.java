@@ -14,6 +14,7 @@ public class Bishop extends GamePiece{
 		health = 10;
 		damage = 10;
 		maxDist = 3;
+		energy = 3;
 		range = 3;
 		if (wht) {
 			super.setImgCode(ImageCodes.WHITE_BISHOP);

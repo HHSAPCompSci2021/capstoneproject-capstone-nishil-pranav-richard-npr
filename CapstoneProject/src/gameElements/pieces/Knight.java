@@ -14,6 +14,7 @@ public class Knight extends GamePiece {
 		health = 8;
 		damage = 6;
 		maxDist = 2;
+		energy = 2;
 		range = 2;
 		if (wht) {
 			super.setImgCode(ImageCodes.WHITE_KNIGHT);

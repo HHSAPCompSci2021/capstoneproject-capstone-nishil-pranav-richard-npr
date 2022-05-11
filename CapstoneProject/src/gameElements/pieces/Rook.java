@@ -14,6 +14,7 @@ public class Rook extends GamePiece{
 		health = 10;
 		damage = 10;
 		maxDist = 3;
+		energy = 4;
 		range = 3;
 		if (wht) {
 			super.setImgCode(ImageCodes.WHITE_ROOK);

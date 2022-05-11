@@ -115,5 +115,9 @@ public abstract class GamePiece {
 		return pieces;
 		
 	}
+	
+	public int getEnergy() {
+		return energy;
+	}
 
 }

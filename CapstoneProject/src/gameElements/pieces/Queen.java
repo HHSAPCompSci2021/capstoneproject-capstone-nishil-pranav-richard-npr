@@ -14,6 +14,7 @@ public class Queen extends GamePiece{
 		health = 10;
 		damage = 10;
 		maxDist = 3;
+		energy = 5;
 		range = 3;
 		if (wht) {
 			super.setImgCode(ImageCodes.WHITE_QUEEN);

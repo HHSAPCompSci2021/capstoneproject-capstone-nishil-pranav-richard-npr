@@ -9,12 +9,13 @@ import processing.core.PImage;
 
 public class Card {
 	private String cardName;
-	private int health, damage, imgIndex;
+	private int health, damage, imgIndex, energy;
 	
-	public Card(String name, int h, int d, int image) {
+	public Card(String name, int h, int d, int energy, int image) {
 		cardName = name;
 		health = h; 
 		damage = d;
+		this.energy = energy;
 		imgIndex = image;
 	}
 	
@@ -25,7 +26,7 @@ public class Card {
 		drawer.rect(x, y, width, height);
 		drawer.fill(0);
 		drawer.text(cardName, x-25, y-20);
-		drawer.text(health+"\n"+damage, x-25, y);
+		drawer.text(health+"\n"+damage+"\n"+energy, x-25, y);
 		PImage i = s.getImages().get(imgIndex);
 		i.resize((int)(width/2), (int)(height/2));
 		drawer.image(i, x+width/2-20, y+height/6);

@@ -14,6 +14,7 @@ public class Pawn extends GamePiece{
 		health = 10;
 		damage = 10;
 		maxDist = 3;
+		energy = 1;
 		range = 3;
 		if (wht) {
 			super.setImgCode(ImageCodes.WHITE_PAWN);
