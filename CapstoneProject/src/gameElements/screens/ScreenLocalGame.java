@@ -3,6 +3,10 @@ package gameElements.screens;
 
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.Timer;
+
 import core.DrawingSurface;
 import core.ImageCodes;
 import gameElements.board.*;
@@ -10,7 +14,7 @@ import gameElements.pieces.*;
 import processing.core.PConstants;
 
 
-public class ScreenLocalGame extends Screen {
+public class ScreenLocalGame extends Screen implements ActionListener{
 	
 	private DrawingSurface surface;
 	
@@ -49,8 +53,9 @@ public class ScreenLocalGame extends Screen {
 	private final int boardY = y/2-130-(40/2);
 	private final int boardWidth = 500;
 	private final int boardHeight = 400;
-	
 	private final int MAX_KING_HP = 100;
+	private Timer timer;
+	private int time;
 	
 	
 	public ScreenLocalGame(DrawingSurface surface) {
@@ -77,6 +82,8 @@ public class ScreenLocalGame extends Screen {
 		gameInProgress = true;
 		whiteKingHP = MAX_KING_HP;
 		blackKingHP = MAX_KING_HP;
+		
+		timer = new Timer(1000, this);
 	}
 	
 	public void draw() {
@@ -145,12 +152,15 @@ public class ScreenLocalGame extends Screen {
 		} else if(activePlayer.equals(p2)) {
 			s = "Black's Turn";
 		}
+//		s+="\n" + (180-time);
 		surface.textAlign(PConstants.CENTER);
 		surface.text(s, x/2, 100);
 		if (activePiece != null) {
 			surface.textSize(15);
 			surface.text("Selected " + activePiece, x/2, 120);
 		}
+		surface.textSize(25);
+		surface.text((180-time), x/2, 580);
 		
 		surface.popStyle();
 		
@@ -195,9 +205,15 @@ public class ScreenLocalGame extends Screen {
 	
 	public void mousePressed() {
 		
+		
 		Point click= surface.actualCoordinatesToAssumed(new Point(surface.mouseX, surface.mouseY)); 
 		
 		if(surface.mouseButton == PConstants.RIGHT) { //right button is clicked
+			//start the time if not started already
+			//so the game begins when the first player chooses their piece
+			if(time == 0) {
+				timer.start();
+			}
 			
 			float tempX;
 			float tempY = 197-75/2;
@@ -211,6 +227,10 @@ public class ScreenLocalGame extends Screen {
 	        for(int i = 0; i < activePlayer.getCards().size() && i < 5; i++) {
 	        	Card c = activePlayer.getCards().get(i);
 	        	if(c.isPointInside(click.x, click.y, tempX, tempY, 75, 75)) { 
+	        		if(c.getEnergy() > activePlayer.getEnergy()) { //clicked on the Card, but don't have enough energy
+	        			System.err.println("could not click on " + c.getPiece());
+	        			return;
+	        		}
 	        		activePiece = c.getPiece();
 	        		System.out.println("clicked " + activePiece);
 	        		return;
@@ -312,6 +332,20 @@ public class ScreenLocalGame extends Screen {
 		case "Pawn": return new Pawn(row, col, board, white);
 		}
 		return null;
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		time++;
+		if(time > 180) {
+			gameInProgress = false;
+		}
+		if(time % 4 == 0) { //TODO change the modulus for different time
+			//currently adds 1 energy every 4 sec
+			p1.addEnergy(1);
+			p2.addEnergy(2);
+		}
+		
 	}
 
 }

@@ -36,10 +36,10 @@ public class Player {
 		}
 	}
 	
-	public void getEnergy(int got) {
+	public void addEnergy(int got) {
 		energy+=got;
 		if(energy > 10) {
-			energy = 0;
+			energy = 10;
 		}
 	}
 	
