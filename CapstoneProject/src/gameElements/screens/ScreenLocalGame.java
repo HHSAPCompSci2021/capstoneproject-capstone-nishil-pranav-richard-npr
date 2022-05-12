@@ -246,7 +246,9 @@ public class ScreenLocalGame extends Screen implements ActionListener{
 			Point loc = board.clickToIndex(click, boardX, boardY, boardWidth, boardHeight); 
 			if(loc != null && activePiece != null) { 
 				GamePiece p = gpFromString(activePiece, activePlayer.isWhite(), loc.x, loc.y);
+				int cost = p.getEnergy();
 				board.add(p);
+				activePlayer.useEnergy(cost);
 				//TODO remove
 				if(activePlayer.equals(p1)) {
 					activePlayer = p2;
