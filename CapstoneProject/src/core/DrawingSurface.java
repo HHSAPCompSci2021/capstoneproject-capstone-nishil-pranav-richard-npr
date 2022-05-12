@@ -189,6 +189,8 @@ public class DrawingSurface extends PApplet {
 			((ScreenOnlineNameCreate) activeScreen).keyPressed();
 		} else if (activeScreen == screens.get(ScreenSwitcher.SCREEN6)) {
 			((ScreenLocalNameCreate) activeScreen).keyPressed();
+		} else if (activeScreen == screens.get(ScreenSwitcher.SCREEN5)) {
+			((ScreenLocalGame) activeScreen).keyPressed();
 		}
 	}
 

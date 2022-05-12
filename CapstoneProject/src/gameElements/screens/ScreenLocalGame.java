@@ -209,7 +209,6 @@ public class ScreenLocalGame extends Screen implements ActionListener{
 	
 	public void mousePressed() {
 		
-		
 		Point click= surface.actualCoordinatesToAssumed(new Point(surface.mouseX, surface.mouseY)); 
 		
 		if(surface.mouseButton == PConstants.RIGHT) { //right button is clicked
@@ -261,6 +260,12 @@ public class ScreenLocalGame extends Screen implements ActionListener{
 		}
 	}
 	
+	public void keyPressed() {
+		if (surface.key == PConstants.ENTER || surface.key == PConstants.RETURN) {
+			skipTurn();
+		}
+	}
+	
 	/**
 	 * Sets the player's names.
 	 * 
@@ -296,6 +301,22 @@ public class ScreenLocalGame extends Screen implements ActionListener{
 				activePlayer = p2;
 			}
 		}
+	}
+	
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		time++;
+		if(time > 180) {
+			// draw the game
+			activePlayer = null;
+			gameInProgress = false;
+		}
+		if(time % 4 == 0) { //TODO change the modulus for different time
+			//currently adds 1 energy every 4 sec
+			p1.addEnergy(1);
+			p2.addEnergy(2);
+		}
+		
 	}
 	
 	private void showTextButton(Rectangle rectangle, String buttonText, boolean border) {
@@ -339,21 +360,18 @@ public class ScreenLocalGame extends Screen implements ActionListener{
 		}
 		return null;
 	}
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		time++;
-		if(time > 180) {
-			// draw the game
-			activePlayer = null;
-			gameInProgress = false;
+	
+	private void skipTurn() {
+		if (activePlayer == null  || !gameInProgress) return;
+		if (activePlayer.equals(p1)) {
+			activePlayer = p2;
+		} else if (activePlayer.equals(p2)) {
+			activePlayer = p1;
+		} else {
+			return;
 		}
-		if(time % 4 == 0) { //TODO change the modulus for different time
-			//currently adds 1 energy every 4 sec
-			p1.addEnergy(1);
-			p2.addEnergy(2);
-		}
-		
+		activePiece = null;
+		board.play();
 	}
 
 }
