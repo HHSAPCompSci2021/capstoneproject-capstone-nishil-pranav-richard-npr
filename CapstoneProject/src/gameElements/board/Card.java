@@ -26,7 +26,7 @@ public class Card {
 		surface.fill(200);
 		surface.rect(x, y, width, height);
 		surface.fill(0);
-		surface.textMode(PConstants.CENTER);
+		surface.textAlign(PConstants.CENTER);
 		surface.text(cardName, x, y-20);
 		surface.text(health+" "+damage+"\n"+energy, x-15, y);
 		PImage i = surface.getImages().get(imgIndex);
