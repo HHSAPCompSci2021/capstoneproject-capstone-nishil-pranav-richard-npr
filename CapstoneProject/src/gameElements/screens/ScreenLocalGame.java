@@ -182,15 +182,19 @@ public class ScreenLocalGame extends Screen implements ActionListener{
 		
 		surface.fill(255);
 		
-		surface.textSize(40);
-		surface.text("VICTORY!", 1200/2, 200);
 		
 		int textSize = 60;
 		String text = "";
 		if (activePlayer.equals(p1)) {		// player1 (white) won
+			surface.textSize(40);
+			surface.text("VICTORY!", 1200/2, 200);
 			text = nameOne + " has won!";
-		} else {							// player2 (black) won
+		} else if(activePlayer.equals(p2)){	// player2 (black) won
+			surface.textSize(40);
+			surface.text("VICTORY!", 1200/2, 200);
 			text = nameTwo + " has won!";
+		} else {
+			text = "draw";
 		}
 		while (surface.textWidth(text) >= squareWidth) {
 			textSize -= 5;
@@ -337,7 +341,7 @@ public class ScreenLocalGame extends Screen implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		time++;
-		if(time > 180) {
+		if(time > 5) {
 			gameInProgress = false;
 		}
 		if(time % 4 == 0) { //TODO change the modulus for different time
