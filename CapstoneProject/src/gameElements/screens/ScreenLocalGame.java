@@ -242,9 +242,9 @@ public class ScreenLocalGame extends Screen implements ActionListener{
 	        	tempY+=90;
 	        }
 	        
-		} else { 
+		} else {
 			Point loc = board.clickToIndex(click, boardX, boardY, boardWidth, boardHeight); 
-			if(loc != null && activePiece != null) { 
+			if(loc != null && activePiece != null && board.get(loc.x, loc.y) == null) { 
 				GamePiece p = gpFromString(activePiece, activePlayer.isWhite(), loc.x, loc.y);
 				int cost = p.getEnergy();
 				board.add(p);
