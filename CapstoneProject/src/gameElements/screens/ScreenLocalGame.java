@@ -54,6 +54,7 @@ public class ScreenLocalGame extends Screen implements ActionListener{
 	private final int boardWidth = 500;
 	private final int boardHeight = 400;
 	private final int MAX_KING_HP = 100;
+	
 	private Timer timer;
 	private int time;
 	
@@ -255,7 +256,7 @@ public class ScreenLocalGame extends Screen implements ActionListener{
 					activePlayer = p1;
 				}
 				activePiece = null;
-				board.play();
+//				board.play();
 			}
 		}
 	}
@@ -306,15 +307,15 @@ public class ScreenLocalGame extends Screen implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		time++;
+		board.play();
 		if(time > 180) {
 			// draw the game
 			activePlayer = null;
 			gameInProgress = false;
 		}
-		if(time % 4 == 0) { //TODO change the modulus for different time
-			//currently adds 1 energy every 4 sec
+		if (time % 4 == 0) { // adds 1 energy every 4 sec					//TODO change the modulus for different time
 			p1.addEnergy(1);
-			p2.addEnergy(2);
+			p2.addEnergy(1);
 		}
 		
 	}
@@ -371,7 +372,7 @@ public class ScreenLocalGame extends Screen implements ActionListener{
 			return;
 		}
 		activePiece = null;
-		board.play();
+//		board.play();
 	}
 
 }
