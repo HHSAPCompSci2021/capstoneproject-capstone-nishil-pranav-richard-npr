@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import core.DrawingSurface;
 import core.ImageCodes;
 import gameElements.pieces.GamePiece;
+import processing.core.PConstants;
 import processing.core.PImage;
 
 public class Board {
@@ -47,8 +48,10 @@ public class Board {
 //					System.out.println(piece.getImgCode());
 					PImage img = images.get(piece.getImgCode());
 					//img.resize((int)sqHeight-2, (int)sqHeight-2);
-					surface.image(img, x+sqWidth/2, y+sqHeight/2, (int)sqHeight-2, (int)sqHeight-2);		// assumes that height is larger than width
-					surface.text(piece.getHealth() + "/" + piece.get, tempX, y);
+					surface.image(img, x+sqWidth/2, y+sqHeight/2, (int)sqHeight-2, (int)sqHeight-2);	// assumes that height is larger than width
+					surface.textMode(PConstants.CENTER);
+					surface.fill(0);
+					surface.text(piece.getHealth() + "/" + piece.getFullHealth(), x+sqWidth/2, y);
 				}
 				
 				x+=sqWidth;
