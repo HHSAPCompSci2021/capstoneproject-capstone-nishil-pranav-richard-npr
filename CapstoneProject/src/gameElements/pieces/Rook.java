@@ -11,7 +11,7 @@ public class Rook extends GamePiece{
 	
 	public Rook(int r, int c, Board brd, boolean wht) {
 		super(r, c, brd, wht);
-		health = 10;
+		health = 20;
 		damage = 10;
 		maxDist = 3;
 		energy = 4;
@@ -60,10 +60,32 @@ public class Rook extends GamePiece{
 
 	@Override
 	public ArrayList<GamePiece> getAttackTargets() {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<GamePiece> locs = new ArrayList<GamePiece>();
+		if(white) {
+			for(int j = loc.getCol(); j < loc.getCol()+(int)range; j++) {
+				if(!board.inBounds(loc.getRow(), j)) {}
+				else {
+					if(board.get(loc.getRow(), j) != null) {
+						locs.add(board.get(j, j));
+					}
+				}
+			}
+		} else {
+			for(int j = loc.getCol(); j > loc.getCol()-(int)range; j--) {
+				if(!board.inBounds(loc.getRow(), j)) {}
+				else {
+					if(board.get(loc.getRow(), j) != null) {
+						locs.add(board.get(j, j));
+					}
+				}
+			}
+		}
+		
+		
+		return locs;
 	}
 	
+	@Override
 	public String getName() {
 		return "Rook";
 	}
