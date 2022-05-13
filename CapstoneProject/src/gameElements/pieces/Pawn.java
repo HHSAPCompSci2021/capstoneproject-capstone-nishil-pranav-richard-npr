@@ -13,7 +13,7 @@ public class Pawn extends GamePiece{
 		super(r, c, brd, wht);
 		fullHealth = 10;
 		health = 10;
-		damage = 5;
+		damage = 1;
 		maxDist = 3;
 		energy = 1;
 		range = 3;

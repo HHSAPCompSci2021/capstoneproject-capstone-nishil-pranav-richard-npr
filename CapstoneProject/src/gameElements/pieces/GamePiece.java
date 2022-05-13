@@ -31,8 +31,9 @@ public abstract class GamePiece {
 			if(health <= 0) {
 				die();
 			}
-			if(target != null && loc.getDistanceFrom(target.getLocation()) >= 7) {target = null;}
-			if(target == null || target.isDead()) { target = getScan(5);}
+			if(target != null && target.isDead()) { target = null;} //target died
+			if(target != null && loc.getDistanceFrom(target.getLocation()) >= 7) {target = null;}// target went out of range
+			if(target == null) { target = getScan(5);} // get target
 			if(loc == null) {return;}
 			ArrayList<Location> moveLocs = calcMoveLocs();
 			Location optimal = getMoveLoc(moveLocs);
@@ -46,7 +47,7 @@ public abstract class GamePiece {
 				}
 			}
 			if(health <= 0) {
-				die();
+				//die();
 			}
 		}
 		else {
@@ -111,7 +112,7 @@ public abstract class GamePiece {
 	public void takeDamage(int dmg) {
 		health -= dmg;
 		if(health <= 0) {
-			die();
+			//die();
 		}
 	}
  

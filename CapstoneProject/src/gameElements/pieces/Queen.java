@@ -13,7 +13,7 @@ public class Queen extends GamePiece{
 		super(r, c, brd, wht);
 		fullHealth = 25;
 		health = 25;
-		damage = 10;
+		damage = 3;
 		maxDist = 3;
 		energy = 5;
 		range = 3;
@@ -50,11 +50,11 @@ public class Queen extends GamePiece{
 		if(target == null) {
 			for(Location l : moves) {
 				if(super.isWhite()) {
-					if(l.getCol() > toPick.getCol()) {
+					if(l.getCol() > toPick.getCol() && toPick.getRow() == l.getRow()) {
 						toPick = l;
 					}
 				} else {
-					if(l.getCol() < toPick.getCol()) {
+					if(l.getCol() < toPick.getCol() && toPick.getRow() == l.getRow()) {
 						toPick = l;
 					}
 				}
