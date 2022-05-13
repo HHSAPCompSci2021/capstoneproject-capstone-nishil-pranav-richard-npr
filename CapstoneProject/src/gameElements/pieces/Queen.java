@@ -49,7 +49,7 @@ public class Queen extends GamePiece{
 		Location toPick = loc;
 		if(target == null) {
 			for(Location l : moves) {
-				if(isWhite()) {
+				if(super.isWhite()) {
 					if(l.getCol() > toPick.getCol()) {
 						toPick = l;
 					}
