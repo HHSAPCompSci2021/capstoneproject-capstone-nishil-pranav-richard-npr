@@ -15,6 +15,7 @@ public abstract class GamePiece {
 	protected int[] moveC = {0, 0, 1, -1, 1, -1, -1, 1};
 	protected double range;
 	protected int imgCode;
+	protected boolean dead;
 	
 	public GamePiece(int r, int c, Board brd, boolean wht) {
 		loc = new Location(r, c);
@@ -22,25 +23,34 @@ public abstract class GamePiece {
 		target = null;
 		white = wht;
 		imgCode = 0;
+		dead = false;
 	}
 	
 	public void act() {
-		if(health <= 0) {
-			die();
-		}
-		if(target != null && loc.getDistanceFrom(target.getLocation()) >= 7) {target = null;}
-		if(target == null || board.get(target.getLocation().getRow(), target.getLocation().getCol()) == null) { target = getScan(5);}
-		if(loc == null) {return;}
-		ArrayList<Location> moveLocs = calcMoveLocs();
-		Location optimal = getMoveLoc(moveLocs);
-		moveTo(optimal);
-		ArrayList<GamePiece> toAttack = getAttackTargets();
-		if(toAttack != null) {
-			for(GamePiece gp : toAttack) {
-				if(gp.isWhite() != white) {
-					attack(gp);
+		if(!dead) {
+			if(health <= 0) {
+				die();
+			}
+			if(target != null && loc.getDistanceFrom(target.getLocation()) >= 7) {target = null;}
+			if(target == null || target.isDead()) { target = getScan(5);}
+			if(loc == null) {return;}
+			ArrayList<Location> moveLocs = calcMoveLocs();
+			Location optimal = getMoveLoc(moveLocs);
+			moveTo(optimal);
+			ArrayList<GamePiece> toAttack = getAttackTargets();
+			if(toAttack != null) {
+				for(GamePiece gp : toAttack) {
+					if(gp.isWhite() != white) {
+						attack(gp);
+					}
 				}
 			}
+			if(health <= 0) {
+				die();
+			}
+		}
+		else {
+			board.set(null, loc.getRow(), loc.getCol());	
 		}
 	}
 	
@@ -100,6 +110,9 @@ public abstract class GamePiece {
 	
 	public void takeDamage(int dmg) {
 		health -= dmg;
+		if(health <= 0) {
+			die();
+		}
 	}
  
 	public void attack(GamePiece enemy) {
@@ -113,7 +126,8 @@ public abstract class GamePiece {
 	public abstract void draw(PApplet marker);
 	
 	public void die() {
-		board.set(null, loc.getRow(), loc.getCol());
+		board.set(null, loc.getRow(), loc.getCol());	
+		dead = true;
 	}
 	
 	public abstract String getName();
@@ -129,6 +143,10 @@ public abstract class GamePiece {
 		pieces.add(new Pawn(0, 0, b, wht));
 		return pieces;
 		
+	}
+	
+	public boolean isDead() {
+		return dead;
 	}
 	
 	public int getEnergy() {return energy;}
