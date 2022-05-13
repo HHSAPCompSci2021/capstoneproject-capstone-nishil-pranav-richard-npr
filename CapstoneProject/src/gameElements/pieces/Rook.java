@@ -28,11 +28,8 @@ public class Rook extends GamePiece{
 	@Override
 	public ArrayList<Location> calcMoveLocs() {
 		ArrayList<Location> locs = new ArrayList<Location>();
-		int rng = (int)range;
-		if(!white) {
-			rng = -rng;
-		}
-			for(int j = loc.getCol(); j < loc.getCol()+rng; j++) {
+		if(white) {
+			for(int j = loc.getCol(); j < loc.getCol()+(int)range; j++) {
 				if(!board.inBounds(loc.getRow(), j)) {}
 				else {
 					if(board.get(loc.getRow(), j) == null) {
@@ -40,6 +37,17 @@ public class Rook extends GamePiece{
 					}
 				}
 			}
+		} else {
+			for(int j = loc.getCol(); j > loc.getCol()-(int)range; j--) {
+				if(!board.inBounds(loc.getRow(), j)) {}
+				else {
+					if(board.get(loc.getRow(), j) == null) {
+						locs.add(new Location(loc.getRow(), j));
+					}
+				}
+			}
+		}
+			
 		return locs;
 	}
 	
