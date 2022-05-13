@@ -5,7 +5,10 @@ import javax.swing.JFrame;
 
 import processing.awt.PSurfaceAWT;
 import processing.core.PApplet;
-
+/**
+ * The Main class is the class that contains the PApplet on which the program is executed.
+ * @author John Shelby
+ * */
 public class Main {
 	
 	public static void main(String[] args) {

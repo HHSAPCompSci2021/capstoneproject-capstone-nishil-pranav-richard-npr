@@ -32,10 +32,17 @@ public class Post {
 	
 	public String postType;
 	
+	/**
+	 * Creates a new Post object with an empty message
+	 * */
 	public Post() {
 		data = "";
 	}
 	
+	/**
+	 * Creates a new Post object
+	 * @param type The type of message this Post holds - MESSAGE or USER
+	 * */
 	public Post(String type) {
 		if (type == "MESSAGE") {
 			postType = type;
