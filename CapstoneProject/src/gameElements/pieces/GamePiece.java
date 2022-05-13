@@ -25,17 +25,11 @@ public abstract class GamePiece {
 	}
 	
 	public void act() {
-<<<<<<< Updated upstream
-=======
-		if(target != null && loc.getDistanceFrom(target.getLocation()) >= 7) {target = null;}
-		if(target == null || board.get(target.getLocation().getRow(), target.getLocation().getCol()) == null) { target = getScan(5);}
-		if(loc == null) {return;}
->>>>>>> Stashed changes
 		if(health <= 0) {
 			die();
 		}
 		if(target != null && loc.getDistanceFrom(target.getLocation()) >= 7) {target = null;}
-		if(target == null) { target = getScan(5);}
+		if(target == null || board.get(target.getLocation().getRow(), target.getLocation().getCol()) == null) { target = getScan(5);}
 		if(loc == null) {return;}
 		ArrayList<Location> moveLocs = calcMoveLocs();
 		Location optimal = getMoveLoc(moveLocs);
@@ -119,7 +113,7 @@ public abstract class GamePiece {
 	public abstract void draw(PApplet marker);
 	
 	public void die() {
-		board.set(null, loc.getCol(), loc.getRow());
+		board.set(null, loc.getRow(), loc.getCol());
 	}
 	
 	public abstract String getName();
