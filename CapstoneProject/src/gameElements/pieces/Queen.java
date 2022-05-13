@@ -32,12 +32,9 @@ public class Queen extends GamePiece{
 		ArrayList<Location> locs = new ArrayList<Location>();
 		int row = loc.getRow(), col = loc.getCol();
 		for(int r = row-2; r <= row+2; r++) {
-			for(int c = col-2; col <= row+2; col++) {
+			for(int c = col-2; c <= col+2; c++) {
 				if(board.inBounds(r,  c)) {
-					if(loc.getDistanceFrom(new Location(r, c)) > 2 && loc.getDistanceFrom(new Location(r, c)) < 2.8) {
-						//invalid pos 
-					}
-					else if (board.isEmpty(r, c)){
+					if (board.isEmpty(r, c)){
 						locs.add(new Location(r, c));
 					}
 				}
@@ -75,12 +72,17 @@ public class Queen extends GamePiece{
 
 	@Override
 	public ArrayList<GamePiece> getAttackTargets() {
-		ArrayList<GamePiece> toAttack = new ArrayList<GamePiece>();
-		if(loc.getDistanceFrom(target.getLocation()) <= Math.sqrt(range*range+range*range)+0.001) {
-			toAttack.add(target);
+		if(target != null) {	
+			ArrayList<GamePiece> toAttack = new ArrayList<GamePiece>();
+			if(loc.getDistanceFrom(target.getLocation()) <= Math.sqrt(range*range+range*range)+0.001) {
+				toAttack.add(target);
+				return toAttack;
+			}
 			return toAttack;
 		}
-		return toAttack;
+		else {
+			return null;
+		}
 	}
 	
 	public String getName() {

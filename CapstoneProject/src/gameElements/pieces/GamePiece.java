@@ -25,7 +25,8 @@ public abstract class GamePiece {
 	}
 	
 	public void act() {
-		//if(target == null) { target = getScan(3);}
+		if(target != null && loc.getDistanceFrom(target.getLocation()) >= 7) {target = null;}
+		if(target == null) { target = getScan(5);}
 		if(loc == null) {return;}
 		if(health <= 0) {
 			die();
@@ -36,7 +37,9 @@ public abstract class GamePiece {
 		ArrayList<GamePiece> toAttack = getAttackTargets();
 		if(toAttack != null) {
 			for(GamePiece gp : toAttack) {
-				attack(gp);
+				if(gp.getWhite() != white) {
+					attack(gp);
+				}
 			}
 		}
 	}
@@ -56,28 +59,33 @@ public abstract class GamePiece {
 	}
 	
 	public GamePiece getScan(int scanRad) {
-		GamePiece toScan = null;
-		int row = loc.getRow(), col = loc.getCol();
-		for(int r = row-scanRad; r <= row + scanRad; r++ ) {
-			for(int c = col-scanRad; c <= col+scanRad; c++) {
-				if(board.inBounds(r, c)) {
-					if(r==row && c == col) {}
-					else {
-						if(board.get(r, c) != null) {
-							if(toScan == null) {
-								toScan = board.get(r, c);
-							}
-							else {
-								if(toScan.getLocation().getDistanceFrom(loc) > board.get(r, c).getLocation().getDistanceFrom(loc)) {
+		if(target == null) {
+			GamePiece toScan = null;
+			int row = loc.getRow(), col = loc.getCol();
+			for(int r = row-scanRad; r <= row + scanRad; r++ ) {
+				for(int c = col-scanRad; c <= col+scanRad; c++) {
+					if(board.inBounds(r, c)) {
+						if(r==row && c == col) {}
+						else {
+							if(board.get(r, c) != null && board.get(r, c).getWhite() != white) {
+								if(toScan == null) {
 									toScan = board.get(r, c);
+								}
+								else {
+									if(toScan.getLocation().getDistanceFrom(loc) > board.get(r, c).getLocation().getDistanceFrom(loc)) {
+										toScan = board.get(r, c);
+									}
 								}
 							}
 						}
 					}
 				}
 			}
+			return toScan;
 		}
-		return toScan;
+		else {
+			return target;
+		}
 	}
 	
 	public void setImgCode(int imgCode) {
@@ -125,4 +133,7 @@ public abstract class GamePiece {
 	
 	public int getEnergy() {return energy;}
 
+	public boolean getWhite() {
+		return white;
+	}
 }
