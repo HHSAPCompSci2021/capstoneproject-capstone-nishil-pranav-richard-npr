@@ -15,10 +15,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import core.DrawingSurface;
-import databaseData.MessagePost;
-import databaseData.Post;
-import databaseData.UserPost;
-import processing.core.PApplet;
 import processing.core.PConstants;
 
 public class ScreenQueue extends Screen {
