@@ -15,7 +15,7 @@ public abstract class GamePiece {
 	protected int[] moveC = {0, 0, 1, -1, 1, -1, -1, 1};
 	protected double range;
 	protected int imgCode;
-			
+	
 	public GamePiece(int r, int c, Board brd, boolean wht) {
 		loc = new Location(r, c);
 		board = brd;
@@ -25,6 +25,12 @@ public abstract class GamePiece {
 	}
 	
 	public void act() {
+<<<<<<< Updated upstream
+=======
+		if(target != null && loc.getDistanceFrom(target.getLocation()) >= 7) {target = null;}
+		if(target == null || board.get(target.getLocation().getRow(), target.getLocation().getCol()) == null) { target = getScan(5);}
+		if(loc == null) {return;}
+>>>>>>> Stashed changes
 		if(health <= 0) {
 			die();
 		}
