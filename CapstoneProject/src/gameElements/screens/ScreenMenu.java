@@ -38,10 +38,10 @@ public class ScreenMenu extends Screen {
 		//surface.background(255,255,255);
 		surface.image(surface.getImages().get(ImageCodes.BACKGROUND), 0, 0, 1200, 600);
 		
-		surface.textSize(20);
-		showButton(button, "Test Database");
-		surface.textSize(16);
-		showButton(multiplayerButton, "Find opponent (wip)");
+//		surface.textSize(20);
+//		showButton(button, "Test Database");
+//		surface.textSize(16);
+//		showButton(multiplayerButton, "Find opponent (wip)");
 		surface.textSize(18);
 		showButton(localButton, "Play with a friend");
 		
@@ -55,8 +55,8 @@ public class ScreenMenu extends Screen {
 	public void mousePressed() {
 		Point p = surface.actualCoordinatesToAssumed(new Point(surface.mouseX,surface.mouseY));
 		
-		if (button.contains(p))
-			surface.switchScreen(ScreenSwitcher.SCREEN2);
+//		if (button.contains(p))
+//			surface.switchScreen(ScreenSwitcher.SCREEN2);
 		
 //		if (multiplayerButton.contains(p))
 //			surface.switchScreen(ScreenSwitcher.SCREEN3);
