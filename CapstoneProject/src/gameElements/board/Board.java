@@ -206,6 +206,10 @@ public class Board {
 		}
 	}
 	
+	public void remove(int r, int c) {
+		board[r][c] = null;
+	}
+	
 	/**
 	 * Checks if the game is over by king health being <= 0.
 	 * 
