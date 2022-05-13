@@ -290,7 +290,7 @@ public class ScreenLocalGame extends Screen implements ActionListener{
 	}
 	
 	/**
-	 * Checks if the game is over. If it is over, then print who won and update gameInProgress & activePlayer
+	 * Checks if the game is over. If it is over, then print who won and update gameInProgress and activePlayer
 	 */
 	public void checkGameOver() {
 		

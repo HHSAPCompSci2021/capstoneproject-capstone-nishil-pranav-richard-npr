@@ -28,7 +28,7 @@ public class UserPost extends Post {
 	
 	/**
 	 * Sets the name of the player this UserPost represents
-	 * @param playerID the name of the player this UserPost represents
+	 * @param playerName the name of the player this UserPost represents
 	 * */
 	public void setPlayerName(String playerName) {
 		this.playerName = playerName;

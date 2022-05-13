@@ -211,7 +211,7 @@ public class Board {
 	}
 	
 	/**
-	 * Checks if the game is over by king health being <= 0.
+	 * Checks if the game is over by king health being is less than or equal to 0.
 	 * 
 	 * @return 0 if the game is not over, 1 if white won, 2 if black won, 3 if draw (both kings die at same time)
 	 */
