@@ -26,6 +26,10 @@ public abstract class GamePiece {
 	
 	public void act() {
 		//if(target == null) { target = getScan(3);}
+		if(loc == null) {return;}
+		if(health <= 0) {
+			die();
+		}
 		ArrayList<Location> moveLocs = calcMoveLocs();
 		Location optimal = getMoveLoc(moveLocs);
 		moveTo(optimal);
@@ -34,9 +38,6 @@ public abstract class GamePiece {
 			for(GamePiece gp : toAttack) {
 				attack(gp);
 			}
-		}
-		if(health <= 0) {
-			die();
 		}
 	}
 	
@@ -103,7 +104,9 @@ public abstract class GamePiece {
 	
 	public abstract void draw(PApplet marker);
 	
-	public void die() {}
+	public void die() {
+		board.set(null, loc.getCol(), loc.getRow());
+	}
 	
 	public abstract String getName();
 	public int getHealth() {return health;}

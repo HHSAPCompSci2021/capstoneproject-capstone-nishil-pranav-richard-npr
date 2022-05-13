@@ -14,7 +14,7 @@ public class Player {
 			cards.add(new Card(piece.getName(), piece.getHealth(), piece.getDamage(), piece.getEnergy(), piece.getImgCode()));
 		}
 		isWhite = white;
-		energy = 2;
+		energy = 10;
 	}
 	
 	public ArrayList<Card> getCards() {

@@ -27,14 +27,27 @@ public class Rook extends GamePiece{
 
 	@Override
 	public ArrayList<Location> calcMoveLocs() {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<Location> locs = new ArrayList<Location>();
+		int rng = (int)range;
+		if(!white) {
+			rng = -rng;
+		}
+			for(int j = loc.getCol(); j < loc.getCol()+rng; j++) {
+				if(!board.inBounds(loc.getRow(), j)) {}
+				else {
+					if(board.get(loc.getRow(), j) == null) {
+						locs.add(new Location(loc.getRow(), j));
+					}
+				}
+			}
+		return locs;
 	}
 	
 	@Override
 	public Location getMoveLoc(ArrayList<Location> moves) {
-		// TODO Auto-generated method stub
-		return null;
+		if(moves.size() == 0) {return null;}
+		int r = (int)(Math.random()*moves.size());
+		return moves.get(r);
 	}
 
 	@Override
