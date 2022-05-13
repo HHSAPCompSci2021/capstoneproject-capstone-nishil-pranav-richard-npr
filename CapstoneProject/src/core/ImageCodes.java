@@ -1,4 +1,10 @@
 package core;
+
+/**
+ * Has the image codes for the image names.
+ * 
+ * @author Nishil Anand
+ */
 public interface ImageCodes {
 	public static final int UNKNOWN = 0;
 	
