@@ -141,13 +141,23 @@ public class Board {
 	}
 	
 	public void play() {
-		for(GamePiece[] pieces : board) {
-			for(GamePiece p : pieces) {
-				if(p != null) {
-					p.act();
+		
+		// Note: to prevent calling act on the same GamePiece multiple times (if the GamePiece moves it might get called again), all GamePieces are gathered into an ArrayList then act is called on each GamePiece
+		
+		ArrayList<GamePiece> pieces = new ArrayList<GamePiece>();
+		
+		for (GamePiece[] i : board) {
+			for (GamePiece piece : i) {
+				if (piece != null) {
+					pieces.add(piece);
 				}
 			}
 		}
+		
+		for (GamePiece piece: pieces) {
+			piece.act();
+		}
+		
 	}
 	
 	public int getKingHealth(boolean white) {
