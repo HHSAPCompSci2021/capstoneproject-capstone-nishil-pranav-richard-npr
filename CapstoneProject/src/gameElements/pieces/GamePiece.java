@@ -47,7 +47,7 @@ public abstract class GamePiece {
 				}
 			}
 			if(health <= 0) {
-				//die();
+				die();
 			}
 		}
 		else {

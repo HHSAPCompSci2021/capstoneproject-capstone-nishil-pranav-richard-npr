@@ -162,7 +162,7 @@ public class Board {
 		
 		// damage king
 		for (int i = 0; i < board.length; i++) {			// left
-			GamePiece piece = board[0][i];
+			GamePiece piece = board[i][0];
 			if (piece != null) {
 				boolean white = piece.isWhite();
 				if (!white) {
@@ -171,7 +171,7 @@ public class Board {
 			}
 		}
 		for (int i = 0; i < board.length; i++) {			// right
-			GamePiece piece = board[9][i];
+			GamePiece piece = board[i][board[0].length-1];
 			if (piece != null) {
 				boolean black = !piece.isWhite();
 				if (!black) {
