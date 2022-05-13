@@ -9,6 +9,7 @@ public interface ScreenSwitcher {
 	public static final int SCREEN4 = 3;		// Queue
 	public static final int SCREEN5 = 4;		// LocalGame
 	public static final int SCREEN6 = 5;		// LocalNameCreate
+	public static final int SCREEN7 = 6;		// Instructions
 	
 	public void switchScreen(int i);
 }

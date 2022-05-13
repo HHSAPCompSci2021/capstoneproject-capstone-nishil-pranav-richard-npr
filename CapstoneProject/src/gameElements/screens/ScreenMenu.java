@@ -18,17 +18,19 @@ public class ScreenMenu extends Screen {
 	
 	private DrawingSurface surface;
 	
-	private Rectangle button;
-	private Rectangle multiplayerButton;
+//	private Rectangle button;
+//	private Rectangle multiplayerButton;
 	private Rectangle localButton;
+	private Rectangle instructionsButton;
 	
 	public ScreenMenu(DrawingSurface surface) {
 		super(1200,600);
 		this.surface = surface;
 		
-		button = new Rectangle(1200/2-100,600/2-50,175,50);
-		multiplayerButton = new Rectangle(1200/2-100,600/2+50,175,50);
-		localButton = new Rectangle(1200/2-100,600/2+150,175,50);
+//		button = new Rectangle(1200/2-100,600/2-50,175,50);
+//		multiplayerButton = new Rectangle(1200/2-100,600/2+50,175,50);
+		instructionsButton = new Rectangle(1200/2-100,600/2-50,175,50);
+		localButton = new Rectangle(1200/2-100,600/2+50,175,50);
 	}
 	
 	
@@ -42,6 +44,8 @@ public class ScreenMenu extends Screen {
 //		showButton(button, "Test Database");
 //		surface.textSize(16);
 //		showButton(multiplayerButton, "Find opponent (wip)");
+		surface.textSize(18);
+		showButton(instructionsButton, "Instructions");
 		surface.textSize(18);
 		showButton(localButton, "Play with a friend");
 		
@@ -60,6 +64,10 @@ public class ScreenMenu extends Screen {
 		
 //		if (multiplayerButton.contains(p))
 //			surface.switchScreen(ScreenSwitcher.SCREEN3);
+		
+		if (instructionsButton.contains(p)) {
+			surface.switchScreen(ScreenSwitcher.SCREEN7);
+		}
 		
 		if (localButton.contains(p)) {
 			Board board = new Board();
