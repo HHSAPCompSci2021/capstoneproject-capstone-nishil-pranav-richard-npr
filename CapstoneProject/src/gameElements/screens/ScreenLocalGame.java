@@ -302,19 +302,21 @@ public class ScreenLocalGame extends Screen implements ActionListener{
 	}
 	
 	@Override
-	public void actionPerformed(ActionEvent e) {
+	public void actionPerformed(ActionEvent e) {		// called every second
 		time++;
 		board.play();
-		if(time > 180) {
-			// draw the game
-			activePlayer = null;
-			gameInProgress = false;
+		this.checkGameOver();
+		if (gameInProgress) {
+			if(time > 180) {
+				// draw the game
+				activePlayer = null;
+				gameInProgress = false;
+			}
+			if (time % 4 == 0) { // adds 1 energy every 4 sec					//TODO change the modulus for different time
+				p1.addEnergy(1);
+				p2.addEnergy(1);
+			}
 		}
-		if (time % 4 == 0) { // adds 1 energy every 4 sec					//TODO change the modulus for different time
-			p1.addEnergy(1);
-			p2.addEnergy(1);
-		}
-		
 	}
 	
 	private void showTextButton(Rectangle rectangle, String buttonText, boolean border) {
