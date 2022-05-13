@@ -30,7 +30,7 @@ public class Pawn extends GamePiece{
 		ArrayList<Location> locs = new ArrayList<Location>();
 		locs.add(loc);
 		int row = loc.getRow(), col = loc.getCol();
-		if(white) {
+		if(isWhite()) {
 			if(board.inBounds(row, col+1) && board.isEmpty(row, col+1)) {
 				locs.add(0, new Location(row, col+1));
 			}
@@ -52,7 +52,7 @@ public class Pawn extends GamePiece{
 	public ArrayList<GamePiece> getAttackTargets() {
 		ArrayList<GamePiece> toAttack = new ArrayList<GamePiece>();
 		int row = loc.getRow(), col = loc.getCol();
-		if(white) {
+		if(isWhite()) {
 			if(board.inBounds(row+1, col+1) && board.get(row+1, col+1) != null) {
 				toAttack.add(board.get(row+1, col+1));
 			} if(board.inBounds(row-1, col+1) && board.get(row-1, col+1) != null) {

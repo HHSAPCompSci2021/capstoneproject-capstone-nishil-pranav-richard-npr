@@ -143,9 +143,8 @@ public class Board {
 	public void play() {
 		
 		// Note: to prevent calling act on the same GamePiece multiple times (if the GamePiece moves it might get called again), all GamePieces are gathered into an ArrayList then act is called on each GamePiece
-		
+		// call act on all pieces
 		ArrayList<GamePiece> pieces = new ArrayList<GamePiece>();
-		
 		for (GamePiece[] i : board) {
 			for (GamePiece piece : i) {
 				if (piece != null) {
@@ -153,10 +152,31 @@ public class Board {
 				}
 			}
 		}
-		
 		for (GamePiece piece: pieces) {
 			piece.act();
 		}
+		
+		// damage king
+		for (int i = 0; i < board.length; i++) {			// left
+			GamePiece piece = board[0][i];
+			if (piece != null) {
+				boolean white = piece.isWhite();
+				if (!white) {
+					damageKing(piece.getDamage(), true);
+				}
+			}
+		}
+		for (int i = 0; i < board.length; i++) {			// right
+			GamePiece piece = board[9][i];
+			if (piece != null) {
+				boolean black = !piece.isWhite();
+				if (!black) {
+					damageKing(piece.getDamage(), false);
+				}
+			}
+		}
+		
+		System.out.println(whiteKingHP + "    " + blackKingHP);
 		
 	}
 	

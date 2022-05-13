@@ -37,7 +37,7 @@ public abstract class GamePiece {
 		ArrayList<GamePiece> toAttack = getAttackTargets();
 		if(toAttack != null) {
 			for(GamePiece gp : toAttack) {
-				if(gp.getWhite() != white) {
+				if(gp.isWhite() != white) {
 					attack(gp);
 				}
 			}
@@ -67,7 +67,7 @@ public abstract class GamePiece {
 					if(board.inBounds(r, c)) {
 						if(r==row && c == col) {}
 						else {
-							if(board.get(r, c) != null && board.get(r, c).getWhite() != white) {
+							if(board.get(r, c) != null && board.get(r, c).isWhite() != white) {
 								if(toScan == null) {
 									toScan = board.get(r, c);
 								}
@@ -133,7 +133,8 @@ public abstract class GamePiece {
 	
 	public int getEnergy() {return energy;}
 
-	public boolean getWhite() {
+	public boolean isWhite() {
 		return white;
 	}
+	
 }

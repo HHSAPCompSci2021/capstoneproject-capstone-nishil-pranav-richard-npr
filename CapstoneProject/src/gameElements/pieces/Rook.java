@@ -28,7 +28,7 @@ public class Rook extends GamePiece{
 	@Override
 	public ArrayList<Location> calcMoveLocs() {
 		ArrayList<Location> locs = new ArrayList<Location>();
-		if(white) {
+		if(isWhite()) {
 			for(int j = loc.getCol(); j < loc.getCol()+(int)range; j++) {
 				if(!board.inBounds(loc.getRow(), j)) {}
 				else {
@@ -61,7 +61,7 @@ public class Rook extends GamePiece{
 	@Override
 	public ArrayList<GamePiece> getAttackTargets() {
 		ArrayList<GamePiece> locs = new ArrayList<GamePiece>();
-		if(white) {
+		if(isWhite()) {
 			for(int j = loc.getCol(); j < loc.getCol()+(int)range; j++) {
 				if(!board.inBounds(loc.getRow(), j)) {}
 				else {
