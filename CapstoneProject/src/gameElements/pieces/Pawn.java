@@ -46,8 +46,7 @@ public class Pawn extends GamePiece{
 
 	@Override
 	public Location getMoveLoc(ArrayList<Location> moves) {
-		//return moves.get(0);
-		return loc;
+		return moves.get(0);
 	}
 
 	@Override
