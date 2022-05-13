@@ -25,12 +25,12 @@ public abstract class GamePiece {
 	}
 	
 	public void act() {
-		if(target != null && loc.getDistanceFrom(target.getLocation()) >= 7) {target = null;}
-		if(target == null) { target = getScan(5);}
-		if(loc == null) {return;}
 		if(health <= 0) {
 			die();
 		}
+		if(target != null && loc.getDistanceFrom(target.getLocation()) >= 7) {target = null;}
+		if(target == null) { target = getScan(5);}
+		if(loc == null) {return;}
 		ArrayList<Location> moveLocs = calcMoveLocs();
 		Location optimal = getMoveLoc(moveLocs);
 		moveTo(optimal);
