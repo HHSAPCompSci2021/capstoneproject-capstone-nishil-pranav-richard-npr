@@ -14,6 +14,11 @@ import gameElements.pieces.*;
 import processing.core.PConstants;
 
 
+/**
+ * The screen that holds the game and its elements for the user to interact during a match (placing pieces, seeing enemy pieces, etc)
+ * 
+ * @author Nishil Anand
+ */
 public class ScreenLocalGame extends Screen implements ActionListener{
 	
 	private DrawingSurface surface;
@@ -37,14 +42,7 @@ public class ScreenLocalGame extends Screen implements ActionListener{
 	private Rectangle leftPFP;
 	private Rectangle rightPFP;
 	
-	
-	// (total height-((number of cards-1)*spacing))/number of cards
-	// (400-(3*8))/4
-	// = 94
-	
 	private boolean gameInProgress;
-//	private int whiteKingHP;
-//	private int blackKingHP;
 	
 	private final int x = 1200;
 	private final int y = 600;
@@ -59,6 +57,11 @@ public class ScreenLocalGame extends Screen implements ActionListener{
 	private int time;
 	
 	
+	/**
+	 * Constructs a new ScreenLocalGame
+	 * 
+	 * @param surface the DrawingSurface
+	 */
 	public ScreenLocalGame(DrawingSurface surface) {
 		super(1200,600);
 		this.surface = surface;
@@ -85,6 +88,9 @@ public class ScreenLocalGame extends Screen implements ActionListener{
 		timer = new Timer(1000, this);
 	}
 	
+	/**
+	 * Draws the elements of the game onto the processing window.
+	 */
 	public void draw() {
 		if (gameInProgress) {
 			drawGame();
@@ -94,7 +100,7 @@ public class ScreenLocalGame extends Screen implements ActionListener{
 	}
 	
 	
-	public void drawGame() {
+	private void drawGame() {
 		
 		// DO STUFF
 		int oneEnergy = p1.getEnergy();
@@ -165,7 +171,7 @@ public class ScreenLocalGame extends Screen implements ActionListener{
 		
 	}
 	
-	public void drawVictory() {
+	private void drawVictory() {
 		
 		surface.pushStyle();
 		surface.background(255);
@@ -205,7 +211,11 @@ public class ScreenLocalGame extends Screen implements ActionListener{
 		
 	}
 	
-	
+	/**
+	 * Called when a mouse is pressed. 
+	 * If a card is right clicked and it's that player's turn, selects that piece. Starts the timer if it's not started yet.
+	 * If a piece is selected and there is a left click on the board, places that piece in the board.
+	 */
 	public void mousePressed() {
 		
 		Point click= surface.actualCoordinatesToAssumed(new Point(surface.mouseX, surface.mouseY)); 
@@ -259,6 +269,9 @@ public class ScreenLocalGame extends Screen implements ActionListener{
 		}
 	}
 	
+	/**
+	 * If enter/return is pressed the current player's turn is skipped.
+	 */
 	public void keyPressed() {
 		if (surface.key == PConstants.ENTER || surface.key == PConstants.RETURN) {
 			skipTurn();
@@ -301,6 +314,14 @@ public class ScreenLocalGame extends Screen implements ActionListener{
 		
 	}
 	
+	/**
+	 * Every second:
+	 * - updates this.time
+	 * - calls this.board.play()
+	 * - checks for the game being over
+	 * 
+	 * Also adds energy every 4 seconds.
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {		// called every second
 		time++;
