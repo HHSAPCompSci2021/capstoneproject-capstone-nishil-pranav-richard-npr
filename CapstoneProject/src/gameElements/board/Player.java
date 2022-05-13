@@ -2,6 +2,13 @@ package gameElements.board;
 
 import java.util.ArrayList;
 import gameElements.pieces.*;
+
+
+/**
+ * Represents a player in the game. The class stores information 
+ * 
+ * 
+ * */
 public class Player {
 	private ArrayList<Card> cards;
 	private boolean isWhite;
