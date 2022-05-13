@@ -35,7 +35,11 @@ import processing.core.PConstants;
 import processing.core.PImage;
 
 
-
+/**
+ * Represents a PApplet that holds all assets for this program.
+ * 
+ * @author Nishil Anand
+ */
 public class DrawingSurface extends PApplet {
 	
 	// Drawing/screen stuff
@@ -54,6 +58,9 @@ public class DrawingSurface extends PApplet {
 	
 	private int i;
 	
+	/**
+	 * Constructs a new DrawingSurface, setting up fields, the database, and screens.
+	 */
 	public DrawingSurface() {
 		
 		// SETUP NORMAL FIELDS
@@ -118,6 +125,9 @@ public class DrawingSurface extends PApplet {
 		
 	}
 	
+	/**
+	 * Sets up the images.
+	 */
 	public void setup() {
 		
 		// LOAD IMAGES
@@ -141,48 +151,22 @@ public class DrawingSurface extends PApplet {
 		images.add(ImageCodes.BLACK_SQUARE, loadImage(String.format("Images%sblackSquare.png", fileSeparator, fileSeparator, fileSeparator)));
 	}
 
+	/**
+	 * Draws the current active screen.
+	 */
 	public void draw() {
-//		background(255);
-//		
-//		currentDrawing.draw(this);
-//		
-//		for (int i = 0; i < possibleColors.length; i++) {
-//			fill(possibleColors[i].getRGB());
-//			rect(colorRects[i].x,colorRects[i].y,colorRects[i].width,colorRects[i].height);
-//		}
-//		
-//		fill(255);
-//		rect(clearButton.x, clearButton.y, clearButton.width, clearButton.height);
-//		
-//		fill(0);
-//		textAlign(PConstants.CENTER, PConstants.CENTER);
-//		text("CLEAR",clearButton.x, clearButton.y, clearButton.width, clearButton.height);
-		
-		// clears data every 10 seconds
-//		i += 1;
-//		if (i == 60*1) {
-//			i = 0;
-//			clearAllData();
-//		}
-		
-		// draw the screen
 		ratioX = (float)width/activeScreen.DRAWING_WIDTH;
 		ratioY = (float)height/activeScreen.DRAWING_HEIGHT;
 		scale(ratioX, ratioY);
 		activeScreen.draw();
-		//images.get(0).resize(400, 400);
-		// image testing
-//		background(255);
-//		PImage img = images.get(ImageCodes.BLACK_BISHOP);
-//		image(img, 0, 0, img.width/4, img.height/4);
-		
 	}
 	
+	/**
+	 * Updates keys (adds it).
+	 * Calls the activeScreen's keyPressed() method if needed.
+	 */
 	public void keyPressed() {
 		keys.add(keyCode);
-//		if (key == 'h') {
-//			postData(new MessagePost("h"));
-//		}
 		if (activeScreen == screens.get(ScreenSwitcher.SCREEN2) && key != CODED) {
 			((ScreenSecond) activeScreen).keyPressed();
 		} else if (activeScreen == screens.get(ScreenSwitcher.SCREEN3)) {
@@ -194,15 +178,27 @@ public class DrawingSurface extends PApplet {
 		}
 	}
 
+	/**
+	 * Updates keys (removes it).
+	 */
 	public void keyReleased() {
 		while(keys.contains(keyCode))
 			keys.remove(new Integer(keyCode));
 	}
 
+	/**
+	 * Checks if code is being pressed.
+	 * 
+	 * @param code the key to check if it's being pressed
+	 * @return if the key is being pressed
+	 */
 	public boolean isPressed(Integer code) {
 		return keys.contains(code);
 	}
 	
+	/**
+	 * Calls the activeScreen's mousePressed() method
+	 */
 	public void mousePressed() {
 //		String path = "Folder";
 //		DatabaseReference postRef = ref.child(path);
@@ -211,15 +207,31 @@ public class DrawingSurface extends PApplet {
 		activeScreen.mousePressed();
 	}
 	
-	
+	/**
+	 * Converts the assumed coordinates to actual coordinates
+	 * 
+	 * @param assumed the assumed coordinates
+	 * @return the actual coordinates
+	 */
 	public Point assumedCoordinatesToActual(Point assumed) {
 		return new Point((int)(assumed.getX()*ratioX), (int)(assumed.getY()*ratioY));
 	}
 
+	/**
+	 * Converts the actual coordinates to assumed coordinates
+	 * 
+	 * @param actual the actual coordinates
+	 * @return the assumed coordinates
+	 */
 	public Point actualCoordinatesToAssumed(Point actual) {
 		return new Point((int)(actual.getX()/ratioX) , (int)(actual.getY()/ratioY));
 	}
 
+	/**
+	 * Switches the active screen to i
+	 * 
+	 * @param i the new active screen
+	 */
 	public void switchScreen(int i) {
 		activeScreen = screens.get(i);
 	}
