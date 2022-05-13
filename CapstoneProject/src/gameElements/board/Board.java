@@ -35,8 +35,8 @@ public class Board {
 		float sqWidth = width/board.length;
 		float sqHeight = height/board[0].length;
 		float tempX = x;
-		for(int i = 0; i < board.length; i++) {
-			for(int j = 0; j < board[i].length; j++) {
+		for(int j = 0; j < board.length; j++) {
+			for(int i = 0; i < board[j].length; i++) {
 				// draw outer box
 				surface.fill(255);
 				surface.stroke(0);
@@ -91,8 +91,8 @@ public class Board {
 		if (piece == null) throw new NullPointerException("piece is null");
 		Location loc = piece.getLocation();
 		if (loc == null) throw new NullPointerException("piece.getLocation() is null");
-		int x = loc.getCol();
-		int y = loc.getRow();
+		int x = loc.getRow();
+		int y = loc.getCol();
 		if (!(x >= 0 && x < board.length && y >= 0 && y < board[0].length)) throw new ArrayIndexOutOfBoundsException("piece.getLocation() does not fit in the board");
 		board[x][y] = piece;
 	}
