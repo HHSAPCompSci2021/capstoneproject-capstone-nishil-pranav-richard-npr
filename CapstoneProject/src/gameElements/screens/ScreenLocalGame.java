@@ -43,8 +43,8 @@ public class ScreenLocalGame extends Screen implements ActionListener{
 	// = 94
 	
 	private boolean gameInProgress;
-	private int whiteKingHP;
-	private int blackKingHP;
+//	private int whiteKingHP;
+//	private int blackKingHP;
 	
 	private final int x = 1200;
 	private final int y = 600;
@@ -81,8 +81,6 @@ public class ScreenLocalGame extends Screen implements ActionListener{
 		activePlayer = p1;
 		
 		gameInProgress = true;
-		whiteKingHP = MAX_KING_HP;
-		blackKingHP = MAX_KING_HP;
 		
 		timer = new Timer(1000, this);
 	}
@@ -118,8 +116,8 @@ public class ScreenLocalGame extends Screen implements ActionListener{
 		surface.imageMode(PConstants.CENTER);
 		showBox(leftKing);
 		showBox(rightKing);
-		showTextButton(leftKingHP, whiteKingHP + "/" + MAX_KING_HP, false);
-		showTextButton(rightKingHP, blackKingHP + "/" + MAX_KING_HP, false);
+		showTextButton(leftKingHP, board.getKingHealth(true) + "/" + MAX_KING_HP, false);
+		showTextButton(rightKingHP, board.getKingHealth(false) + "/" + MAX_KING_HP, false);
 		
         float tempX = x/2-405, tempY = y/2+50-200+(102*0)+(94/2);
         for(int i = 0; i < p1.getCards().size() && i < 5; i++) {
@@ -279,29 +277,28 @@ public class ScreenLocalGame extends Screen implements ActionListener{
 	}
 	
 	/**
-	 * Damages the king. If the king dies, prints that the game has ended and updates gameInProgress.
-	 * 
-	 * @param dmg how much damage to inflict
-	 * @param white true to damage white king, false to damage black king
+	 * Checks if the game is over. If it is over, then print who won and update gameInProgress & activePlayer
 	 */
-	public void damageKing(int dmg, boolean white) {
-		if (white) {
-			whiteKingHP -= dmg;
-			if (whiteKingHP <= 0) {
-				whiteKingHP = 0;
-				System.out.println("white won");
-				gameInProgress = false;
-				activePlayer = p1;
-			}
-		} else {
-			blackKingHP -= dmg;
-			if (blackKingHP <= 0) {
-				blackKingHP = 0;
-				System.out.println("black won");
-				gameInProgress = false;
-				activePlayer = p2;
-			}
+	public void checkGameOver() {
+		
+		int gameOver = board.checkGameOver();
+		
+		if (gameOver == 0) {			// game is not over
+			return;
+		} else if (gameOver == 1) {		// white won
+			System.out.println("white won");
+			gameInProgress = false;
+			activePlayer = p1;
+		} else if (gameOver == 2) {		// black won
+			System.out.println("black won");
+			gameInProgress = false;
+			activePlayer = p2;
+		} else if (gameOver == 3) {		// draw
+			System.out.println("draw");
+			gameInProgress = false;
+			activePlayer = null;
 		}
+		
 	}
 	
 	@Override

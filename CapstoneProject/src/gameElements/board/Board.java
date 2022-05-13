@@ -13,6 +13,9 @@ public class Board {
 	private GamePiece[][] board;
 	private ArrayList<PImage> images;
 	
+	private int whiteKingHP;
+	private int blackKingHP;
+	
 	public Board(int x, int y) {
 		board = new GamePiece[x][y];
 	}
@@ -20,6 +23,8 @@ public class Board {
 	public Board() {
 		board = new GamePiece[10][10];
 		images = null;
+		whiteKingHP = 100;
+		blackKingHP = 100;
 	}
 	
 	public void draw(DrawingSurface surface, float x, float y, float width, float height) {
@@ -143,6 +148,46 @@ public class Board {
 				}
 			}
 		}
+	}
+	
+	public int getKingHealth(boolean white) {
+		if (white) {
+			return whiteKingHP;
+		} else {
+			return blackKingHP;
+		}
+	}
+	
+	/**
+	 * Damages the king. If the king dies, prints that the game has ended and updates gameInProgress.
+	 * 
+	 * @param dmg how much damage to inflict
+	 * @param white true to damage white king, false to damage black king
+	 */
+	public void damageKing(int dmg, boolean white) {
+		if (white) {
+			whiteKingHP -= dmg;
+		} else {
+			blackKingHP -= dmg;
+		}
+	}
+	
+	/**
+	 * Checks if the game is over by king health being <= 0.
+	 * 
+	 * @return 0 if the game is not over, 1 if white won, 2 if black won, 3 if draw (both kings die at same time)
+	 */
+	public int checkGameOver() {
+		int result = 0;
+		if (whiteKingHP <= 0) {
+			whiteKingHP = 0;
+			result += 1;
+		}
+		if (blackKingHP <= 0) {
+			blackKingHP = 0;
+			result += 2;
+		}
+		return result;
 	}
 	
 }
