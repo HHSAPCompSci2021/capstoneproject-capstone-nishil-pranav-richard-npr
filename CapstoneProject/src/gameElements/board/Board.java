@@ -49,7 +49,7 @@ public class Board {
 					PImage img = images.get(piece.getImgCode());
 					//img.resize((int)sqHeight-2, (int)sqHeight-2);
 					surface.image(img, x+sqWidth/2, y+sqHeight/2, (int)sqHeight-2, (int)sqHeight-2);	// assumes that height is larger than width
-					surface.textMode(PConstants.CENTER);
+					surface.textAlign(PConstants.CENTER);
 					surface.fill(0);
 					surface.text(piece.getHealth() + "/" + piece.getFullHealth(), x+sqWidth/4, y);
 				}
