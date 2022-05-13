@@ -1,13 +1,14 @@
 package gameElements.board;
 
-import java.util.HashMap;
-
 import core.DrawingSurface;
-import gameElements.pieces.GamePiece;
-import processing.core.PApplet;
 import processing.core.PConstants;
 import processing.core.PImage;
 
+/**
+ * The Card represents a container which holds an Image of a GamePiece, along 
+ * with energy, health, and damage information. 
+ * @author Pranav Gunhal
+ * */
 public class Card {
 	private String cardName;
 	private int health, damage, imgIndex, energy;
