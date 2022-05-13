@@ -11,7 +11,8 @@ public class Bishop extends GamePiece{
 	
 	public Bishop(int r, int c, Board brd, boolean wht) {
 		super(r, c, brd, wht);
-		health = 10;
+		fullHealth = 15;
+		health = 15;
 		damage = 10;
 		maxDist = 3;
 		energy = 3;

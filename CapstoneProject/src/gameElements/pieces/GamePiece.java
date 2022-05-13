@@ -5,7 +5,7 @@ import gameElements.board.*;
 import processing.core.PApplet;
 
 public abstract class GamePiece {
-	protected int health, damage, energy;
+	protected int fullHealth, health, damage, energy;
 	protected Location loc;
 	protected GamePiece target;
 	protected Board board;
@@ -132,6 +132,8 @@ public abstract class GamePiece {
 	}
 	
 	public int getEnergy() {return energy;}
+	
+	public int getFullHealth() {return fullHealth;}
 
 	public boolean isWhite() {
 		return white;

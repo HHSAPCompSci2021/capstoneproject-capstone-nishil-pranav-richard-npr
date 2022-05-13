@@ -11,6 +11,7 @@ public class Rook extends GamePiece{
 	
 	public Rook(int r, int c, Board brd, boolean wht) {
 		super(r, c, brd, wht);
+		fullHealth = 20;
 		health = 20;
 		damage = 10;
 		maxDist = 3;

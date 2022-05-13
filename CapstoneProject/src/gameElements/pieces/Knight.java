@@ -11,7 +11,8 @@ public class Knight extends GamePiece {
 	
 	public Knight(int r, int c, Board brd, boolean wht) {
 		super(r, c, brd, wht);
-		health = 8;
+		fullHealth = 15;
+		health = 10;
 		damage = 6;
 		maxDist = 2;
 		energy = 2;
