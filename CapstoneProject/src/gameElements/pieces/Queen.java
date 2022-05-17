@@ -11,12 +11,12 @@ public class Queen extends GamePiece{
 	
 	public Queen(int r, int c, Board brd, boolean wht) {
 		super(r, c, brd, wht);
-		fullHealth = 25;
 		health = 25;
+		fullHealth = health;
 		damage = 3;
 		maxDist = 3;
 		energy = 5;
-		range = 3;
+		range = 2;
 		if (wht) {
 			super.setImgCode(ImageCodes.WHITE_QUEEN);
 		} else {
@@ -61,9 +61,21 @@ public class Queen extends GamePiece{
 			}
 		}
 		else {
+			if(loc.getDistanceFrom(target.getLocation()) <= Math.sqrt(range*range+range*range)+0.001) {
+				return loc;
+			}
 			for(Location l : moves) {
-				if(l.getDistanceFrom(target.getLocation()) < toPick.getDistanceFrom(target.getLocation())) {
-					toPick = l;
+				if(toPick.getDistanceFrom(target.getLocation()) <= Math.sqrt(range*range+range*range)+0.001 ) { //already in range
+					if(l.getDistanceFrom(target.getLocation()) <= Math.sqrt(range*range+range*range)+0.001) {
+						if(l.getDistanceFrom(target.getLocation()) > toPick.getDistanceFrom(target.getLocation())) {
+							toPick = l;
+						}
+					}
+				}
+				else {// not in range, get in range
+					if(l.getDistanceFrom(target.getLocation()) < toPick.getDistanceFrom(target.getLocation())) {
+						toPick = l;
+					}
 				}
 			}
 		}
@@ -75,7 +87,7 @@ public class Queen extends GamePiece{
 	public ArrayList<GamePiece> getAttackTargets() {
 		if(target != null) {	
 			ArrayList<GamePiece> toAttack = new ArrayList<GamePiece>();
-			if(loc.getDistanceFrom(target.getLocation()) <= Math.sqrt(range*range+range*range)+0.001) {
+			if(loc.getDistanceFrom(target.getLocation()) <= Math.sqrt(range*range+range*range)+ 0.001) {
 				toAttack.add(target);
 				return toAttack;
 			}

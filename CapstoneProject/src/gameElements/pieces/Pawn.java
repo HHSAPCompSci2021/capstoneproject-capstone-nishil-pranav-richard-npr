@@ -11,12 +11,12 @@ public class Pawn extends GamePiece{
 	
 	public Pawn(int r, int c, Board brd, boolean wht) {
 		super(r, c, brd, wht);
-		fullHealth = 10;
-		health = 10;
-		damage = 1;
-		maxDist = 3;
+		health = 40;
+		fullHealth = health;
+		damage = 5;
+		maxDist = 3;//does nothing
 		energy = 1;
-		range = 3;
+		range = 3;//does nothing
 		if (wht) {
 			super.setImgCode(ImageCodes.WHITE_PAWN);
 		} else {

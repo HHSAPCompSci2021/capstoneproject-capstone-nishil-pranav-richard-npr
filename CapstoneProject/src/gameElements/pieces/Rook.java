@@ -11,9 +11,9 @@ public class Rook extends GamePiece{
 	
 	public Rook(int r, int c, Board brd, boolean wht) {
 		super(r, c, brd, wht);
-		fullHealth = 20;
-		health = 20;
-		damage = 10;
+		health = 80;
+		fullHealth = health;
+		damage = 2;
 		maxDist = 3;
 		energy = 4;
 		range = 3;
@@ -29,61 +29,56 @@ public class Rook extends GamePiece{
 	@Override
 	public ArrayList<Location> calcMoveLocs() {
 		ArrayList<Location> locs = new ArrayList<Location>();
-		if(isWhite()) {
-			for(int j = loc.getCol(); j < loc.getCol()+(int)range; j++) {
-				if(!board.inBounds(loc.getRow(), j)) {}
-				else {
-					if(board.get(loc.getRow(), j) == null) {
-						locs.add(new Location(loc.getRow(), j));
-					}
-				}
+		int row = loc.getRow(), col = loc.getCol();
+		for(int i = -2; i <= 2; i++) {
+			if(board.inBounds(row + i, col) && board.isEmpty(row + i, col)) {
+				locs.add(new Location(row+i, col));
 			}
-		} else {
-			for(int j = loc.getCol(); j > loc.getCol()-(int)range; j--) {
-				if(!board.inBounds(loc.getRow(), j)) {}
-				else {
-					if(board.get(loc.getRow(), j) == null) {
-						locs.add(new Location(loc.getRow(), j));
-					}
-				}
+			if(board.inBounds(row, col+i) && board.isEmpty(row, col+i)) {
+				locs.add(new Location(row, col+i));
 			}
-		}
-			
+		}	
 		return locs;
 	}
 	
 	@Override
 	public Location getMoveLoc(ArrayList<Location> moves) {
-		if(moves.size() == 0) {return null;}
-		int r = (int)(Math.random()*moves.size());
-		return moves.get(r);
-	}
-
-	@Override
-	public ArrayList<GamePiece> getAttackTargets() {
-		ArrayList<GamePiece> locs = new ArrayList<GamePiece>();
-		if(isWhite()) {
-			for(int j = loc.getCol(); j < loc.getCol()+(int)range; j++) {
-				if(!board.inBounds(loc.getRow(), j)) {}
-				else {
-					if(board.get(loc.getRow(), j) != null) {
-						locs.add(board.get(j, j));
+		Location toPick = loc;
+		if(target == null) {
+			for(Location l : moves) {
+				if(super.isWhite()) {
+					if(l.getCol() > toPick.getCol() && toPick.getRow() == l.getRow()) {
+						toPick = l;
 					}
-				}
-			}
-		} else {
-			for(int j = loc.getCol(); j > loc.getCol()-(int)range; j--) {
-				if(!board.inBounds(loc.getRow(), j)) {}
-				else {
-					if(board.get(loc.getRow(), j) != null) {
-						locs.add(board.get(j, j));
+				} else {
+					if(l.getCol() < toPick.getCol() && toPick.getRow() == l.getRow()) {
+						toPick = l;
 					}
 				}
 			}
 		}
-		
-		
-		return locs;
+		else {
+			for(Location l : moves) {
+				if(l.getDistanceFrom(target.getLocation()) < toPick.getDistanceFrom(target.getLocation())) {
+					toPick = l;
+				}
+			}
+		}
+		return toPick;
+	}
+
+	@Override
+	public ArrayList<GamePiece> getAttackTargets() {
+		ArrayList<GamePiece> toAttack = new ArrayList<GamePiece>();
+		int row = loc.getRow(), col = loc.getCol();
+		for(int r = row-1; r <= row+1; r++) {
+			for(int c = col-1; c <= col+1; c++) {
+				if(board.inBounds(r, c) && !board.isEmpty(r, c) && board.get(r, c).isWhite() != white) {
+					toAttack.add(board.get(r, c));
+				}
+			}
+		}
+		return toAttack;
 	}
 	
 	@Override
