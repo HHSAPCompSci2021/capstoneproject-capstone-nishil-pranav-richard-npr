@@ -135,12 +135,12 @@ public class DrawingSurface extends PApplet {
 		// LOAD IMAGES
 		images.add(ImageCodes.UNKNOWN, loadImage(String.format("Images%sunknown.png", fileSeparator)));
 		
-		images.add(ImageCodes.BLACK_BISHOP, loadImage(String.format("Images%sChessPieces%sblackSide%sblackBishop.gif", fileSeparator, fileSeparator, fileSeparator)));
-		images.add(ImageCodes.BLACK_KING, loadImage(String.format("Images%sChessPieces%sblackSide%sblackKing.gif", fileSeparator, fileSeparator, fileSeparator)));
-		images.add(ImageCodes.BLACK_KNIGHT, loadImage(String.format("Images%sChessPieces%sblackSide%sblackKnight.gif", fileSeparator, fileSeparator, fileSeparator)));
-		images.add(ImageCodes.BLACK_PAWN, loadImage(String.format("Images%sChessPieces%sblackSide%sblackPawn.gif", fileSeparator, fileSeparator, fileSeparator)));
-		images.add(ImageCodes.BLACK_QUEEN, loadImage(String.format("Images%sChessPieces%sblackSide%sblackQueen.gif", fileSeparator, fileSeparator, fileSeparator)));
-		images.add(ImageCodes.BLACK_ROOK, loadImage(String.format("Images%sChessPieces%sblackSide%sblackRook.gif", fileSeparator, fileSeparator, fileSeparator)));
+		images.add(ImageCodes.BLACK_BISHOP, loadImage(String.format("Images%sChessPieces%sblackSide%sblackBishop.png", fileSeparator, fileSeparator, fileSeparator)));
+		images.add(ImageCodes.BLACK_KING, loadImage(String.format("Images%sChessPieces%sblackSide%sblackKing.png", fileSeparator, fileSeparator, fileSeparator)));
+		images.add(ImageCodes.BLACK_KNIGHT, loadImage(String.format("Images%sChessPieces%sblackSide%sblackKnight.png", fileSeparator, fileSeparator, fileSeparator)));
+		images.add(ImageCodes.BLACK_PAWN, loadImage(String.format("Images%sChessPieces%sblackSide%sblackPawn.png", fileSeparator, fileSeparator, fileSeparator)));
+		images.add(ImageCodes.BLACK_QUEEN, loadImage(String.format("Images%sChessPieces%sblackSide%sblackQueen.png", fileSeparator, fileSeparator, fileSeparator)));
+		images.add(ImageCodes.BLACK_ROOK, loadImage(String.format("Images%sChessPieces%sblackSide%sblackRook.png", fileSeparator, fileSeparator, fileSeparator)));
 		
 		images.add(ImageCodes.WHITE_BISHOP, loadImage(String.format("Images%sChessPieces%swhiteSide%swhiteBishop.png", fileSeparator, fileSeparator, fileSeparator)));
 		images.add(ImageCodes.WHITE_KING, loadImage(String.format("Images%sChessPieces%swhiteSide%swhiteKing.png", fileSeparator, fileSeparator, fileSeparator)));
