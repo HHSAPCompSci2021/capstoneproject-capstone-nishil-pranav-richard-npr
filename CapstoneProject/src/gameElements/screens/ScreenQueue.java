@@ -15,24 +15,26 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import core.DrawingSurface;
+import databaseData.UserPost;
 import processing.core.PConstants;
 
 public class ScreenQueue extends Screen {
 	
 	private DrawingSurface surface;
 	private DatabaseReference ref;
+	private ArrayList<UserPost> queue;
 	
 	private Rectangle button;
 	
 	private int i;
 	
-	public ScreenQueue(DrawingSurface surface, DatabaseReference ref) {
+	public ScreenQueue(DrawingSurface surface, DatabaseReference ref, ArrayList<UserPost> queue) {
 		super(1200,600);
 		this.surface = surface;
 		this.ref = ref;
+		this.queue = queue;
 		
 		button = new Rectangle(1200/2-100,600/2-50,200,50);
-		
 	}
 	
 	
@@ -49,11 +51,13 @@ public class ScreenQueue extends Screen {
 		surface.popStyle();
 		
 		
+		
 		// CHECK FOR OPPONENTS
 //		i++;
 //		if (i > 60) {
 //			i = 0;
 //			surface.postData(new MessagePost("Hello world"), ref.child("Test stuff"));
+//			
 //		}
 		
 	}
