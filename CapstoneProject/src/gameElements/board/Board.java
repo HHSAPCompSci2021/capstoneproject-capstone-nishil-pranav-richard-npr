@@ -19,13 +19,13 @@ public class Board {
 	
 	public Board(int x, int y) {
 		board = new GamePiece[x][y];
-	}
-	
-	public Board() {
-		board = new GamePiece[10][10];
 		images = null;
 		whiteKingHP = 100;
 		blackKingHP = 100;
+	}
+	
+	public Board() {
+		board = new GamePiece[15][15];
 	}
 	
 	public void draw(DrawingSurface surface, float x, float y, float width, float height) {

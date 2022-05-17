@@ -39,16 +39,16 @@ public class ScreenLocalGame extends Screen implements ActionListener{
 	private Rectangle leftEnergy;
 	private Rectangle rightEnergy;
 	
-	private Rectangle leftPFP;
-	private Rectangle rightPFP;
+//	private Rectangle leftPFP;
+//	private Rectangle rightPFP;
 	
 	private boolean gameInProgress;
 	
 	private final int x = 1200;
 	private final int y = 600;
 	
-	private final int boardX = 375-(50/2);
-	private final int boardY = y/2-130-(40/2);
+	private final int boardX = x/2-323;
+	private final int boardY = y/4+20;
 	private final int boardWidth = 500;
 	private final int boardHeight = 400;
 	private final int MAX_KING_HP = 100;
@@ -66,21 +66,21 @@ public class ScreenLocalGame extends Screen implements ActionListener{
 		super(1200,600);
 		this.surface = surface;
 		
-		 leftKing = new Rectangle(x/2-300,y/2+50,100,400);
+		 leftKing = new Rectangle(x/2-390,y/2+50,100,400);
 		rightKing = new Rectangle(x/2+300,y/2+50,100,400);
-		
-		 leftKingHP = new Rectangle(x/2-300,y/2+50,50,20);
+		//x/2-290
+		 leftKingHP = new Rectangle(x/2-390,y/2+50,50,20);
 		rightKingHP = new Rectangle(x/2+300,y/2+50,50,20);
 		
 		board = surface.getBoard();
 		p1 = new Player(board, true);
 		p2 = new Player(board, false);
 		 
-		 leftEnergy = new Rectangle(x/2-507,y/2+50,50,20);
+		leftEnergy = new Rectangle(x/2-557,y/2+50,50,20);
 		rightEnergy = new Rectangle(x/2+507,y/2+50,50,20);
 		
-		 leftPFP = new Rectangle(x/2-405,y/2-275+(94/2),94,94);
-		rightPFP = new Rectangle(x/2+405,y/2-275+(94/2),94,94);
+//		leftPFP = new Rectangle(x/2-405,y/2-275+(94/2),94,94);
+//		rightPFP = new Rectangle(x/2+405,y/2-275+(94/2),94,94);
 		activePlayer = p1;
 		
 		gameInProgress = true;
@@ -117,7 +117,6 @@ public class ScreenLocalGame extends Screen implements ActionListener{
 		surface.rectMode(PConstants.CORNER);
 		board = surface.getBoard();
 		
-		board.draw(surface, boardX, boardY, boardWidth, boardHeight);
 		surface.rectMode(PConstants.CENTER);
 		surface.imageMode(PConstants.CENTER);
 		showBox(leftKing);
@@ -125,13 +124,15 @@ public class ScreenLocalGame extends Screen implements ActionListener{
 		showTextButton(leftKingHP, board.getKingHealth(true) + "/" + MAX_KING_HP, false);
 		showTextButton(rightKingHP, board.getKingHealth(false) + "/" + MAX_KING_HP, false);
 		
-        float tempX = x/2-405, tempY = y/2+50-200+(102*0)+(94/2);
+		board.draw(surface, boardX, boardY, boardWidth, boardHeight);
+		
+        float tempX = x/2-485, tempY = y/2+50-200+(102*0)+(94/2);
         for(int i = 0; i < p1.getCards().size() && i < 5; i++) {
         	Card c = p1.getCards().get(i);
         	c.draw(surface, tempX, tempY, 75, 75);
         	tempY+=90;
         }
-        
+
         tempX = x/2+405;
         tempY = y/2+50-200+(102*0)+(94/2);
         for(int i = 0; i < p2.getCards().size() && i < 5; i++) {
@@ -143,8 +144,8 @@ public class ScreenLocalGame extends Screen implements ActionListener{
 		showTextButton(leftEnergy, oneEnergy + "/10");
 		showTextButton(rightEnergy, twoEnergy + "/10");
 		
-		showBox(leftPFP);
-		showBox(rightPFP);
+//		showBox(leftPFP);
+//		showBox(rightPFP);
 		
 		surface.textSize(25);
 		surface.textAlign(PConstants.LEFT);
@@ -228,10 +229,12 @@ public class ScreenLocalGame extends Screen implements ActionListener{
 			}
 			
 			float tempX;
-			float tempY = 197-75/2;
+			float tempY =  y/2+50-200+(102*0)+(94/2);
+			
+
 			
 			if(activePlayer.equals(p1)) {
-				tempX = 195-75/2;
+				tempX = x/2-485;
 			} else {
 				tempX = x/2+405-75/2;
 			}
@@ -299,18 +302,19 @@ public class ScreenLocalGame extends Screen implements ActionListener{
 		if (gameOver == 0) {			// game is not over
 			return;
 		} else if (gameOver == 1) {		// black won
-			System.out.println("black won");
+			System.out.println("white won");
 			gameInProgress = false;
 			activePlayer = p1;
 		} else if (gameOver == 2) {		// white won
-			System.out.println("white won");
+			System.out.println("black won");
 			gameInProgress = false;
 			activePlayer = p2;
-		} else if (gameOver == 3) {		// draw
-			System.out.println("draw");
-			gameInProgress = false;
-			activePlayer = null;
-		}
+		} 
+//		else if (gameOver == 3) {		// draw
+//			System.out.println("draw");
+//			gameInProgress = false;
+//			activePlayer = null;
+//		}
 		
 	}
 	
