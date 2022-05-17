@@ -16,7 +16,7 @@ public class Rook extends GamePiece{
 		damage = 2;
 		maxDist = 3;
 		energy = 4;
-		range = 3;
+		range = 1;
 		if (wht) {
 			super.setImgCode(ImageCodes.WHITE_ROOK);
 		} else {
@@ -47,17 +47,20 @@ public class Rook extends GamePiece{
 		if(target == null) {
 			for(Location l : moves) {
 				if(super.isWhite()) {
-					if(l.getCol() > toPick.getCol() && toPick.getRow() == l.getRow()) {
+					if(l.getCol() > toPick.getCol() ) {
 						toPick = l;
 					}
 				} else {
-					if(l.getCol() < toPick.getCol() && toPick.getRow() == l.getRow()) {
+					if(l.getCol() < toPick.getCol() ) {
 						toPick = l;
 					}
 				}
 			}
 		}
 		else {
+			if(loc.getDistanceFrom(target.getLocation()) <= Math.sqrt(range*range+range*range)+0.001) {
+				return loc;
+			}
 			for(Location l : moves) {
 				if(l.getDistanceFrom(target.getLocation()) < toPick.getDistanceFrom(target.getLocation())) {
 					toPick = l;
