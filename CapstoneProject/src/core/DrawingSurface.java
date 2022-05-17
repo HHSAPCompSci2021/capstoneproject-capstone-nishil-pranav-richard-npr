@@ -50,6 +50,7 @@ public class DrawingSurface extends PApplet {
 	private ArrayList<Screen> screens;
 	private ArrayList<Integer> keys;
 	private ArrayList<PImage> images;
+	private ArrayList<UserPost> queue;
 	private String playerName;
 	private Board board;
 	
@@ -66,6 +67,7 @@ public class DrawingSurface extends PApplet {
 		// SETUP NORMAL FIELDS
 		playerName = null;
 		board = null;
+		queue = new ArrayList<UserPost>();
 		
 		
 		// DATABASE SETUP
@@ -108,7 +110,7 @@ public class DrawingSurface extends PApplet {
 		ScreenOnlineNameCreate screen3 = new ScreenOnlineNameCreate(this, queueRef);
 		screens.add(screen3);
 		
-		ScreenQueue screen4 = new ScreenQueue(this, ref);
+		ScreenQueue screen4 = new ScreenQueue(this, ref, queue);
 		screens.add(screen4);
 		
 		ScreenLocalGame screen5 = new ScreenLocalGame(this);
@@ -140,12 +142,12 @@ public class DrawingSurface extends PApplet {
 		images.add(ImageCodes.BLACK_QUEEN, loadImage(String.format("Images%sChessPieces%sblackSide%sblackQueen.gif", fileSeparator, fileSeparator, fileSeparator)));
 		images.add(ImageCodes.BLACK_ROOK, loadImage(String.format("Images%sChessPieces%sblackSide%sblackRook.gif", fileSeparator, fileSeparator, fileSeparator)));
 		
-		images.add(ImageCodes.WHITE_BISHOP, loadImage(String.format("Images%sChessPieces%swhiteSide%swhiteBishop.gif", fileSeparator, fileSeparator, fileSeparator)));
-		images.add(ImageCodes.WHITE_KING, loadImage(String.format("Images%sChessPieces%swhiteSide%swhiteKing.gif", fileSeparator, fileSeparator, fileSeparator)));
-		images.add(ImageCodes.WHITE_KNIGHT, loadImage(String.format("Images%sChessPieces%swhiteSide%swhiteKnight.gif", fileSeparator, fileSeparator, fileSeparator)));
-		images.add(ImageCodes.WHITE_PAWN, loadImage(String.format("Images%sChessPieces%swhiteSide%swhitePawn.gif", fileSeparator, fileSeparator, fileSeparator)));
-		images.add(ImageCodes.WHITE_QUEEN, loadImage(String.format("Images%sChessPieces%swhiteSide%swhiteQueen.gif", fileSeparator, fileSeparator, fileSeparator)));
-		images.add(ImageCodes.WHITE_ROOK, loadImage(String.format("Images%sChessPieces%swhiteSide%swhiteRook.gif", fileSeparator, fileSeparator, fileSeparator)));
+		images.add(ImageCodes.WHITE_BISHOP, loadImage(String.format("Images%sChessPieces%swhiteSide%swhiteBishop.png", fileSeparator, fileSeparator, fileSeparator)));
+		images.add(ImageCodes.WHITE_KING, loadImage(String.format("Images%sChessPieces%swhiteSide%swhiteKing.png", fileSeparator, fileSeparator, fileSeparator)));
+		images.add(ImageCodes.WHITE_KNIGHT, loadImage(String.format("Images%sChessPieces%swhiteSide%swhiteKnight.png", fileSeparator, fileSeparator, fileSeparator)));
+		images.add(ImageCodes.WHITE_PAWN, loadImage(String.format("Images%sChessPieces%swhiteSide%swhitePawn.png", fileSeparator, fileSeparator, fileSeparator)));
+		images.add(ImageCodes.WHITE_QUEEN, loadImage(String.format("Images%sChessPieces%swhiteSide%swhiteQueen.png", fileSeparator, fileSeparator, fileSeparator)));
+		images.add(ImageCodes.WHITE_ROOK, loadImage(String.format("Images%sChessPieces%swhiteSide%swhiteRook.png", fileSeparator, fileSeparator, fileSeparator)));
 		
 		images.add(ImageCodes.BACKGROUND, loadImage(String.format("Images%sbackground.jpg", fileSeparator, fileSeparator, fileSeparator)));
 		images.add(ImageCodes.BLACK_SQUARE, loadImage(String.format("Images%sblackSquare.png", fileSeparator, fileSeparator, fileSeparator)));
@@ -314,13 +316,21 @@ public class DrawingSurface extends PApplet {
 	public Board getBoard() {
 		return board;
 	}
+	
+//	/** 
+//	 * Returns an ArrayList of UserPosts with players in the queue.
+//	 * @return an ArrayList of UserPosts with players in the queue.
+//	 */
+//	public ArrayList<UserPost> getQueue() {
+//		return queue;
+//	}
 
 	/**
 	 * 
 	 * Handles all changes to the database reference. Because Firebase uses a separate thread than most other processes we're using (both Swing and Processing),
 	 * we need to have a strategy for ensuring that code is executed somewhere besides these methods.
 	 * 
-	 * @author john_shelby
+	 * @author john_shelby, Nishil Anand
 	 *
 	 */
 	public class DatabaseChangeListener implements ChildEventListener {
@@ -363,7 +373,9 @@ public class DrawingSurface extends PApplet {
 					String postType = postN.postType;
 					if (postType != null && postType.matches("USER")) {
 						UserPost post = dataSnapshot.getValue(UserPost.class);
-						System.out.println(" in queue: " + post.getPlayerName());
+						System.out.println(post);
+						queue.add(post);
+//						System.out.println(post.getPlayerName());
 					} else {
 //						System.out.println(postType);
 					}
@@ -375,8 +387,12 @@ public class DrawingSurface extends PApplet {
 
 		@Override
 		public void onChildChanged(DataSnapshot arg0, String arg1) {
-			// TODO Auto-generated method stub
-
+			Post postN = arg0.getValue(Post.class);
+			String postType = postN.postType;
+			if (postType != null && postType.matches("USER")) {
+				UserPost post = arg0.getValue(UserPost.class);
+				System.out.println("  CHANGE " + post);
+			}
 		}
 
 		@Override

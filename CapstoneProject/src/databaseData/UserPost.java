@@ -58,4 +58,12 @@ public class UserPost extends Post {
 		return playerID;
 	}
 	
+	/**
+	 * Returns a String representing this class. Useful for debugging.
+	 * @return a String representing this class.
+	 */
+	public String toString() {
+		return "UserPost: " + "id-"+playerID + " name-"+playerName;
+	}
+	
 }
