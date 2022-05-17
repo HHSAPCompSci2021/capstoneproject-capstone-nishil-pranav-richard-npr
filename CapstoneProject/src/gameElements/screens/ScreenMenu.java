@@ -18,7 +18,7 @@ public class ScreenMenu extends Screen {
 	
 	private DrawingSurface surface;
 	
-//	private Rectangle button;
+	private Rectangle button;
 //	private Rectangle multiplayerButton;
 	private Rectangle localButton;
 	private Rectangle instructionsButton;
@@ -27,7 +27,7 @@ public class ScreenMenu extends Screen {
 		super(1200,600);
 		this.surface = surface;
 		
-//		button = new Rectangle(1200/2-100,600/2-50,175,50);
+		button = new Rectangle(1200/2-100,600/2-150,175,50);
 //		multiplayerButton = new Rectangle(1200/2-100,600/2+50,175,50);
 		instructionsButton = new Rectangle(1200/2-100,600/2-50,175,50);
 		localButton = new Rectangle(1200/2-100,600/2+50,175,50);
@@ -40,8 +40,8 @@ public class ScreenMenu extends Screen {
 		//surface.background(255,255,255);
 		surface.image(surface.getImages().get(ImageCodes.BACKGROUND), 0, 0, 1200, 600);
 		
-//		surface.textSize(20);
-//		showButton(button, "Test Database");
+		surface.textSize(20);
+		showButton(button, "Test Database");
 //		surface.textSize(16);
 //		showButton(multiplayerButton, "Find opponent (wip)");
 		surface.textSize(18);
@@ -59,8 +59,8 @@ public class ScreenMenu extends Screen {
 	public void mousePressed() {
 		Point p = surface.actualCoordinatesToAssumed(new Point(surface.mouseX,surface.mouseY));
 		
-//		if (button.contains(p))
-//			surface.switchScreen(ScreenSwitcher.SCREEN2);
+		if (button.contains(p))
+			surface.switchScreen(ScreenSwitcher.SCREEN3);
 		
 //		if (multiplayerButton.contains(p))
 //			surface.switchScreen(ScreenSwitcher.SCREEN3);
