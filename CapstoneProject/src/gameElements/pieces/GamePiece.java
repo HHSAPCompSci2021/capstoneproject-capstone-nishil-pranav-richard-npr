@@ -111,9 +111,6 @@ public abstract class GamePiece {
 	
 	public void takeDamage(int dmg) {
 		health -= dmg;
-		if(health <= 0) {
-			//die();
-		}
 	}
  
 	public void attack(GamePiece enemy) {
