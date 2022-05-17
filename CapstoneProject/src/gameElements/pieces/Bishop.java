@@ -50,14 +50,14 @@ public class Bishop extends GamePiece{
 					if(l.getCol() > toPick.getCol() ) {
 						toPick = l;
 					}
-					else if (l.getCol() == toPick.getCol() && Math.abs((double)l.getRow()-board.getHeight()/2+1) < Math.abs((double)toPick.getRow()-board.getHeight()/2+1)) {
+					else if (l.getCol() == toPick.getCol() && Math.abs((double)l.getRow()-board.getHeight()/2) < Math.abs((double)toPick.getRow()-board.getHeight()/2)) {
 						toPick = l;
 					}
 				} else {
 					if(l.getCol() < toPick.getCol() ) {
 						toPick = l;
 					}
-					else if (l.getCol() == toPick.getCol() && Math.abs((double)l.getRow()-board.getHeight()/2+1) < Math.abs((double)toPick.getRow()-board.getHeight()/2+1)) {
+					else if (l.getCol() == toPick.getCol() && Math.abs((double)l.getRow()-board.getHeight()/2) < Math.abs((double)toPick.getRow()-board.getHeight()/2)) {
 						toPick = l;
 					}
 				}
