@@ -298,12 +298,12 @@ public class ScreenLocalGame extends Screen implements ActionListener{
 		
 		if (gameOver == 0) {			// game is not over
 			return;
-		} else if (gameOver == 1) {		// white won
-			System.out.println("white won");
+		} else if (gameOver == 1) {		// black won
+			System.out.println("black won");
 			gameInProgress = false;
 			activePlayer = p1;
-		} else if (gameOver == 2) {		// black won
-			System.out.println("black won");
+		} else if (gameOver == 2) {		// white won
+			System.out.println("white won");
 			gameInProgress = false;
 			activePlayer = p2;
 		} else if (gameOver == 3) {		// draw
