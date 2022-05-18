@@ -15,6 +15,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import core.DrawingSurface;
+import databaseData.BoardPost;
 import databaseData.UserPost;
 import processing.core.PConstants;
 
@@ -23,16 +24,32 @@ public class ScreenQueue extends Screen {
 	private DrawingSurface surface;
 	private DatabaseReference ref;
 	private ArrayList<UserPost> queue;
+	private ScreenOnlineGame gameScreen;
 	
 	private Rectangle button;
 	
 	private int i;
+	private boolean updated;
+//	private boolean white;
+	private boolean firstLoop;
+	private DatabaseReference gameCreated;
 	
-	public ScreenQueue(DrawingSurface surface, DatabaseReference ref, ArrayList<UserPost> queue) {
+	public ScreenQueue(DrawingSurface surface, DatabaseReference ref, ArrayList<UserPost> queue, ScreenOnlineGame gameScreen) {
 		super(1200,600);
 		this.surface = surface;
 		this.ref = ref;
 		this.queue = queue;
+		this.gameScreen = gameScreen;
+		this.firstLoop = true;
+		
+		/*
+		 * when there are 2 players in the queue, the one that joined first is white
+		 */
+//		if (queue.size() > 0) {
+//			white = false;
+//		} else {
+//			white = true;
+//		}
 		
 		button = new Rectangle(1200/2-100,600/2-50,200,50);
 	}
@@ -40,26 +57,62 @@ public class ScreenQueue extends Screen {
 	
 	public void draw() {
 		
+		// CHECK FOR OPPONENTS
+		
+		String str = "";
+		str = Integer.toString(queue.size());
+		
+		
+		if (firstLoop) {
+			firstLoop = false;
+			if (queue.size() > 0) {		// if there is someone already waiting in queue
+				BoardPost board = new BoardPost();
+				DatabaseReference boardRef = surface.postData(board);
+				gameScreen.setNames("a", "b");
+				gameScreen.setBoardRef(boardRef);
+				surface.switchScreen(ScreenSwitcher.SCREEN8);
+				return;
+			}
+		}
+		
+		
+		if (gameCreated != null && queue.size() == 2) {
+			gameScreen.setNames("a", "b");
+			gameScreen.setBoardRef(gameCreated);
+			surface.switchScreen(ScreenSwitcher.SCREEN8);
+			return;
+		}
+		
+		
+		
+		
 		// SCREEN STUFF
 		surface.pushStyle();
 		surface.background(255,255,255);
 		
 		surface.textSize(20);
 		
-		showButton(button, "Waiting for Opponent");
+//		String str;
+//		if (white) {
+//			str = "white";
+//		} else {
+//			str = "black";
+//		}
+//		showButton(button, str);
+		showButton(button, str);
 		
 		surface.popStyle();
 		
-		
-		
-		// CHECK FOR OPPONENTS
-//		i++;
-//		if (i > 60) {
-//			i = 0;
-//			surface.postData(new MessagePost("Hello world"), ref.child("Test stuff"));
-//			
-//		}
-		
+	}
+	
+	public void queueUpdated() {
+		updated = true;
+//		System.out.println("updatedd");
+//		white = false;
+	}
+	
+	public void gameCreated(DatabaseReference ref) {
+		gameCreated = ref;
 	}
 	
 	private void showButton(Rectangle rectangle, String buttonText) {

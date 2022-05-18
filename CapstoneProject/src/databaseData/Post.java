@@ -44,12 +44,10 @@ public class Post {
 	 * @param type The type of message this Post holds - MESSAGE or USER
 	 * */
 	public Post(String type) {
-		if (type == "MESSAGE") {
-			postType = type;
-		} else if (type == "USER") {
+		if (type == "MESSAGE" || type == "USER" || type == "BOARD") {
 			postType = type;
 		} else {
-			System.out.println("unknown post type: " + type);
+			System.err.println("unknown post type: " + type);
 		}
 	}
 	

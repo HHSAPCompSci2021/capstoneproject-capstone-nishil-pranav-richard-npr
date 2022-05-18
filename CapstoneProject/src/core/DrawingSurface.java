@@ -18,6 +18,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import databaseData.BoardPost;
 import databaseData.Post;
 import databaseData.UserPost;
 import gameElements.board.Board;
@@ -26,6 +27,7 @@ import gameElements.screens.ScreenInstructions;
 import gameElements.screens.ScreenLocalGame;
 import gameElements.screens.ScreenLocalNameCreate;
 import gameElements.screens.ScreenMenu;
+import gameElements.screens.ScreenOnlineGame;
 import gameElements.screens.ScreenOnlineNameCreate;
 import gameElements.screens.ScreenQueue;
 import gameElements.screens.ScreenSecond;
@@ -53,6 +55,7 @@ public class DrawingSurface extends PApplet {
 	private ArrayList<UserPost> queue;
 	private String playerName;
 	private Board board;
+	public UserPost player;		// the player running this program, NETWORKING ONLY. may be null		// TODO: make private later maybe
 	
 	// Database stuff
 	private DatabaseReference ref;
@@ -73,6 +76,7 @@ public class DrawingSurface extends PApplet {
 		// DATABASE SETUP
 		FileInputStream refreshToken;
 		DatabaseReference queueRef = null;
+		DatabaseReference gamesRef = null;
 		DatabaseReference test = null;
 		try {
 
@@ -86,9 +90,11 @@ public class DrawingSurface extends PApplet {
 			FirebaseApp.initializeApp(options);
 			ref = FirebaseDatabase.getInstance().getReference();
 			queueRef = ref.child("Queue");
+			gamesRef = ref.child("Games");
 			
 			ref.addChildEventListener(new DatabaseChangeListener());
 			queueRef.addChildEventListener(new DatabaseChangeListener());
+			gamesRef.addChildEventListener(new DatabaseChangeListener());
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -110,7 +116,7 @@ public class DrawingSurface extends PApplet {
 		ScreenOnlineNameCreate screen3 = new ScreenOnlineNameCreate(this, queueRef);
 		screens.add(screen3);
 		
-		ScreenQueue screen4 = new ScreenQueue(this, ref, queue);
+		ScreenOnlineGame screen4 = new ScreenOnlineGame(this);
 		screens.add(screen4);
 		
 		ScreenLocalGame screen5 = new ScreenLocalGame(this);
@@ -121,6 +127,9 @@ public class DrawingSurface extends PApplet {
 		
 		ScreenInstructions screen7 = new ScreenInstructions(this);
 		screens.add(screen7);
+		
+		ScreenQueue screen8 = new ScreenQueue(this, ref, queue, screen4);
+		screens.add(screen8);
 		
 		activeScreen = screens.get(0);
 		board = new Board();
@@ -317,6 +326,28 @@ public class DrawingSurface extends PApplet {
 		return board;
 	}
 	
+	/**
+	 * Tells the ScreenQueue that the queue was updated if it is the active screen
+	 */
+	public void updatedQueue() {
+		Screen screen = screens.get(7);
+		if (this.activeScreen.equals(screens.get(7))) {
+			ScreenQueue queueScreen = (ScreenQueue) screen;
+			queueScreen.queueUpdated();
+		}
+	}
+	
+	/**
+	 * Tells the ScreenQueue that a game was made if it is the active screen
+	 */
+	public void gameCreated(DatabaseReference ref) {
+		Screen screen = screens.get(7);
+		if (this.activeScreen.equals(screens.get(7))) {
+			ScreenQueue queueScreen = (ScreenQueue) screen;
+			queueScreen.gameCreated(ref);
+		}
+	}
+	
 //	/** 
 //	 * Returns an ArrayList of UserPosts with players in the queue.
 //	 * @return an ArrayList of UserPosts with players in the queue.
@@ -371,11 +402,17 @@ public class DrawingSurface extends PApplet {
 				public void run() {
 					Post postN = dataSnapshot.getValue(Post.class);
 					String postType = postN.postType;
-					if (postType != null && postType.matches("USER")) {
-						UserPost post = dataSnapshot.getValue(UserPost.class);
-						System.out.println(post);
-						queue.add(post);
-//						System.out.println(post.getPlayerName());
+					if (postType != null ) {
+						if (postType.matches("USER")) {
+							UserPost post = dataSnapshot.getValue(UserPost.class);
+							System.out.println(post);
+							queue.add(post);
+							updatedQueue();
+						} else if (postType.matches("BOARD")) {
+							BoardPost post = dataSnapshot.getValue(BoardPost.class);
+							System.out.println(post);
+							gameCreated(dataSnapshot.getRef());
+						}
 					} else {
 //						System.out.println(postType);
 					}

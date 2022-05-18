@@ -75,7 +75,8 @@ public class ScreenOnlineNameCreate extends Screen {
 		if (boxSelected) {
 			if (surface.keyCode == KeyEvent.VK_ENTER) {
 				String playerName = boxText.toString();
-				addPlayerToQueue(playerName);
+				UserPost user = addPlayerToQueue(playerName);
+				surface.player = user;
 				surface.setPlayerName(playerName);
 				surface.switchScreen(ScreenSwitcher.SCREEN4);
 			} else if (ascii >= 32 && ascii <= 126) {
@@ -92,9 +93,10 @@ public class ScreenOnlineNameCreate extends Screen {
 		surface.text(buttonText, rectangle.x+rectangle.width/2, rectangle.y+rectangle.height/2+6);
 	}
 	
-	private void addPlayerToQueue(String playerName) {
+	private UserPost addPlayerToQueue(String playerName) {
 		UserPost user = new UserPost(playerName);
 		queueFolder.push().setValueAsync(user);
+		return user;
 //		DatabaseReference pushedPostRef = surface.postData(user, queueFolder);
 //		String playerID = pushedPostRef.getKey();
 //		user.setPlayerID(playerID);
