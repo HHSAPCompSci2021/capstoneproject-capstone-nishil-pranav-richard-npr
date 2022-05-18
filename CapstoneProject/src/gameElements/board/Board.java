@@ -48,11 +48,12 @@ public class Board {
 //					System.out.println(piece.getImgCode());
 					PImage img = images.get(piece.getImgCode());
 					//img.resize((int)sqHeight-2, (int)sqHeight-2);
-					surface.image(img, x, y, (int)sqWidth/2, (int)sqHeight-5);	// assumes that height is larger than width
+					surface.imageMode(PConstants.CENTER);
+					surface.image(img, x, y, (int)sqWidth, (int)sqHeight);	// assumes that height is larger than width
 					surface.textAlign(PConstants.CENTER);
 					surface.fill(0);
 					surface.textSize(10);
-					surface.text(piece.getHealth() + "/" + piece.getFullHealth(), x, y-15);
+					surface.text(piece.getHealth() + "/" + piece.getFullHealth(), x, y-10);
 				}
 				
 				x+=sqWidth;
@@ -139,8 +140,8 @@ public class Board {
 		
 		if (x < 0 || y < 0 || x > width || y > height) return null;
 		
-		x = x/width*10;
-		y = y/height*10;
+		x = x/width*board.length;
+		y = y/height*board[0].length;
 		
 		return new Point((int)x, (int)y);
 	}
