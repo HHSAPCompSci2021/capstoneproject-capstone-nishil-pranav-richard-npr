@@ -35,4 +35,12 @@ public class BoardPost extends Post {
 		return board;
 	}
 	
+	/**
+	 * Sets a new board
+	 * @param board the new board
+	 */
+	public void setBoard(Board board) {
+		this.board = board;
+	}
+	
 }
