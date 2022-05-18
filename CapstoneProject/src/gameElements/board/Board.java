@@ -38,8 +38,9 @@ public class Board {
 		for(int j = 0; j < board.length; j++) {
 			for(int i = 0; i < board[j].length; i++) {
 				// draw outer box
-				surface.fill(255);
-				surface.stroke(0);
+				surface.fill(18, 82, 18);
+//				surface.stroke(0);
+				surface.noStroke();
 				surface.rect(x, y, sqWidth, sqHeight);
 				
 				// draw piece
