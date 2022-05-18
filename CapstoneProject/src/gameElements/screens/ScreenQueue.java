@@ -32,7 +32,7 @@ public class ScreenQueue extends Screen {
 	private boolean updated;
 //	private boolean white;
 	private boolean firstLoop;
-	private DatabaseReference gameCreated;
+	private BoardPost gameCreated;
 	
 	public ScreenQueue(DrawingSurface surface, DatabaseReference ref, ArrayList<UserPost> queue, ScreenOnlineGame gameScreen) {
 		super(1200,600);
@@ -113,8 +113,8 @@ public class ScreenQueue extends Screen {
 //		white = false;
 	}
 	
-	public void gameCreated(DatabaseReference ref) {
-		gameCreated = ref;
+	public void gameCreated(BoardPost post) {
+		gameCreated = post;
 	}
 	
 	private void showButton(Rectangle rectangle, String buttonText) {

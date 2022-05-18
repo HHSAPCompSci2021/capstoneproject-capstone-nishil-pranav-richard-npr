@@ -186,6 +186,8 @@ public class DrawingSurface extends PApplet {
 			((ScreenLocalNameCreate) activeScreen).keyPressed();
 		} else if (activeScreen == screens.get(ScreenSwitcher.SCREEN5)) {
 			((ScreenLocalGame) activeScreen).keyPressed();
+		} else if (activeScreen == screens.get(ScreenSwitcher.SCREEN8)) {
+			((ScreenOnlineGame) activeScreen).keyPressed();
 		}
 	}
 
@@ -340,15 +342,15 @@ public class DrawingSurface extends PApplet {
 	/**
 	 * Tells the ScreenQueue that a game was made if it is the active screen
 	 */
-	public void gameCreated(DatabaseReference ref) {
+	public void gameCreated(BoardPost post) {
 		Screen queueScreen = screens.get(7);
 		Screen gameScreen = screens.get(3);
 		if (this.activeScreen.equals(screens.get(7))) {
 			ScreenQueue queueScreen2 = (ScreenQueue) queueScreen;
-			queueScreen2.gameCreated(ref);
+			queueScreen2.gameCreated(post);
 		} else if (this.activeScreen.equals(screens.get(3))) {
 			ScreenOnlineGame gameScreen2 = (ScreenOnlineGame) gameScreen;
-			gameScreen2.setBoardRef(ref);
+			gameScreen2.setBoardRef(post);
 		}
 		  
 	}
@@ -416,7 +418,7 @@ public class DrawingSurface extends PApplet {
 						} else if (postType.matches("BOARD")) {
 							BoardPost post = dataSnapshot.getValue(BoardPost.class);
 							System.out.println(post);
-							gameCreated(dataSnapshot.getRef());
+							gameCreated(post);
 						}
 					} else {
 //						System.out.println(postType);
