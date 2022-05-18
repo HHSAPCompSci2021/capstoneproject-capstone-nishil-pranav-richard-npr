@@ -48,7 +48,7 @@ public class ScreenLocalGame extends Screen implements ActionListener{
 	private final int y = 600;
 	
 	private final int boardX = x/2-323;
-	private final int boardY = y/4+20;
+	private final int boardY = y/4+14;
 	private final int boardWidth = 500;
 	private final int boardHeight = 400;
 	private final int MAX_KING_HP = 100;

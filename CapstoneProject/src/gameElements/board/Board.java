@@ -25,7 +25,7 @@ public class Board {
 	}
 	
 	public Board() {
-		board = new GamePiece[15][15];
+		board = new GamePiece[10][10];
 	}
 	
 	public void draw(DrawingSurface surface, float x, float y, float width, float height) {
