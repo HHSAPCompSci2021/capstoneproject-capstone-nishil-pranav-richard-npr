@@ -48,7 +48,7 @@ public class ScreenLocalGame extends Screen implements ActionListener{
 	private final int y = 600;
 	
 	private final int boardX = x/2-323;
-	private final int boardY = y/4+20;
+	private final int boardY = y/4+14;
 	private final int boardWidth = 500;
 	private final int boardHeight = 400;
 	private final int MAX_KING_HP = 100;
@@ -66,18 +66,18 @@ public class ScreenLocalGame extends Screen implements ActionListener{
 		super(1200,600);
 		this.surface = surface;
 		
-		 leftKing = new Rectangle(x/2-390,y/2+50,100,400);
-		rightKing = new Rectangle(x/2+300,y/2+50,100,400);
+		leftKing = new Rectangle(x/2-390,y/2+50,100,400);
+		rightKing = new Rectangle(x/2+210,y/2+50,100,400);
 		//x/2-290
-		 leftKingHP = new Rectangle(x/2-390,y/2+50,50,20);
-		rightKingHP = new Rectangle(x/2+300,y/2+50,50,20);
+		leftKingHP = new Rectangle(x/2-390,y/2+50,50,20);
+		rightKingHP = new Rectangle(x/2+210,y/2+50,50,20);
 		
 		board = surface.getBoard();
 		p1 = new Player(board, true);
 		p2 = new Player(board, false);
 		 
 		leftEnergy = new Rectangle(x/2-557,y/2+50,50,20);
-		rightEnergy = new Rectangle(x/2+507,y/2+50,50,20);
+		rightEnergy = new Rectangle(x/2+385,y/2+50,50,20);
 		
 //		leftPFP = new Rectangle(x/2-405,y/2-275+(94/2),94,94);
 //		rightPFP = new Rectangle(x/2+405,y/2-275+(94/2),94,94);
@@ -133,7 +133,7 @@ public class ScreenLocalGame extends Screen implements ActionListener{
         	tempY+=90;
         }
 
-        tempX = x/2+405;
+        tempX = x/2+310;
         tempY = y/2+50-200+(102*0)+(94/2);
         for(int i = 0; i < p2.getCards().size() && i < 5; i++) {
         	Card c = p2.getCards().get(i);
@@ -236,7 +236,7 @@ public class ScreenLocalGame extends Screen implements ActionListener{
 			if(activePlayer.equals(p1)) {
 				tempX = x/2-485;
 			} else {
-				tempX = x/2+405-75/2;
+				tempX = x/2+310;
 			}
 			
 	        for(int i = 0; i < activePlayer.getCards().size() && i < 5; i++) {
