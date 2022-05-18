@@ -341,11 +341,16 @@ public class DrawingSurface extends PApplet {
 	 * Tells the ScreenQueue that a game was made if it is the active screen
 	 */
 	public void gameCreated(DatabaseReference ref) {
-		Screen screen = screens.get(7);
+		Screen queueScreen = screens.get(7);
+		Screen gameScreen = screens.get(3);
 		if (this.activeScreen.equals(screens.get(7))) {
-			ScreenQueue queueScreen = (ScreenQueue) screen;
-			queueScreen.gameCreated(ref);
+			ScreenQueue queueScreen2 = (ScreenQueue) queueScreen;
+			queueScreen2.gameCreated(ref);
+		} else if (this.activeScreen.equals(screens.get(3))) {
+			ScreenOnlineGame gameScreen2 = (ScreenOnlineGame) gameScreen;
+			gameScreen2.setBoardRef(ref);
 		}
+		  
 	}
 	
 //	/** 
@@ -426,9 +431,9 @@ public class DrawingSurface extends PApplet {
 		public void onChildChanged(DataSnapshot arg0, String arg1) {
 			Post postN = arg0.getValue(Post.class);
 			String postType = postN.postType;
-			if (postType != null && postType.matches("USER")) {
-				UserPost post = arg0.getValue(UserPost.class);
-				System.out.println("  CHANGE " + post);
+			if (postType != null && postType.matches("BOARD")) {
+				BoardPost post = arg0.getValue(BoardPost.class);
+				System.out.println(" BOARD CHANGE ");
 			}
 		}
 

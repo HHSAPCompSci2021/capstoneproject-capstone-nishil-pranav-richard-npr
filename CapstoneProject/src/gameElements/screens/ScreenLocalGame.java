@@ -75,7 +75,7 @@ public class ScreenLocalGame extends Screen implements ActionListener{
 		board = surface.getBoard();
 		p1 = new Player(board, true);
 		p2 = new Player(board, false);
-		 
+		
 		leftEnergy = new Rectangle(x/2-557,y/2+50,50,20);
 		rightEnergy = new Rectangle(x/2+385,y/2+50,50,20);
 		
