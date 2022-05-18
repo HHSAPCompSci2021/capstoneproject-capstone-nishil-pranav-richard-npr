@@ -135,15 +135,21 @@ public class Board {
 	 * @return A Point object representing a coordinate within the grid (x, y) (column, row).
 	 */
 	public Point clickToIndex(Point p, float x, float y, float width, float height) {
-		x = p.x - x;
-		y = p.y - y;
+		float x1 = p.x - x;
+		float y1 = p.y - y;
 		
-		if (x < 0 || y < 0 || x > width || y > height) return null;
+		System.out.println("x and y: " + x1 + " " + y1);
 		
-		x = x/width*board.length;
-		y = y/height*board[0].length;
+		if (x1 < 0 || y1 < 0 || x1 > width || y1 > height) return null;
 		
-		return new Point((int)x, (int)y);
+		float tileWidth = width/(float)board.length;
+		float tileHeight = height/(float)board[0].length;
+		
+		x1 = x1/tileWidth;
+		y1 = y1/tileHeight;
+		
+		
+		return new Point((int)x1, (int)y1);
 	}
 	
 	public void play() {
