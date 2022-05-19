@@ -13,7 +13,9 @@ import gameElements.pieces.Queen;
 public class ScreenOnlineGame extends Screen {
 	
 	private DrawingSurface surface;
-	private BoardPost boardRef;
+
+	private DatabaseReference boardRef;
+	private BoardPost boardPost;
 	private Board board;
 	
 	public ScreenOnlineGame(DrawingSurface surface) {
@@ -26,8 +28,10 @@ public class ScreenOnlineGame extends Screen {
 		
 		surface.background(255);
 		
-		if (boardRef == null) return;
-		board = boardRef.getBoard();
+		
+//		board = boardPost.getBoard();
+//		board = surface.getBoard();
+		board = new Board();
 		board.draw(surface, 0, 0, DRAWING_WIDTH, DRAWING_HEIGHT);
 		
 	}
@@ -36,13 +40,32 @@ public class ScreenOnlineGame extends Screen {
 		if (surface.key == 'c') {	
 			if (board == null) return;
 			board.add(new Queen(0, 0, board, true));
-			System.out.println(board.get(0, 0).getName());
-		} else {
+//			boardPost.getReference().setValueAsync(boardPost);
+//			boardPost.updateGrid();
+			
+			System.out.println("        " + board.get(0,0).toString());
+			boardPost.getReference().removeValueAsync();		// remove board from database
+			BoardPost post = new BoardPost();
+			post.setBoard(board);
+			board.removeArray();
+			DatabaseReference boardRef = surface.postData(post);
+			
+//			DatabaseReference boardPost = surface.postData(this.boardRef);			// error with class mapping???
+//			surface.postData(boardPost);
+			
+//			String ref = boardPost.getReference().toString();
+//			ref = ref.substring(0,ref.lastIndexOf("	/"));
+//			System.out.println(ref);
+			
+			// https://chessroyale-e5d70-default-rtdb.firebaseio.com/-N2Nr20CijKMEfScRik1
+			
+//			System.out.println(board.get(0, 0).getName());
+//			System.out.println(boardPost.getReference());
 		}
 	}
 	
 	public void setBoardRef(BoardPost post) {
-		this.boardRef = post;
+		this.boardPost = post;
 	}
 	
 	

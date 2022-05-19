@@ -1,6 +1,11 @@
 package databaseData;
 
+import java.util.ArrayList;
+
+import com.google.firebase.database.DatabaseReference;
+
 import gameElements.board.Board;
+import gameElements.pieces.GamePiece;
 
 /**
  * The BoardPost class represents a Post of a Board
@@ -9,6 +14,8 @@ import gameElements.board.Board;
 public class BoardPost extends Post {
 	
 	private Board board;
+	private DatabaseReference ref;
+	private ArrayList<ArrayList<GamePiece>> grid;
 	
 	/**
 	 * Creates a new BoardPost object
@@ -16,6 +23,7 @@ public class BoardPost extends Post {
 	public BoardPost() {
 		super("BOARD");
 		this.board = new Board();
+		updateGrid();
 	}
 	
 	/**
@@ -25,6 +33,7 @@ public class BoardPost extends Post {
 	public BoardPost(Board board) {
 		super("BOARD");
 		this.board = board;
+		updateGrid();
 	}
 	
 	/**
@@ -41,6 +50,31 @@ public class BoardPost extends Post {
 	 */
 	public void setBoard(Board board) {
 		this.board = board;
+		updateGrid();
+	}
+	
+	public void setReference(DatabaseReference ref) {
+		this.ref = ref;
+	}
+	
+	public DatabaseReference getReference() {
+		return ref;
+	}
+	
+//	public ArrayList<ArrayList<GamePiece>> getGrid() {
+//		return grid;
+//	}
+	
+	public void updateGrid() {
+//		if (this.board == null) return;
+//		GamePiece[][] gridArray = board.getBoard();	
+//		grid = new ArrayList<ArrayList<GamePiece>>();
+//		for (int i = 0; i < gridArray.length; i++ ) {
+//			for (int j = 0; j < gridArray[i].length; j++ ) {
+//				grid.get(i).set(j, gridArray[i][j]);
+//			}
+//		}
+		this.grid = board.getBoard();
 	}
 	
 }

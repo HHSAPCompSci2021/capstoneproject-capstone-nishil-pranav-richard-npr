@@ -272,7 +272,7 @@ public class DrawingSurface extends PApplet {
 		postRef.setValueAsync(data);
 		return postRef;
 	}
-	
+
 	/**
 	 * Deletes all data stored in the database (main parent folder).
 	 */
@@ -355,6 +355,7 @@ public class DrawingSurface extends PApplet {
 		  
 	}
 	
+	
 //	/** 
 //	 * Returns an ArrayList of UserPosts with players in the queue.
 //	 * @return an ArrayList of UserPosts with players in the queue.
@@ -417,7 +418,9 @@ public class DrawingSurface extends PApplet {
 							updatedQueue();
 						} else if (postType.matches("BOARD")) {
 							BoardPost post = dataSnapshot.getValue(BoardPost.class);
-							System.out.println(post);
+							post.setReference(dataSnapshot.getRef());
+							System.out.println("    BOARD ADDED: " + post);
+							setBoard(post.getBoard());
 							gameCreated(post);
 						}
 					} else {
@@ -435,7 +438,10 @@ public class DrawingSurface extends PApplet {
 			String postType = postN.postType;
 			if (postType != null && postType.matches("BOARD")) {
 				BoardPost post = arg0.getValue(BoardPost.class);
-				System.out.println(" BOARD CHANGE ");
+				post.setReference(arg0.getRef());
+				System.out.println("    BOARD UPDATED: " + post);
+				setBoard(post.getBoard());
+//				gameCreated(post);
 			}
 		}
 

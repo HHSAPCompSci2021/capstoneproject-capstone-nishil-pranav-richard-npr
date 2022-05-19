@@ -236,4 +236,37 @@ public class Board {
 		return result;
 	}
 	
+	
+	// NETWORKING
+	
+	public void listToArray(ArrayList<ArrayList<GamePiece>> list) {
+		for (int i = 0; i < board.length; i++) {
+			for (int j = 0; j < board[i].length; j++) {
+				board[i][j] = list.get(i).get(j);
+			}
+		}
+	}
+	
+	// nulls array so it's safe to post. store data before using this
+	public void removeArray() {
+		this.board = null;
+	}
+	
+	
+	
+	// TODO: javadoc
+	public ArrayList<ArrayList<GamePiece>> getBoard() {
+		ArrayList<ArrayList<GamePiece>> grid = new ArrayList<ArrayList<GamePiece>>();
+		GamePiece[][] gridArray = board;
+		for (int i = 0; i < gridArray.length; i++ ) {
+			grid.add(new ArrayList<GamePiece>());
+			for (int j = 0; j < gridArray[i].length; j++ ) {
+				ArrayList<GamePiece> sub = grid.get(i);
+				GamePiece v = gridArray[i][j];
+				sub.add(v);
+			}
+		}
+		return grid;
+	}
+	
 }
