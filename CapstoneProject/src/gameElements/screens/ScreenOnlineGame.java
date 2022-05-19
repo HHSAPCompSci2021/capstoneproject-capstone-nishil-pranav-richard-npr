@@ -27,6 +27,7 @@ public class ScreenOnlineGame extends Screen {
 	public void draw() {
 		
 		surface.background(255);
+<<<<<<< Updated upstream
 		
 		
 //		board = boardPost.getBoard();
@@ -61,6 +62,13 @@ public class ScreenOnlineGame extends Screen {
 			
 //			System.out.println(board.get(0, 0).getName());
 //			System.out.println(boardPost.getReference());
+=======
+		if (boardRef == null) {
+			surface.background(0);
+			System.out.println(boardRef);
+		} else {
+			surface.text(boardRef.toString(), 50, (int)(50+Math.random()*300));
+>>>>>>> Stashed changes
 		}
 	}
 	

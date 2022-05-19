@@ -180,6 +180,7 @@ public class Board {
 			if (piece != null) {
 				boolean white = piece.isWhite();
 				if (!white) {
+					kingDamage(i, 0);
 					damageKing(piece.getDamage(), true);
 				}
 			}
@@ -189,6 +190,7 @@ public class Board {
 			if (piece != null) {
 				boolean black = !piece.isWhite();
 				if (!black) {
+					kingDamage(i, board[0].length-1);
 					damageKing(piece.getDamage(), false);
 				}
 			}
@@ -220,6 +222,10 @@ public class Board {
 		}
 	}
 	
+	private void kingDamage(int r, int c) {
+		board[r][c].takeDamage(board[r][c].getDamage());
+	}
+ 	
 	public void remove(int r, int c) {
 		board[r][c] = null;
 	}

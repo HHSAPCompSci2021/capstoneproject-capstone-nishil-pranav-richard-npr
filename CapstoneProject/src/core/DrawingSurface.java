@@ -47,7 +47,6 @@ public class DrawingSurface extends PApplet {
 	// Drawing/screen stuff
 	private final String fileSeparator = System.getProperty("file.separator");
 	public float ratioX, ratioY;
-	private static final int DRAWING_WIDTH = 1200, DRAWING_HEIGHT = 600;
 	private Screen activeScreen;
 	private ArrayList<Screen> screens;
 	private ArrayList<Integer> keys;

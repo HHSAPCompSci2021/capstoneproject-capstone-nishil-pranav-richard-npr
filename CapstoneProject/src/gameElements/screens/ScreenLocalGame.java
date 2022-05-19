@@ -79,7 +79,7 @@ public class ScreenLocalGame extends Screen implements ActionListener{
 		p2 = new Player(board, false);
 		
 		leftEnergy = new Rectangle(x/2-557,y/2+50,50,20);
-		rightEnergy = new Rectangle(x/2+507,y/2+50,50,20);
+		rightEnergy = new Rectangle(x/2+397,y/2+50,50,20);
 		
 //		leftPFP = new Rectangle(x/2-405,y/2-275+(94/2),94,94);
 //		rightPFP = new Rectangle(x/2+405,y/2-275+(94/2),94,94);
@@ -195,7 +195,7 @@ public class ScreenLocalGame extends Screen implements ActionListener{
 		int textSize = 60;
 		String text = "";
 		if (activePlayer == null) {
-			text = "draw";
+			text = "DRAW";
 		} else if (activePlayer.equals(p1)) {		// player1 (white) won
 			surface.textSize(40);
 			surface.text("VICTORY!", 1200/2, 200);
@@ -245,7 +245,7 @@ public class ScreenLocalGame extends Screen implements ActionListener{
 	        for(int i = 0; i < activePlayer.getCards().size() && i < 5; i++) {
 	        	Card c = activePlayer.getCards().get(i);
 	        	if(c.isPointInside(click.x, click.y, tempX, tempY, 75, 75)) { 
-	        		if(c.getEnergy() > activePlayer.getEnergy()) { //clicked on the Card, but don't have enough energy
+	        		if(c.getEnergy() > activePlayer.getEnergy()) { //clicked on the Card, but doesn't have enough energy
 	        			System.err.println("could not click on " + c.getPiece());
 	        			return;
 	        		}
@@ -259,11 +259,22 @@ public class ScreenLocalGame extends Screen implements ActionListener{
 		} else {
 			Point loc = board.clickToIndex(click, boardX, boardY, boardWidth, boardHeight); 
 			if(loc != null && activePiece != null && board.get(loc.x, loc.y) == null) { 
+				if(activePlayer.equals(p1)) { //white
+					if(loc.x >= board.getWidth()/2) {
+						System.err.println("CANNOT PLACE ON ENEMY'S SIDE!!!");
+						return;
+					} 
+				} else if(activePlayer.equals(p2)) {
+					if(loc.x <= board.getWidth()/2) {
+						System.err.println("CANNOT PLACE ON ENEMY'S SIDE!!!");
+						return;
+					} 
+				}
+				
 				GamePiece p = gpFromString(activePiece, activePlayer.isWhite(), loc.x, loc.y);
 				int cost = p.getEnergy();
 				board.add(p);
 				activePlayer.useEnergy(cost);
-				//TODO remove
 				if(activePlayer.equals(p1)) {
 					activePlayer = p2;
 				} else {
@@ -295,10 +306,8 @@ public class ScreenLocalGame extends Screen implements ActionListener{
 		this.nameTwo = nameTwo;
 	}
 	
-	/**
-	 * Checks if the game is over. If it is over, then print who won and update gameInProgress and activePlayer
-	 */
-	public void checkGameOver() {
+	
+	private void checkGameOver() {
 		
 		int gameOver = board.checkGameOver();
 		
@@ -313,11 +322,6 @@ public class ScreenLocalGame extends Screen implements ActionListener{
 			gameInProgress = false;
 			activePlayer = p2;
 		} 
-//		else if (gameOver == 3) {		// draw
-//			System.out.println("draw");
-//			gameInProgress = false;
-//			activePlayer = null;
-//		}
 		
 	}
 	
@@ -340,7 +344,7 @@ public class ScreenLocalGame extends Screen implements ActionListener{
 				activePlayer = null;
 				gameInProgress = false;
 			}
-			if (time % 4 == 0) { // adds 1 energy every 4 sec					//TODO change the modulus for different time
+			if (time % 7 == 0) { // adds 1 energy every 7 sec
 				p1.addEnergy(1);
 				p2.addEnergy(1);
 			}
