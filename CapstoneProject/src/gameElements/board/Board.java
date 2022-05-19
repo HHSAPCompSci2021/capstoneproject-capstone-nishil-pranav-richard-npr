@@ -5,11 +5,16 @@ import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 import core.DrawingSurface;
-import core.ImageCodes;
 import gameElements.pieces.GamePiece;
 import processing.core.PConstants;
 import processing.core.PImage;
 
+/**
+ * 
+ * @author Pranav Gunhal
+ * @author Richard Feng
+ * @author Nishil Anand
+ * */
 public class Board {
 	private GamePiece[][] board;
 	private ArrayList<PImage> images;
@@ -26,6 +31,9 @@ public class Board {
 	
 	public Board() {
 		board = new GamePiece[15][15];
+		images = null;
+		whiteKingHP = 100;
+		blackKingHP = 100;
 	}
 	
 	public void draw(DrawingSurface surface, float x, float y, float width, float height) {
@@ -38,16 +46,14 @@ public class Board {
 		for(int j = 0; j < board.length; j++) {
 			for(int i = 0; i < board[j].length; i++) {
 				// draw outer box
-				surface.fill(255);
-				surface.stroke(0);
+				surface.fill(18, 82, 18);
+				surface.stroke(0);//TODO change later?
 				surface.rect(x, y, sqWidth, sqHeight);
 				
 				// draw piece
 				GamePiece piece = board[j][i];
 				if (piece != null) {
-//					System.out.println(piece.getImgCode());
 					PImage img = images.get(piece.getImgCode());
-					//img.resize((int)sqHeight-2, (int)sqHeight-2);
 					surface.imageMode(PConstants.CENTER);
 					surface.image(img, x, y, (int)sqWidth, (int)sqHeight);	// assumes that height is larger than width
 					surface.textAlign(PConstants.CENTER);

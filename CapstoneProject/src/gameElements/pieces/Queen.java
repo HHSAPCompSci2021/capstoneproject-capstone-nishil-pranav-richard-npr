@@ -11,9 +11,9 @@ public class Queen extends GamePiece{
 	
 	public Queen(int r, int c, Board brd, boolean wht) {
 		super(r, c, brd, wht);
-		health = 25;
+		health = 50;
 		fullHealth = health;
-		damage = 3;
+		damage = 10;
 		maxDist = 3;
 		energy = 5;
 		range = 2;

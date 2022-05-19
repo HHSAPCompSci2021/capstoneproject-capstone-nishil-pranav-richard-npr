@@ -17,7 +17,9 @@ import processing.core.PConstants;
 /**
  * The screen that holds the game and its elements for the user to interact during a match (placing pieces, seeing enemy pieces, etc)
  * 
- * @author Nishil Anand
+ * @author Nishil Anand 
+ * @author Pranav Gunhal
+ * @version 02
  */
 public class ScreenLocalGame extends Screen implements ActionListener{
 	
@@ -126,6 +128,7 @@ public class ScreenLocalGame extends Screen implements ActionListener{
 		
 		board.draw(surface, boardX, boardY, boardWidth, boardHeight);
 		
+		surface.textSize(15);
         float tempX = x/2-485, tempY = y/2+50-200+(102*0)+(94/2);
         for(int i = 0; i < p1.getCards().size() && i < 5; i++) {
         	Card c = p1.getCards().get(i);
@@ -196,11 +199,11 @@ public class ScreenLocalGame extends Screen implements ActionListener{
 		} else if (activePlayer.equals(p1)) {		// player1 (white) won
 			surface.textSize(40);
 			surface.text("VICTORY!", 1200/2, 200);
-			text = nameOne + " has won!";
+			text = nameTwo + " has won!";
 		} else if(activePlayer.equals(p2)){	// player2 (black) won
 			surface.textSize(40);
 			surface.text("VICTORY!", 1200/2, 200);
-			text = nameTwo + " has won!";
+			text = nameOne + " has won!";
 		}
 		while (surface.textWidth(text) >= squareWidth) {
 			textSize -= 5;
