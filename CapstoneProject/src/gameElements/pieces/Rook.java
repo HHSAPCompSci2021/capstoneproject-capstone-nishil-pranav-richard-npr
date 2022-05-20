@@ -30,7 +30,7 @@ public class Rook extends GamePiece{
 	public ArrayList<Location> calcMoveLocs() {
 		ArrayList<Location> locs = new ArrayList<Location>();
 		int row = loc.getRow(), col = loc.getCol();
-		for(int i = -2; i <= 2; i++) {
+		for(int i = -1; i <= 1; i++) {
 			if(board.inBounds(row + i, col) && board.isEmpty(row + i, col)) {
 				locs.add(new Location(row+i, col));
 			}
