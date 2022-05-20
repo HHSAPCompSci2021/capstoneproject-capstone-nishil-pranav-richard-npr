@@ -1,5 +1,6 @@
 package gameElements.board;
 
+import java.awt.Color;
 import java.awt.Point;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
@@ -55,11 +56,14 @@ public class Board {
 				if (piece != null) {
 					PImage img = images.get(piece.getImgCode());
 					surface.imageMode(PConstants.CENTER);
-					surface.image(img, x, y, (int)sqWidth, (int)sqHeight);	// assumes that height is larger than width
+					surface.image(img, x, (int)(y+3), (int)sqWidth, (int)(sqHeight*0.8));	// assumes that height is larger than width
 					surface.textAlign(PConstants.CENTER);
 					surface.fill(0);
 					surface.textSize(10);
-					surface.text(piece.getHealth() + "/" + piece.getFullHealth(), x, y-10);
+					surface.fill(255, 0, 0);
+					surface.rect(x, y- sqHeight/3, (int)(sqWidth*0.8), (int)(sqHeight/6));
+					surface.fill(0, 255, 0);
+					surface.rect(x-(int)(sqWidth*0.8-sqWidth*0.8*Math.abs((double)piece.getHealth()/(double)piece.getFullHealth()))/2, y- sqHeight/3, (int)(sqWidth*0.8*Math.abs((double)piece.getHealth()/(double)piece.getFullHealth())), (int)(sqHeight/6));
 				}
 				
 				x+=sqWidth;
