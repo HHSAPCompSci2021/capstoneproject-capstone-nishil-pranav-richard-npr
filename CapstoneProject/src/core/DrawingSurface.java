@@ -440,7 +440,7 @@ public class DrawingSurface extends PApplet {
 						} else if (postType.matches("PIECEADDED")) {
 							ChangePost post = dataSnapshot.getValue(ChangePost.class);
 							System.out.println("    CHANGE: " + post);
-							
+							pieceAdded(post);
 //							post.setReference(dataSnapshot.getRef());
 //							setBoard(post.getBoard());
 //							gameCreated(post);

@@ -200,7 +200,7 @@ public class Board {
 			}
 		}
 		
-		System.out.println(whiteKingHP + "    " + blackKingHP);
+//		System.out.println(whiteKingHP + "    " + blackKingHP);
 		
 	}
 	
