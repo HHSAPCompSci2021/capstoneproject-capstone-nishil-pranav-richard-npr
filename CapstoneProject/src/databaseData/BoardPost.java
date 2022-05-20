@@ -17,6 +17,9 @@ public class BoardPost extends Post {
 	private DatabaseReference ref;
 	private ArrayList<ArrayList<GamePiece>> grid;
 	
+	private String whiteName;
+	private String blackName;
+	
 	/**
 	 * Creates a new BoardPost object
 	 * */
@@ -75,6 +78,19 @@ public class BoardPost extends Post {
 //			}
 //		}
 		this.grid = board.getBoard();
+	}
+	
+	public void setNames(String whiteName, String blackName) {
+		this.whiteName = whiteName;
+		this.blackName = blackName;
+	}
+	
+	public String getWhiteName() {
+		return this.whiteName;
+	}
+	
+	public String getBlackName() {
+		return this.blackName;
 	}
 	
 }
