@@ -9,13 +9,15 @@ import processing.core.PApplet;
 
 public class Bishop extends GamePiece{
 	private double bishopDamageBonus;
+	private boolean firstHit;
 	
 	public Bishop(int r, int c, Board brd, boolean wht) {
 		super(r, c, brd, wht);
+		firstHit = false;
 		bishopDamageBonus = 0;
-		health = 50;
+		health = 35;
 		fullHealth = health;
-		damage = 10;
+		damage = 7;
 		maxDist = 3;
 		energy = 3;
 		range = 1;
@@ -47,6 +49,7 @@ public class Bishop extends GamePiece{
 	public Location getMoveLoc(ArrayList<Location> moves) {
 		Location toPick = loc;
 		if(target == null) {
+			firstHit = false;
 			bishopDamageBonus = 0;
 			for(Location l : moves) {
 				if(super.isWhite()) {
@@ -76,7 +79,6 @@ public class Bishop extends GamePiece{
 		}
 		else {
 			if(loc.getDistanceFrom(target.getLocation()) <= Math.sqrt(range*range+range*range)+0.001) {
-				bishopDamageBonus = 0;
 				return loc;	
 			}
 			for(Location l : moves) {
@@ -85,13 +87,22 @@ public class Bishop extends GamePiece{
 				}
 			}
 		}
-		bishopDamageBonus += 0.5*toPick.getDistanceFrom(loc);
+		bishopDamageBonus += 0.75*toPick.getDistanceFrom(loc);
 		return toPick;
 	}
 
 	@Override
 	public int getDamage() {
-		return (int)((double)damage * (1.0+bishopDamageBonus));
+		if(!firstHit) {
+			return (int)((double)damage * (1.0+bishopDamageBonus));
+		}
+		else { return damage; }
+	}
+	
+	@Override
+	public void attack(GamePiece enemy) {
+		enemy.takeDamage(getDamage());
+		firstHit = true;
 	}
 	
 	@Override

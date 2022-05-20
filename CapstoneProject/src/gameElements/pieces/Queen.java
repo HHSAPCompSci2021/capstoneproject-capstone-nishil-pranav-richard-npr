@@ -13,10 +13,10 @@ public class Queen extends GamePiece{
 	
 	public Queen(int r, int c, Board brd, boolean wht) {
 		super(r, c, brd, wht);
-		queenDamageBonus = 1;
-		health = 50;
+		queenDamageBonus = 0.4;
+		health = 40;
 		fullHealth = health;
-		damage = 4;
+		damage = 6;
 		maxDist = 3;
 		energy = 5;
 		range = 3;
@@ -88,8 +88,7 @@ public class Queen extends GamePiece{
 
 	@Override
 	public int getDamage() {
-		System.out.println("Queen damage: " + queenDamageBonus);
-		return damage * (int)queenDamageBonus;
+		return (int)((double)damage * queenDamageBonus);
 	}
 	
 	@Override
@@ -98,7 +97,7 @@ public class Queen extends GamePiece{
 			ArrayList<GamePiece> toAttack = new ArrayList<GamePiece>();
 			if(loc.getDistanceFrom(target.getLocation()) <= Math.sqrt(range*range+range*range)+ 0.001) {
 				toAttack.add(target);
-				queenDamageBonus++;
+				queenDamageBonus += 1.2;
 				return toAttack;
 			}
 			return toAttack;

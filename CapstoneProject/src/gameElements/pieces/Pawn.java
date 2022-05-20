@@ -11,7 +11,7 @@ public class Pawn extends GamePiece{
 	
 	public Pawn(int r, int c, Board brd, boolean wht) {
 		super(r, c, brd, wht);
-		health = 15;
+		health = 25;
 		fullHealth = health;
 		damage = 5;
 		maxDist = 3;//does nothing
