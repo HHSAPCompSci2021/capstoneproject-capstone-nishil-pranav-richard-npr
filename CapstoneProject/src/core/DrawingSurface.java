@@ -57,7 +57,7 @@ public class DrawingSurface extends PApplet {
 	private DatabaseReference ref;
 	private DatabaseReference gameRef;
 	
-	private int i;
+	private static int i;
 	
 	/**
 	 * Constructs a new DrawingSurface, setting up fields, the database, and screens.
@@ -168,6 +168,9 @@ public class DrawingSurface extends PApplet {
 	 * Draws the current active screen.
 	 */
 	public void draw() {
+		
+//		if (i == 0) return;
+		
 		ratioX = (float)width/activeScreen.DRAWING_WIDTH;
 		ratioY = (float)height/activeScreen.DRAWING_HEIGHT;
 		scale(ratioX, ratioY);
@@ -465,13 +468,13 @@ public class DrawingSurface extends PApplet {
 //							System.out.println(post);
 							queue.add(post);
 							updatedQueue();
-							i += 1;
 						} else if (postType.matches("BOARD")) {
 							BoardPost post = dataSnapshot.getValue(BoardPost.class);
 							post.setReference(dataSnapshot.getRef());
 							System.out.println("    BOARD ADDED: " + post);
 							setBoard(post.getBoard());
 							gameCreated(post);
+							i += 1;
 						} else if (postType.matches("PIECEADDED")) {
 							ChangePost post = dataSnapshot.getValue(ChangePost.class);
 							System.out.println("    CHANGE: " + post);
@@ -515,6 +518,17 @@ public class DrawingSurface extends PApplet {
 				@Override
 				public void run() {
 //					currentDrawing.clear();
+					
+					Post postN = arg0.getValue(Post.class);
+					System.out.println("> remove " + postN + postN.postType);
+					String postType = postN.postType;
+					if (postType != null ) {
+						if (postType.matches("USER")) {
+							UserPost post = arg0.getValue(UserPost.class);
+							queue.remove(post);
+						}
+					}
+					
 				}
 				
 			});
