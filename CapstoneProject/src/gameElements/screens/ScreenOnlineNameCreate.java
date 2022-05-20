@@ -76,7 +76,7 @@ public class ScreenOnlineNameCreate extends Screen {
 			if (surface.keyCode == KeyEvent.VK_ENTER) {
 				String playerName = boxText.toString();
 				UserPost user = addPlayerToQueue(playerName);
-				surface.player = user;
+//				surface.player = user;
 				surface.setPlayerName(playerName);
 				surface.switchScreen(ScreenSwitcher.SCREEN4);
 			} else if (ascii >= 32 && ascii <= 126) {

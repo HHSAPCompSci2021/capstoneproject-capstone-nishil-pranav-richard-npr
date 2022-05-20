@@ -100,6 +100,9 @@ public class ScreenOnlineGame extends Screen implements ActionListener{
 	 * Draws the elements of the game onto the processing window.
 	 */
 	public void draw() {
+		
+//		System.out.println(surface.getGameReference());
+		
 		if (gameInProgress) {
 			drawGame();
 		} else {
@@ -309,7 +312,7 @@ public class ScreenOnlineGame extends Screen implements ActionListener{
 				post.setWhite(activePlayer.isWhite());
 				post.setGamePieceName(activePiece);
 				
-				DatabaseReference postRef = surface.postData(post);
+				DatabaseReference postRef = surface.postData(post, surface.getGameReference());
 				
 				
 //				board.play();
