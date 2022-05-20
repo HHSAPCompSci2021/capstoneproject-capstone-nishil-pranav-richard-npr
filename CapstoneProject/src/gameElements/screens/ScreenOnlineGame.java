@@ -66,7 +66,7 @@ public class ScreenOnlineGame extends Screen implements ActionListener{
 	
 	
 	/**
-	 * Constructs a new ScreenLocalGame
+	 * Constructs a new ScreenOnline
 	 * 
 	 * @param surface the DrawingSurface
 	 */
@@ -74,21 +74,19 @@ public class ScreenOnlineGame extends Screen implements ActionListener{
 		super(1200,600);
 		this.surface = surface;
 		
-		 leftKing = new Rectangle(x/2-390,y/2+50,100,400);
-		rightKing = new Rectangle(x/2+210,y/2+50,100,400);
+		 leftKing = new Rectangle(x/2-290,y/2+50,100,400);
+		rightKing = new Rectangle(x/2+310,y/2+50,100,400);
 		//x/2-290
-		 leftKingHP = new Rectangle(x/2-390,y/2+50,50,20);
-		rightKingHP = new Rectangle(x/2+210,y/2+50,50,20);
+		 leftKingHP = new Rectangle(x/2-290,y/2+50,50,20);
+		rightKingHP = new Rectangle(x/2+310,y/2+50,50,20);
 		
 		board = surface.getBoard();
 		p1 = new Player(board, true);
 		p2 = new Player(board, false);
 		
-		leftEnergy = new Rectangle(x/2-557,y/2+50,50,20);
-		rightEnergy = new Rectangle(x/2+397,y/2+50,50,20);
+		leftEnergy = new Rectangle(x/2-457,y/2+50,50,20);
+		rightEnergy = new Rectangle(x/2+497,y/2+50,50,20);
 		
-//		leftPFP = new Rectangle(x/2-405,y/2-275+(94/2),94,94);
-//		rightPFP = new Rectangle(x/2+405,y/2-275+(94/2),94,94);
 		activePlayer = p1;
 		
 		gameInProgress = true;
@@ -137,8 +135,6 @@ public class ScreenOnlineGame extends Screen implements ActionListener{
 		surface.image(whiteKing, x/2-290, y/2+175, 75, 188);
 		surface.image(blackKing, x/2+310, y/2+175, 75, 188);
 		
-//		 leftKing = new Rectangle(x/2-390,y/2+50,100,400);
-//		rightKing = new Rectangle(x/2+210,y/2+50,100,400);
 		
 		showTextButton(leftKingHP, board.getKingHealth(true) + "/" + MAX_KING_HP, false);
 		showTextButton(rightKingHP, board.getKingHealth(false) + "/" + MAX_KING_HP, false);
@@ -193,7 +189,6 @@ public class ScreenOnlineGame extends Screen implements ActionListener{
 			else {
 				surface.rectMode(PConstants.CORNER);
 				surface.fill(100, 0, 0, 100); 
-				int x;
 				surface.rect(boardX-boardWidth/15, boardY-14, boardWidth/2 + boardWidth/15, boardHeight);
 				surface.fill(255);
 				surface.rectMode(PConstants.CENTER);

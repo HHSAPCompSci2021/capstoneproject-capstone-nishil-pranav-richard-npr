@@ -57,8 +57,8 @@ public class ScreenLocalGame extends Screen implements ActionListener{
 	private final int MAX_KING_HP = 100;
 	private PImage blackKing, whiteKing;
 	
-	private Timer timer, playerTimer;
-	private int time, playerTime;
+	private Timer timer;
+	private int time;
 	
 	
 	/**
@@ -82,9 +82,7 @@ public class ScreenLocalGame extends Screen implements ActionListener{
 		
 		leftEnergy = new Rectangle(x/2-457,y/2+50,50,20);
 		rightEnergy = new Rectangle(x/2+497,y/2+50,50,20);
-		
-//		leftPFP = new Rectangle(x/2-405,y/2-275+(94/2),94,94);
-//		rightPFP = new Rectangle(x/2+405,y/2-275+(94/2),94,94);
+
 		activePlayer = p1;
 		
 		gameInProgress = true;
@@ -132,9 +130,7 @@ public class ScreenLocalGame extends Screen implements ActionListener{
 		
 		surface.image(whiteKing, x/2-290, y/2+175, 75, 188);
 		surface.image(blackKing, x/2+310, y/2+175, 75, 188);
-		
-//		 leftKing = new Rectangle(x/2-390,y/2+50,100,400);
-//		rightKing = new Rectangle(x/2+210,y/2+50,100,400);
+
 		
 		showTextButton(leftKingHP, board.getKingHealth(true) + "/" + MAX_KING_HP, false);
 		showTextButton(rightKingHP, board.getKingHealth(false) + "/" + MAX_KING_HP, false);
@@ -189,7 +185,6 @@ public class ScreenLocalGame extends Screen implements ActionListener{
 			else {
 				surface.rectMode(PConstants.CORNER);
 				surface.fill(100, 0, 0, 100); 
-				int x;
 				surface.rect(boardX-boardWidth/15, boardY-14, boardWidth/2 + boardWidth/15, boardHeight);
 				surface.fill(255);
 				surface.rectMode(PConstants.CENTER);
@@ -234,6 +229,7 @@ public class ScreenLocalGame extends Screen implements ActionListener{
 		
 		int textSize = 60;
 		String text = "";
+		
 		if (activePlayer == null) {
 			text = "DRAW";
 		} else if (activePlayer.equals(p1)) {		// player1 (white) won
