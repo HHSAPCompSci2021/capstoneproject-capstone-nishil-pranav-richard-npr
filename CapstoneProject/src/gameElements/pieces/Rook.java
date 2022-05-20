@@ -7,6 +7,11 @@ import gameElements.board.Board;
 import gameElements.board.Location;
 import processing.core.PApplet;
 
+/**
+ * the Rook represents a rook on the chess board
+ * @author hfeng636
+ *
+ */
 public class Rook extends GamePiece{
 	
 	/**
