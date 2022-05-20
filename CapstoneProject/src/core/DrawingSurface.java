@@ -20,6 +20,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import databaseData.BoardPost;
 import databaseData.ChangePost;
+import databaseData.NamePost;
 import databaseData.Post;
 import databaseData.UserPost;
 import gameElements.board.Board;
@@ -409,6 +410,13 @@ public class DrawingSurface extends PApplet {
 		}
 	}
 	
+	public void setNames(NamePost post) {
+		if (this.activeScreen.equals(screens.get(3))) {
+			ScreenOnlineGame screen = (ScreenOnlineGame) screens.get(3);
+			screen.setNames(post.getWhiteName(), post.getBlackName());
+		}
+	}
+	
 	
 //	/** 
 //	 * Returns an ArrayList of UserPosts with players in the queue.
@@ -486,6 +494,9 @@ public class DrawingSurface extends PApplet {
 //							post.setReference(dataSnapshot.getRef());
 //							setBoard(post.getBoard());
 //							gameCreated(post);
+						} else if (postType.matches("NAME")) {
+							NamePost post = dataSnapshot.getValue(NamePost.class);
+							
 						}
 					} else {
 //						System.out.println(postType);

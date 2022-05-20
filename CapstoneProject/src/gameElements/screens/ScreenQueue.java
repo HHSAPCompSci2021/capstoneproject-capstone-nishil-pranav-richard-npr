@@ -17,6 +17,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import core.DrawingSurface;
 import core.DrawingSurface.DatabaseChangeListener;
 import databaseData.BoardPost;
+import databaseData.NamePost;
 import databaseData.UserPost;
 import processing.core.PConstants;
 
@@ -67,8 +68,6 @@ public class ScreenQueue extends Screen {
 			if (queue.size() > 0) {		// if there is someone already waiting in queue
 				System.out.println("quyeuedsadas: " + queue.size());
 				
-				
-				
 				BoardPost board = new BoardPost();
 				DatabaseReference boardRef = surface.postData(board);
 //				gameScreen.setNames("a", "b");
@@ -98,10 +97,12 @@ public class ScreenQueue extends Screen {
 			surface.addChildEventListener(gameRef);
 			surface.setGameReference(gameRef);
 			gameScreen.setWhite(false);
+//			NamePost name = new NamePost(whiteName, blackName);
+//			surface.postData(name, gameRef);
 //			gameScreen.setNames(whiteName, blackName);
 			
 			// remove from queue
-			surface.clearData(ref.child("Queue"));				// TODO: clear data when leaving game, keeping updated i value for new players
+//			surface.clearData(ref.child("Queue"));				// TODO: clear data when leaving game, keeping updated i value for new players
 			
 			surface.switchScreen(ScreenSwitcher.SCREEN8);
 			return;
