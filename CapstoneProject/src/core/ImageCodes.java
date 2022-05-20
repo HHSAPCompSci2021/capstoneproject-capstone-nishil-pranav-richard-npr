@@ -24,4 +24,6 @@ public interface ImageCodes {
     
     public static final int BACKGROUND = 13;
     public static final int BLACK_SQUARE = 14;
+    public static final int WHITE_CASTLE = 15;
+    public static final int BLACK_CASTLE = 16;
 }

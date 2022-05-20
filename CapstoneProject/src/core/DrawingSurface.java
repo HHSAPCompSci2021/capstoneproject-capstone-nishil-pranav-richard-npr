@@ -47,7 +47,6 @@ public class DrawingSurface extends PApplet {
 	// Drawing/screen stuff
 	private final String fileSeparator = System.getProperty("file.separator");
 	public float ratioX, ratioY;
-	private static final int DRAWING_WIDTH = 1200, DRAWING_HEIGHT = 600;
 	private Screen activeScreen;
 	private ArrayList<Screen> screens;
 	private ArrayList<Integer> keys;
@@ -160,6 +159,12 @@ public class DrawingSurface extends PApplet {
 		
 		images.add(ImageCodes.BACKGROUND, loadImage(String.format("Images%sbackground.jpg", fileSeparator, fileSeparator, fileSeparator)));
 		images.add(ImageCodes.BLACK_SQUARE, loadImage(String.format("Images%sblackSquare.png", fileSeparator, fileSeparator, fileSeparator)));
+		
+		images.add(ImageCodes.WHITE_CASTLE, loadImage(String.format("Images%sChessPieces%swhiteSide%swhiteCastle.png", fileSeparator, fileSeparator, fileSeparator)));
+		images.add(ImageCodes.BLACK_CASTLE, loadImage(String.format("Images%sChessPieces%sblackSide%sblackCastle.png", fileSeparator, fileSeparator, fileSeparator)));
+		
+	
+	
 	}
 
 	/**
