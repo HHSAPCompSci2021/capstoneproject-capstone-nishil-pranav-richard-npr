@@ -178,6 +178,20 @@ public class ScreenLocalGame extends Screen implements ActionListener{
 		surface.textAlign(PConstants.CENTER);
 		surface.text(s, x/2, 100);
 		if (activePiece != null) {
+			if(activePlayer.equals(p1)) {
+				surface.rectMode(PConstants.CORNER);
+				surface.fill(100, 0, 0);
+				surface.rect(boardX + boardWidth/2-boardWidth/15, boardY-15, boardWidth/2 + boardWidth/15, boardHeight);
+				surface.fill(255);
+				surface.rectMode(PConstants.CENTER);
+			}
+			else {
+				surface.rectMode(PConstants.CORNER);
+				surface.fill(100, 0, 0);
+				surface.rect(boardX-boardWidth/15, boardY-15, boardWidth/2 + boardWidth/15, boardHeight);
+				surface.fill(255);
+				surface.rectMode(PConstants.CENTER);
+			}
 			surface.textSize(15);
 			surface.text("Selected " + activePiece, x/2, 120);
 		}

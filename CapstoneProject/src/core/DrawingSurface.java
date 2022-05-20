@@ -184,9 +184,7 @@ public class DrawingSurface extends PApplet {
 	 */
 	public void keyPressed() {
 		keys.add(keyCode);
-		if (activeScreen == screens.get(ScreenSwitcher.SCREEN2) && key != CODED) {
-			((ScreenSecond) activeScreen).keyPressed();
-		} else if (activeScreen == screens.get(ScreenSwitcher.SCREEN3)) {
+ if (activeScreen == screens.get(ScreenSwitcher.SCREEN3)) {
 			((ScreenOnlineNameCreate) activeScreen).keyPressed();
 		} else if (activeScreen == screens.get(ScreenSwitcher.SCREEN6)) {
 			((ScreenLocalNameCreate) activeScreen).keyPressed();
