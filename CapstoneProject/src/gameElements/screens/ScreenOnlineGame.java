@@ -12,6 +12,7 @@ import com.google.firebase.database.DatabaseReference;
 import core.DrawingSurface;
 import core.ImageCodes;
 import databaseData.ChangePost;
+import databaseData.TestPost;
 import gameElements.board.*;
 import gameElements.pieces.*;
 import processing.core.PConstants;
@@ -98,6 +99,9 @@ public class ScreenOnlineGame extends Screen implements ActionListener{
 	 * Draws the elements of the game onto the processing window.
 	 */
 	public void draw() {
+		
+		surface.postData(new TestPost(), surface.getGameReference());
+		
 		if (gameInProgress) {
 			drawGame();
 		} else {

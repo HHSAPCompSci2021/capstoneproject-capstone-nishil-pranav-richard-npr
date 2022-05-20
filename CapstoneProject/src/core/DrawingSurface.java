@@ -80,6 +80,7 @@ public class DrawingSurface extends PApplet {
 		FileInputStream refreshToken;
 		DatabaseReference queueRef = null;
 		DatabaseReference gamesRef = null;
+		DatabaseReference iRef = null;
 		try {
 
 			refreshToken = new FileInputStream("dataBaseKey.json");
@@ -93,10 +94,12 @@ public class DrawingSurface extends PApplet {
 			ref = FirebaseDatabase.getInstance().getReference();
 			queueRef = ref.child("Queue");
 			gamesRef = ref.child("Games");
+			iRef = ref.child("i");
 			
 			ref.addChildEventListener(new DatabaseChangeListener());
 			queueRef.addChildEventListener(new DatabaseChangeListener());
 			gamesRef.addChildEventListener(new DatabaseChangeListener());
+			iRef.addChildEventListener(new DatabaseChangeListener());
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -287,19 +290,34 @@ public class DrawingSurface extends PApplet {
 	}
 
 	/**
-	 * Deletes all data stored in the database (main parent folder).
+	 * @deprecated
 	 */
 	public void clearAllData() {
-		ref.setValueAsync(null);
+//		ref.setValueAsync(null);
+		// TODO: remove this later
+		System.err.println("DEPRECATED");
+		for (StackTraceElement v: Thread.currentThread().getStackTrace()) {
+		    System.err.println("    " + v);
+		}
 	}
 	
 	/**
 	 * Deletes all data stored in location (including nested values).
 	 * 
 	 * @param location reference to where to delete data
+	 * @pre location is not null
+	 * @pre location is not the main folder
 	 */
 	public void clearData(DatabaseReference location) {
 		if (location == null) return;
+		if (location.equals(ref)) {
+			System.err.println("Tried to clear all data");
+			for (StackTraceElement v: Thread.currentThread().getStackTrace()) {
+			    System.err.println("    " + v);
+			}
+			return;
+		}
+		System.out.println("-- CLEARING: " + location);
 		location.setValueAsync(null);
 	}
 	
@@ -485,9 +503,12 @@ public class DrawingSurface extends PApplet {
 				public void run() {
 //					postData(new IntegerPost())
 					Post postN = dataSnapshot.getValue(Post.class);
-					System.out.println("> add " + postN + postN.postType);
 					String postType = postN.postType;
-					if (postType != null ) {
+					
+					if (postType != "TESTING")
+						System.out.println("> ADD       " + dataSnapshot.getRef().toString() + "  " + postN + postN.postType);
+					
+					if (postType != null) {
 						if (postType.matches("USER")) {
 							UserPost post = dataSnapshot.getValue(UserPost.class);
 //							System.out.println(post);
@@ -496,13 +517,16 @@ public class DrawingSurface extends PApplet {
 						} else if (postType.matches("BOARD")) {
 							BoardPost post = dataSnapshot.getValue(BoardPost.class);
 							post.setReference(dataSnapshot.getRef());
-							System.out.println("    BOARD ADDED: " + post);
+//							System.out.println("    BOARD ADDED: " + post);
 							setBoard(new Board());
 							gameCreated(post);
+							
+							clearData(ref.child("i"));
 							i += 1;
+							postData(new IntegerPost(i+1), ref.child("i"));
 						} else if (postType.matches("PIECEADDED")) {
 							ChangePost post = dataSnapshot.getValue(ChangePost.class);
-							System.out.println("    CHANGE: " + post);
+							System.out.println("> CHANGE:   " + post);
 							pieceAdded(post);
 //							post.setReference(dataSnapshot.getRef());
 //							setBoard(post.getBoard());
@@ -553,7 +577,7 @@ public class DrawingSurface extends PApplet {
 //					currentDrawing.clear();
 
 					Post postN = arg0.getValue(Post.class);
-					System.out.println("> remove " + postN + postN.postType);
+					System.out.println("> REMOVE    " + postN + postN.postType);
 					String postType = postN.postType;
 					if (postType != null ) {
 						if (postType.matches("USER")) {

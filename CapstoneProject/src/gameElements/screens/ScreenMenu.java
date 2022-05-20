@@ -54,8 +54,6 @@ public class ScreenMenu extends Screen {
 		showButton(onlineButton, "Play online");
 		showButton(instructionsButton, "Instructions");
 		showButton(localButton, "Play with a friend");
-		
-		surface.popStyle();
 	}
 	
 	/**
