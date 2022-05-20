@@ -6,9 +6,14 @@ import com.google.firebase.database.DatabaseReference;
 
 import core.DrawingSurface;
 import databaseData.BoardPost;
+import databaseData.ChangePost;
 import gameElements.board.Board;
+import gameElements.pieces.Bishop;
 import gameElements.pieces.GamePiece;
+import gameElements.pieces.Knight;
+import gameElements.pieces.Pawn;
 import gameElements.pieces.Queen;
+import gameElements.pieces.Rook;
 
 public class ScreenOnlineGame extends Screen {
 	
@@ -39,16 +44,25 @@ public class ScreenOnlineGame extends Screen {
 	public void keyPressed() { 
 		if (surface.key == 'c') {	
 			if (board == null) return;
-			board.add(new Queen(0, 0, board, true));
+//			board.add(new Queen(0, 0, board, true));
 //			boardPost.getReference().setValueAsync(boardPost);
 //			boardPost.updateGrid();
 			
-			System.out.println("        " + board.get(0,0).toString());
-			boardPost.getReference().removeValueAsync();		// remove board from database
-			BoardPost post = new BoardPost();
-			post.setBoard(board);
-			board.removeArray();
-			DatabaseReference boardRef = surface.postData(post);
+//			System.out.println("        " + board.get(0,0).toString());
+//			boardPost.getReference().removeValueAsync();		// remove board from database
+//			BoardPost post = new BoardPost();
+//			post.setBoard(board);
+//			board.removeArray();
+//			DatabaseReference boardRef = surface.postData(post);
+			
+			ChangePost post = new ChangePost();
+			post.setX(5);
+			post.setY(5);
+			post.setWhite(false);
+			post.setGamePieceName("Queen");
+			
+			DatabaseReference postRef = surface.postData(post);
+			
 			
 //			DatabaseReference boardPost = surface.postData(this.boardRef);			// error with class mapping???
 //			surface.postData(boardPost);
@@ -61,13 +75,27 @@ public class ScreenOnlineGame extends Screen {
 			
 //			System.out.println(board.get(0, 0).getName());
 //			System.out.println(boardPost.getReference());
-		if (boardRef == null) {
-			surface.background(0);
-			System.out.println(boardRef);
-		} else {
-			surface.text(boardRef.toString(), 50, (int)(50+Math.random()*300));
 		}
+	}
+	
+	public void pieceAdded(ChangePost post) {
+		int x = post.getX();
+		int y = post.getY();
+		boolean white = post.isWhite();
+		String gamePieceName = post.getGamePieceName();
+		
+		if (gamePieceName == "Bishop") {
+			board.add(new Bishop(y, x, board, white));
+		} else if (gamePieceName == "Knight") {
+			board.add(new Knight(y, x, board, white));
+		} else if (gamePieceName == "Pawn") {
+			board.add(new Pawn(y, x, board, white));
+		} else if (gamePieceName == "Queen") {
+			board.add(new Queen(y, x, board, white));
+		} else if (gamePieceName == "Rook") {
+			board.add(new Rook(y, x, board, white));
 		}
+		
 	}
 	
 	public void setBoardRef(BoardPost post) {
