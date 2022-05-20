@@ -57,8 +57,8 @@ public class ScreenLocalGame extends Screen implements ActionListener{
 	private final int MAX_KING_HP = 100;
 	private PImage blackKing, whiteKing;
 	
-	private Timer timer;
-	private int time;
+	private Timer timer, playerTimer;
+	private int time, playerTime;
 	
 	
 	/**
@@ -199,6 +199,20 @@ public class ScreenLocalGame extends Screen implements ActionListener{
 		}
 		surface.textSize(25);
 		surface.text((180-time), x/2, 580);
+		
+		surface.fill(32, 42, 68);
+		surface.rectMode(PConstants.CORNER);
+		
+//		
+//		 leftKing = new Rectangle(x/2-290,y/2+50,100,400);
+//		rightKing = new Rectangle(x/2+310,y/2+50,100,400);
+//		//x/2-290
+		if(activePlayer.equals(p1)) {
+			surface.rect(x/2+365, 0, surface.width+200, surface.height+200);
+		} else if(activePlayer.equals(p2)) {
+			surface.rect(0, 0, x/2-345, surface.height+200);
+		}
+		
 		
 		surface.popStyle();
 		
