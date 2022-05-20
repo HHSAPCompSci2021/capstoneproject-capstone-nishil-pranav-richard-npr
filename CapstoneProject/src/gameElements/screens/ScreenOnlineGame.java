@@ -120,7 +120,7 @@ public class ScreenOnlineGame extends Screen implements ActionListener{
 		
 		// DRAW STUFF
 		surface.pushStyle();
-		surface.background(32, 42, 68);
+		surface.background(198, 46, 46);
 		
 		surface.textSize(15);
 		surface.fill(255);
