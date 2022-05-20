@@ -285,7 +285,7 @@ public class ScreenLocalGame extends Screen implements ActionListener{
 	        
 		} else {
 			Point loc = board.clickToIndex(click, boardX, boardY, boardWidth, boardHeight); 
-			if(loc != null && activePiece != null && board.get(loc.x, loc.y) == null) { 
+			if(loc != null && activePiece != null && board.get(loc.y, loc.x) == null) { 
 				if(activePlayer.equals(p1)) { //white
 					if(loc.x >= board.getWidth()/2) {
 						System.err.println("CANNOT PLACE ON ENEMY'S SIDE!!!");
@@ -300,6 +300,7 @@ public class ScreenLocalGame extends Screen implements ActionListener{
 				
 				GamePiece p = gpFromString(activePiece, activePlayer.isWhite(), loc.x, loc.y);
 				int cost = p.getEnergy();
+				//if(board.get(loc.y, loc.x) != null) { return;}
 				board.add(p);
 				activePlayer.useEnergy(cost);
 				if(activePlayer.equals(p1)) {
