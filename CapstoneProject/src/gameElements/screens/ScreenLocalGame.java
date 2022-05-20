@@ -181,14 +181,14 @@ public class ScreenLocalGame extends Screen implements ActionListener{
 		if (activePiece != null) {
 			if(activePlayer.equals(p1)) {
 				surface.rectMode(PConstants.CORNER);
-				surface.fill(100, 0, 0);
+				surface.fill(100, 0, 0, 100);
 				surface.rect(boardX + boardWidth/2-boardWidth/15, boardY-14, boardWidth/2 + boardWidth/15, boardHeight);
 				surface.fill(255);
 				surface.rectMode(PConstants.CENTER);
 			}
 			else {
 				surface.rectMode(PConstants.CORNER);
-				surface.fill(100, 0, 0); //TODO ??????????
+				surface.fill(100, 0, 0, 100); 
 				int x;
 				surface.rect(boardX-boardWidth/15, boardY-14, boardWidth/2 + boardWidth/15, boardHeight);
 				surface.fill(255);
@@ -202,11 +202,8 @@ public class ScreenLocalGame extends Screen implements ActionListener{
 		
 		surface.fill(32, 42, 68);
 		surface.rectMode(PConstants.CORNER);
-		
-//		
-//		 leftKing = new Rectangle(x/2-290,y/2+50,100,400);
-//		rightKing = new Rectangle(x/2+310,y/2+50,100,400);
-//		//x/2-290
+		surface.noStroke();
+
 		if(activePlayer.equals(p1)) {
 			surface.rect(x/2+365, 0, surface.width+200, surface.height+200);
 		} else if(activePlayer.equals(p2)) {
