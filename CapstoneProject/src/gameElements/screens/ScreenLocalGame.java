@@ -181,14 +181,14 @@ public class ScreenLocalGame extends Screen implements ActionListener{
 			if(activePlayer.equals(p1)) {
 				surface.rectMode(PConstants.CORNER);
 				surface.fill(100, 0, 0);
-				surface.rect(boardX + boardWidth/2-boardWidth/15, boardY-15, boardWidth/2 + boardWidth/15, boardHeight);
+				surface.rect(boardX + boardWidth/2-boardWidth/15, boardY-14, boardWidth/2 + boardWidth/15, boardHeight);
 				surface.fill(255);
 				surface.rectMode(PConstants.CENTER);
 			}
 			else {
 				surface.rectMode(PConstants.CORNER);
 				surface.fill(100, 0, 0);
-				surface.rect(boardX-boardWidth/15, boardY-15, boardWidth/2 + boardWidth/15, boardHeight);
+				surface.rect(boardX-boardWidth/15, boardY-14, boardWidth/2 + boardWidth/15, boardHeight);
 				surface.fill(255);
 				surface.rectMode(PConstants.CENTER);
 			}
