@@ -310,6 +310,15 @@ public class DrawingSurface extends PApplet {
 	}
 	
 	/**
+	 * Returns the player name of the player who is running this class. May be null.
+	 * 
+	 * @return the name of this player
+	 */
+	public String getPlayerName() {
+		return playerName;
+	}
+	
+	/**
 	 * Returns a list of all loaded images
 	 * 
 	 * @return a list of all loaded images
@@ -417,15 +426,14 @@ public class DrawingSurface extends PApplet {
 		}
 	}
 	
+	/** 
+	 * Returns an ArrayList of UserPosts with players in the queue.
+	 * @return an ArrayList of UserPosts with players in the queue.
+	 */
+	public ArrayList<UserPost> getQueue() {
+		return queue;
+	}
 	
-//	/** 
-//	 * Returns an ArrayList of UserPosts with players in the queue.
-//	 * @return an ArrayList of UserPosts with players in the queue.
-//	 */
-//	public ArrayList<UserPost> getQueue() {
-//		return queue;
-//	}
-
 	/**
 	 * 
 	 * Handles all changes to the database reference. Because Firebase uses a separate thread than most other processes we're using (both Swing and Processing),
