@@ -8,9 +8,11 @@ import gameElements.board.Location;
 import processing.core.PApplet;
 
 public class Bishop extends GamePiece{
+	private double bishopDamageBonus;
 	
 	public Bishop(int r, int c, Board brd, boolean wht) {
 		super(r, c, brd, wht);
+		bishopDamageBonus = 0;
 		health = 25;
 		fullHealth = health;
 		damage = 7;
@@ -30,7 +32,7 @@ public class Bishop extends GamePiece{
 	public ArrayList<Location> calcMoveLocs() {
 		ArrayList<Location> locs = new ArrayList<Location>();
 		int row = loc.getRow(), col = loc.getCol();
-		for(int i = -2; i <= 2; i++) {
+		for(int i = -3; i <= 3; i++) {
 			if(board.inBounds(row + i, col + i) && board.isEmpty(row + i, col + i)) {
 				locs.add(new Location(row+i, col+i));
 			}
@@ -45,20 +47,29 @@ public class Bishop extends GamePiece{
 	public Location getMoveLoc(ArrayList<Location> moves) {
 		Location toPick = loc;
 		if(target == null) {
+			bishopDamageBonus = 0;
 			for(Location l : moves) {
 				if(super.isWhite()) {
 					if(l.getCol() > toPick.getCol() ) {
-						toPick = l;
+						if(l.getDistanceFrom(loc) < 1.5) {
+							toPick = l;
+						}
 					}
 					else if (l.getCol() == toPick.getCol() && Math.abs((double)l.getRow()-board.getHeight()/2) < Math.abs((double)toPick.getRow()-board.getHeight()/2)) {
-						toPick = l;
+						if(l.getDistanceFrom(loc) < 1.5) {
+							toPick = l;
+						}
 					}
 				} else {
 					if(l.getCol() < toPick.getCol() ) {
-						toPick = l;
+						if(l.getDistanceFrom(loc) < 1.5) {
+							toPick = l;
+						}
 					}
 					else if (l.getCol() == toPick.getCol() && Math.abs((double)l.getRow()-board.getHeight()/2) < Math.abs((double)toPick.getRow()-board.getHeight()/2)) {
-						toPick = l;
+						if(l.getDistanceFrom(loc) < 1.5) {
+							toPick = l;
+						}
 					}
 				}
 			}
@@ -73,9 +84,15 @@ public class Bishop extends GamePiece{
 				}
 			}
 		}
+		bishopDamageBonus += 0.15*toPick.getDistanceFrom(loc);
 		return toPick;
 	}
 
+	@Override
+	public int getDamage() {
+		return (int)((double)damage * (1.0+bishopDamageBonus));
+	}
+	
 	@Override
 	public ArrayList<GamePiece> getAttackTargets() {
 		if(target != null) {	

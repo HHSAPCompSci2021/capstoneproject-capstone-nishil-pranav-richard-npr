@@ -114,7 +114,7 @@ public abstract class GamePiece {
 	}
  
 	public void attack(GamePiece enemy) {
-		enemy.takeDamage(damage);
+		enemy.takeDamage(getDamage());
 	}
 	
 	public Location getLocation() {
