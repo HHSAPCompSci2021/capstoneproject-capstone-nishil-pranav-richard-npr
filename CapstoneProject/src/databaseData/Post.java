@@ -24,7 +24,8 @@ package databaseData;
 	you need to store the data a different, simpler way yourself.
 	Note that ArrayLists *can* be stored.
 	
-	@author john_shelby, nishil
+	@author john_shelby
+	@author Nishil Anand
 	
  */
 public class Post {

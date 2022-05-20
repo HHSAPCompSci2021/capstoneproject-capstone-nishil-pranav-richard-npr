@@ -17,7 +17,6 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import databaseData.BoardPost;
 import databaseData.ChangePost;
-import databaseData.IntegerPost;
 import databaseData.Post;
 import databaseData.UserPost;
 import gameElements.board.Board;
