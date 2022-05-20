@@ -19,8 +19,6 @@ public class ScreenOnlineGame extends Screen {
 	
 	private DrawingSurface surface;
 
-	private DatabaseReference boardRef;
-	private BoardPost boardPost;
 	private Board board;
 	
 	public ScreenOnlineGame(DrawingSurface surface) {
@@ -97,10 +95,5 @@ public class ScreenOnlineGame extends Screen {
 		}
 		
 	}
-	
-	public void setBoardRef(BoardPost post) {
-		this.boardPost = post;
-	}
-	
 	
 }
