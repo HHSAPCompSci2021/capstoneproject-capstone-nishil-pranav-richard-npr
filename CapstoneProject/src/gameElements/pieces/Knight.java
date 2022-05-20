@@ -8,6 +8,11 @@ import gameElements.board.Location;
 import io.grpc.netty.shaded.io.netty.util.internal.MathUtil;
 import processing.core.PApplet;
 
+/**
+ * The Knight represents a knight on the chess board
+ * @author hfeng636
+ *
+ */
 public class Knight extends GamePiece {
 	
 	boolean freeLife;

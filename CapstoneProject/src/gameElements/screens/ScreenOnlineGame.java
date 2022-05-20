@@ -170,11 +170,9 @@ public class ScreenOnlineGame extends Screen implements ActionListener{
 		surface.textSize(25);
 		surface.fill(255);
 		surface.textAlign(PConstants.LEFT);
-		if(nameOne != null)
-			surface.text(nameOne, x/2-340, y/2-220);
+		surface.text(nameOne, x/2-340, y/2-220);
 		surface.textAlign(PConstants.RIGHT);
-		if(nameTwo != null)
-			surface.text(nameTwo, x/2+340, y/2-220);
+		surface.text(nameTwo, x/2+340, y/2-220);
 		String s = "";
 		if(activePlayer.equals(p1)) {
 			s = "White's Turn";

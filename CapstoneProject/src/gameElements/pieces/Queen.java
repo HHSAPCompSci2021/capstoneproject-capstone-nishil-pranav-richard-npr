@@ -7,6 +7,11 @@ import gameElements.board.Board;
 import gameElements.board.Location;
 import processing.core.PApplet;
 
+/**
+ * the Queen represents a queen on the chess board
+ * @author hfeng636
+ *
+ */
 public class Queen extends GamePiece{
 	
 	private double queenDamageBonus;

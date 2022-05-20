@@ -7,6 +7,11 @@ import gameElements.board.Board;
 import gameElements.board.Location;
 import processing.core.PApplet;
 
+/**
+ * The Bishop represents a bishop on the chess board
+ * @author hfeng636
+ *
+ */
 public class Bishop extends GamePiece{
 	private double bishopDamageBonus;
 	private boolean firstHit;
