@@ -29,7 +29,6 @@ public class ScreenQueue extends Screen {
 	
 	private Rectangle button;
 	
-	private int i;
 //	private boolean white;
 	private boolean firstLoop;
 	private BoardPost gameCreated;
@@ -62,7 +61,6 @@ public class ScreenQueue extends Screen {
 		String str = "";
 		str = Integer.toString(queue.size());
 		
-		
 		// make a new game
 		if (firstLoop) {
 			firstLoop = false;
@@ -88,10 +86,16 @@ public class ScreenQueue extends Screen {
 //			gameScreen.setNames("a", "b");
 //			gameScreen.setBoardRef(gameCreated);
 //			gameScreen.setBoardRef(gameCreated);
+			
+			// folder for game replicating
 			DatabaseReference gameRef = ref.child(Integer.toString(surface.getI()-1));
 			surface.addChildEventListener(gameRef);
 			surface.setGameReference(gameRef);
 			gameScreen.setWhite(false);
+			
+			// remove from queue
+			surface.clearData(ref.child("Queue"));				// TODO: clear data when leaving game, keeping updated i value for new players
+			
 			surface.switchScreen(ScreenSwitcher.SCREEN8);
 			return;
 		}
@@ -136,4 +140,3 @@ public class ScreenQueue extends Screen {
 	}
 	
 }
-
