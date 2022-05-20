@@ -32,8 +32,8 @@ public abstract class GamePiece {
 				die();
 			}
 			if(target != null && target.isDead()) { target = null;} //target died
-			if(target != null && loc.getDistanceFrom(target.getLocation()) >= 7) {target = null;}// target went out of range
-			if(target == null) { target = getScan(5);} // get target
+			if(target != null && loc.getDistanceFrom(target.getLocation()) >= 10) {target = null;}// target went out of range
+			if(target == null) { target = getScan(7);} // get target
 			if(loc == null) {return;}
 			ArrayList<Location> moveLocs = calcMoveLocs();
 			Location optimal = getMoveLoc(moveLocs);

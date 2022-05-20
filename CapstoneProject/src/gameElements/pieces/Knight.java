@@ -10,11 +10,14 @@ import processing.core.PApplet;
 
 public class Knight extends GamePiece {
 	
+	boolean freeLife;
+	
 	public Knight(int r, int c, Board brd, boolean wht) {
 		super(r, c, brd, wht);
-		health = 25;
+		freeLife = true;
+		health = 20;
 		fullHealth = health;
-		damage = 6;
+		damage = 8;
 		maxDist = 2;
 		energy = 2;
 		range = 1;
@@ -94,6 +97,17 @@ public class Knight extends GamePiece {
 		}
 		else {
 			return null;
+		}
+	}
+	
+	@Override
+	public void die() {
+		if(freeLife) {
+			freeLife = false;
+			health = fullHealth;
+		}
+		else {
+			super.die();
 		}
 	}
 	

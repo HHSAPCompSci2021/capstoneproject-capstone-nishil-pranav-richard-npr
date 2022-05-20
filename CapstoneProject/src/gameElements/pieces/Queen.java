@@ -9,14 +9,17 @@ import processing.core.PApplet;
 
 public class Queen extends GamePiece{
 	
+	private double queenDamageBonus;
+	
 	public Queen(int r, int c, Board brd, boolean wht) {
 		super(r, c, brd, wht);
+		queenDamageBonus = 1;
 		health = 50;
 		fullHealth = health;
-		damage = 10;
+		damage = 4;
 		maxDist = 3;
 		energy = 5;
-		range = 2;
+		range = 3;
 		if (wht) {
 			super.setImgCode(ImageCodes.WHITE_QUEEN);
 		} else {
@@ -32,8 +35,8 @@ public class Queen extends GamePiece{
 	public ArrayList<Location> calcMoveLocs() {
 		ArrayList<Location> locs = new ArrayList<Location>();
 		int row = loc.getRow(), col = loc.getCol();
-		for(int r = row-2; r <= row+2; r++) {
-			for(int c = col-2; c <= col+2; c++) {
+		for(int r = row-1; r <= row+1; r++) {
+			for(int c = col-1; c <= col+1; c++) {
 				if(board.inBounds(r,  c)) {
 					if (board.isEmpty(r, c)){
 						locs.add(new Location(r, c));
@@ -48,6 +51,7 @@ public class Queen extends GamePiece{
 	public Location getMoveLoc(ArrayList<Location> moves) {
 		Location toPick = loc;
 		if(target == null) {
+			queenDamageBonus = 1;
 			for(Location l : moves) {
 				if(super.isWhite()) {
 					if(l.getCol() > toPick.getCol() && toPick.getRow() == l.getRow()) {
@@ -82,13 +86,19 @@ public class Queen extends GamePiece{
 		return toPick;
 	}
 
-
+	@Override
+	public int getDamage() {
+		System.out.println("Queen damage: " + queenDamageBonus);
+		return damage * (int)queenDamageBonus;
+	}
+	
 	@Override
 	public ArrayList<GamePiece> getAttackTargets() {
 		if(target != null) {	
 			ArrayList<GamePiece> toAttack = new ArrayList<GamePiece>();
 			if(loc.getDistanceFrom(target.getLocation()) <= Math.sqrt(range*range+range*range)+ 0.001) {
 				toAttack.add(target);
+				queenDamageBonus++;
 				return toAttack;
 			}
 			return toAttack;

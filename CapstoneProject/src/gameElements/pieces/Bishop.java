@@ -13,9 +13,9 @@ public class Bishop extends GamePiece{
 	public Bishop(int r, int c, Board brd, boolean wht) {
 		super(r, c, brd, wht);
 		bishopDamageBonus = 0;
-		health = 25;
+		health = 50;
 		fullHealth = health;
-		damage = 7;
+		damage = 10;
 		maxDist = 3;
 		energy = 3;
 		range = 1;
@@ -76,7 +76,8 @@ public class Bishop extends GamePiece{
 		}
 		else {
 			if(loc.getDistanceFrom(target.getLocation()) <= Math.sqrt(range*range+range*range)+0.001) {
-				return loc;
+				bishopDamageBonus = 0;
+				return loc;	
 			}
 			for(Location l : moves) {
 				if(l.getDistanceFrom(target.getLocation()) < toPick.getDistanceFrom(target.getLocation())) {
@@ -84,7 +85,7 @@ public class Bishop extends GamePiece{
 				}
 			}
 		}
-		bishopDamageBonus += 0.15*toPick.getDistanceFrom(loc);
+		bishopDamageBonus += 0.5*toPick.getDistanceFrom(loc);
 		return toPick;
 	}
 
