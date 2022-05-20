@@ -30,6 +30,7 @@ import gameElements.screens.ScreenMenu;
 import gameElements.screens.ScreenOnlineGame;
 import gameElements.screens.ScreenOnlineNameCreate;
 import gameElements.screens.ScreenQueue;
+import gameElements.screens.ScreenSecond;
 import gameElements.screens.ScreenSwitcher;
 import processing.core.PApplet;
 import processing.core.PConstants;
