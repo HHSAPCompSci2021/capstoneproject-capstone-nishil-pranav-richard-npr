@@ -69,15 +69,22 @@ public class ScreenQueue extends Screen {
 				System.out.println("quyeuedsadas: " + queue.size());
 				
 				BoardPost board = new BoardPost();
+				System.out.println("quyeuedsadas: " + queue.size());
 				DatabaseReference boardRef = surface.postData(board);
+				System.out.println("quyeuedsadas: " + queue.size());
 //				gameScreen.setNames("a", "b");
 //				gameScreen.setBoardRef(boardRef);
 //				gameScreen.setBoardRef(gameCreated);
 				DatabaseReference gameRef = ref.child(Integer.toString(surface.getI()));
+				System.out.println("quyeuedsadas: " + queue.size());
 				surface.addChildEventListener(gameRef);
+				System.out.println("quyeuedsadas: " + queue.size());
 				surface.setGameReference(gameRef);
+				System.out.println("quyeuedsadas: " + queue.size());
 				gameScreen.setWhite(true);
+				System.out.println("quyeuedsadas: " + queue.size());
 				surface.switchScreen(ScreenSwitcher.SCREEN8);
+				System.out.println("quyeuedsadas: " + queue.size());
 				return;
 			}
 		}
@@ -102,7 +109,7 @@ public class ScreenQueue extends Screen {
 //			gameScreen.setNames(whiteName, blackName);
 			
 			// remove from queue
-//			surface.clearData(ref.child("Queue"));				// TODO: clear data when leaving game, keeping updated i value for new players
+			surface.clearData(ref.child("Queue"));				// TODO: clear data when leaving game, keeping updated i value for new players
 			
 			surface.switchScreen(ScreenSwitcher.SCREEN8);
 			return;
