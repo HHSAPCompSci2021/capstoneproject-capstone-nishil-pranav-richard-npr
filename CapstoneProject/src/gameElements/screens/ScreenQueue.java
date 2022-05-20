@@ -15,6 +15,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import core.DrawingSurface;
+import core.DrawingSurface.DatabaseChangeListener;
 import databaseData.BoardPost;
 import databaseData.UserPost;
 import processing.core.PConstants;
@@ -27,8 +28,8 @@ public class ScreenQueue extends Screen {
 	private ScreenOnlineGame gameScreen;
 	
 	private Rectangle button;
+	
 	private int i;
-	private boolean updated;
 //	private boolean white;
 	private boolean firstLoop;
 	private BoardPost gameCreated;
@@ -62,58 +63,38 @@ public class ScreenQueue extends Screen {
 		str = Integer.toString(queue.size());
 		
 		
+		// make a new game
 		if (firstLoop) {
 			firstLoop = false;
 			if (queue.size() > 0) {		// if there is someone already waiting in queue
-				// player names
-//				String blackName = queue.get(0).getPlayerName();
-//				String whiteName = queue.get(1).getPlayerName();
-//				gameScreen.setNames(whiteName, blackName);
-//				gameScreen.setWhite(true);
-				
-				// make game
 				System.out.println("quyeuedsadas: " + queue.size());
 				BoardPost board = new BoardPost();
 				DatabaseReference boardRef = surface.postData(board);
 //				gameScreen.setNames("a", "b");
 //				gameScreen.setBoardRef(boardRef);
 //				gameScreen.setBoardRef(gameCreated);
-				
-				// folder for game replicating
 				DatabaseReference gameRef = ref.child(Integer.toString(surface.getI()));
 				surface.addChildEventListener(gameRef);
 				surface.setGameReference(gameRef);
-
 				gameScreen.setWhite(true);
 				surface.switchScreen(ScreenSwitcher.SCREEN8);
 				return;
 			}
 		}
-
-		if (gameCreated != null && queue.size() == 2) {
+		
+		
+		// connect to an existing game
+		if (gameCreated != null && queue.size() > 0 && queue.size() % 2 == 0) {
 //			gameScreen.setNames("a", "b");
 //			gameScreen.setBoardRef(gameCreated);
 //			gameScreen.setBoardRef(gameCreated);
-			
-			// folder for game replicating
 			DatabaseReference gameRef = ref.child(Integer.toString(surface.getI()-1));
 			surface.addChildEventListener(gameRef);
 			surface.setGameReference(gameRef);
-			
-			// player names
-//			String blackName = queue.get(0).getPlayerName();
-//			String whiteName = queue.get(1).getPlayerName();
-//			gameScreen.setNames(whiteName, blackName);
-//			gameScreen.setWhite(false);
-			
-			// remove from queue
-			surface.clearData(ref.child("Queue"));				// TODO: clear game data when leaving game
-			
+			gameScreen.setWhite(false);
 			surface.switchScreen(ScreenSwitcher.SCREEN8);
 			return;
 		}
-		
-		
 		
 		
 		
@@ -138,7 +119,6 @@ public class ScreenQueue extends Screen {
 	}
 	
 	public void queueUpdated() {
-		updated = true;
 //		System.out.println("updatedd");
 //		white = false;
 	}
