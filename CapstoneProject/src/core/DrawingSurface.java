@@ -20,6 +20,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import databaseData.BoardPost;
 import databaseData.ChangePost;
+import databaseData.IntegerPost;
 import databaseData.NamePost;
 import databaseData.Post;
 import databaseData.UserPost;
@@ -62,7 +63,7 @@ public class DrawingSurface extends PApplet {
 	private DatabaseReference ref;
 	private DatabaseReference gameRef;
 	
-	private static int i;
+	private int i;
 	
 	/**
 	 * Constructs a new DrawingSurface, setting up fields, the database, and screens.
@@ -174,7 +175,11 @@ public class DrawingSurface extends PApplet {
 	 */
 	public void draw() {
 		
-//		if (i == 0) return;
+		// loading screen till all firebase stuff is collected 
+//		if (i == 0) {
+//			drawLoading();
+//			return;
+//		}
 		
 		ratioX = (float)width/activeScreen.DRAWING_WIDTH;
 		ratioY = (float)height/activeScreen.DRAWING_HEIGHT;
@@ -188,7 +193,7 @@ public class DrawingSurface extends PApplet {
 	 */
 	public void keyPressed() {
 		keys.add(keyCode);
- if (activeScreen == screens.get(ScreenSwitcher.SCREEN3)) {
+		if (activeScreen == screens.get(ScreenSwitcher.SCREEN3)) {
 			((ScreenOnlineNameCreate) activeScreen).keyPressed();
 		} else if (activeScreen == screens.get(ScreenSwitcher.SCREEN6)) {
 			((ScreenLocalNameCreate) activeScreen).keyPressed();
@@ -502,9 +507,9 @@ public class DrawingSurface extends PApplet {
 //							post.setReference(dataSnapshot.getRef());
 //							setBoard(post.getBoard());
 //							gameCreated(post);
-						} else if (postType.matches("NAME")) {
-							NamePost post = dataSnapshot.getValue(NamePost.class);
-							
+						} else if (postType.matches("INT")) {
+							IntegerPost post = dataSnapshot.getValue(IntegerPost.class);
+							i = post.getX();
 						}
 					} else {
 //						System.out.println(postType);
@@ -519,12 +524,17 @@ public class DrawingSurface extends PApplet {
 		public void onChildChanged(DataSnapshot arg0, String arg1) {
 			Post postN = arg0.getValue(Post.class);
 			String postType = postN.postType;
-			if (postType != null && postType.matches("BOARD")) {
-				BoardPost post = arg0.getValue(BoardPost.class);
-				post.setReference(arg0.getRef());
-				System.out.println("    BOARD UPDATED: " + post);
-				setBoard(post.getBoard());
-//				gameCreated(post);
+			if (postType != null) {
+				if (postType.matches("BOARD")) {
+					BoardPost post = arg0.getValue(BoardPost.class);
+					post.setReference(arg0.getRef());
+					System.out.println("    BOARD UPDATED: " + post);
+					setBoard(post.getBoard());
+//					gameCreated(post);
+				} else if (postType.matches("INT")) {
+					IntegerPost post = arg0.getValue(IntegerPost.class);
+					i = post.getX();
+				}
 			}
 		}
 

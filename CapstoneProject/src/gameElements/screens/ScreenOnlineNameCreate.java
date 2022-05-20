@@ -13,6 +13,7 @@ import java.util.Map;
 import com.google.firebase.database.DatabaseReference;
 
 import core.DrawingSurface;
+import core.ImageCodes;
 import databaseData.UserPost;
 import processing.core.PApplet;
 import processing.core.PConstants;
@@ -40,6 +41,11 @@ public class ScreenOnlineNameCreate extends Screen {
 	
 	
 	public void draw() {
+		// loading screen if firebase stuff has not loaded in yet
+		if (surface.getI() == 0) {
+			drawLoading();
+			return;
+		}
 		
 		surface.pushStyle();
 		surface.background(255,255,255);
@@ -51,6 +57,29 @@ public class ScreenOnlineNameCreate extends Screen {
 			str = boxText.toString();
 		}
 		showButton(nameCreationBox, str);
+		
+		surface.popStyle();
+	}
+	
+	public void drawLoading() {
+		
+		int width = 1200;
+		int height = 600;
+		
+		surface.pushStyle();
+		surface.background(255);
+		surface.imageMode(PConstants.CENTER);
+		surface.textAlign(PConstants.CENTER, PConstants.CENTER);
+		
+		surface.image(surface.getImages().get(ImageCodes.BACKGROUND), width/2, height/2, width, height);
+		
+		surface.tint(255, (float)(255*(3.0/5.0)));
+		surface.image(surface.getImages().get(ImageCodes.BLACK_SQUARE), width/2, height/2-20, width-(200*2), height-(225*2));
+		
+		surface.fill(255);
+		
+		surface.textSize(50);
+		surface.text("LOADING", width/2, height/2-20);
 		
 		surface.popStyle();
 		
