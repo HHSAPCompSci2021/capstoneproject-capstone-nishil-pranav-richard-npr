@@ -85,14 +85,11 @@ public class ScreenQueue extends Screen {
 //			gameScreen.setNames("a", "b");
 //			gameScreen.setBoardRef(gameCreated);
 //			gameScreen.setBoardRef(gameCreated);
-<<<<<<< HEAD
 			
 			// folder for game replicating
 			DatabaseReference gameRef = ref.child(Integer.toString(surface.getI()-1));
 			surface.addChildEventListener(gameRef);
 			surface.setGameReference(gameRef);
-=======
->>>>>>> parent of fb026f8 (:+1:  THIS TOOK AN HOUR BUT NETWORKING NOW WORKS IN FOLDERS WOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO)
 			gameScreen.setWhite(false);
 			
 			// remove from queue
