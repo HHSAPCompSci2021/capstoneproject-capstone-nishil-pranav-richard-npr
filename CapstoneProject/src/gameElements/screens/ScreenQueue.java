@@ -65,16 +65,26 @@ public class ScreenQueue extends Screen {
 		if (firstLoop) {
 			firstLoop = false;
 			if (queue.size() > 0) {		// if there is someone already waiting in queue
+				// player names
+//				String blackName = queue.get(0).getPlayerName();
+//				String whiteName = queue.get(1).getPlayerName();
+//				gameScreen.setNames(whiteName, blackName);
+//				gameScreen.setWhite(true);
+				
+				// make game
 				System.out.println("quyeuedsadas: " + queue.size());
 				BoardPost board = new BoardPost();
 				DatabaseReference boardRef = surface.postData(board);
 //				gameScreen.setNames("a", "b");
 //				gameScreen.setBoardRef(boardRef);
 //				gameScreen.setBoardRef(gameCreated);
+				
+				// folder for game replicating
 				DatabaseReference gameRef = ref.child(Integer.toString(surface.getI()));
 				surface.addChildEventListener(gameRef);
 				surface.setGameReference(gameRef);
-				gameScreen.setWhite(true);
+				
+				
 				surface.switchScreen(ScreenSwitcher.SCREEN8);
 				return;
 			}
@@ -82,7 +92,7 @@ public class ScreenQueue extends Screen {
 		
 		
 		// connect to an existing game
-		if (gameCreated != null && queue.size() > 0 && queue.size() % 2 == 0) {
+		if (gameCreated != null && queue.size() == 2) {
 //			gameScreen.setNames("a", "b");
 //			gameScreen.setBoardRef(gameCreated);
 //			gameScreen.setBoardRef(gameCreated);
@@ -91,14 +101,21 @@ public class ScreenQueue extends Screen {
 			DatabaseReference gameRef = ref.child(Integer.toString(surface.getI()-1));
 			surface.addChildEventListener(gameRef);
 			surface.setGameReference(gameRef);
-			gameScreen.setWhite(false);
+			
+			// player names
+//			String blackName = queue.get(0).getPlayerName();
+//			String whiteName = queue.get(1).getPlayerName();
+//			gameScreen.setNames(whiteName, blackName);
+//			gameScreen.setWhite(false);
 			
 			// remove from queue
-			surface.clearData(ref.child("Queue"));				// TODO: clear data when leaving game, keeping updated i value for new players
+			surface.clearData(ref.child("Queue"));				// TODO: clear game data when leaving game
 			
 			surface.switchScreen(ScreenSwitcher.SCREEN8);
 			return;
 		}
+		
+		
 		
 		
 		

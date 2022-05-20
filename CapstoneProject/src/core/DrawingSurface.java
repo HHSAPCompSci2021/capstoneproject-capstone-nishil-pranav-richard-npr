@@ -66,7 +66,7 @@ public class DrawingSurface extends PApplet {
 		
 		// SETUP NORMAL FIELDS
 		playerName = null;
-		board = null;
+//		board = null;
 		queue = new ArrayList<UserPost>();
 		
 		
@@ -128,7 +128,7 @@ public class DrawingSurface extends PApplet {
 		screens.add(screen8);
 		
 		activeScreen = screens.get(0);
-		board = new Board();
+//		board = new Board();
 		
 	}
 	
@@ -472,7 +472,7 @@ public class DrawingSurface extends PApplet {
 							BoardPost post = dataSnapshot.getValue(BoardPost.class);
 							post.setReference(dataSnapshot.getRef());
 							System.out.println("    BOARD ADDED: " + post);
-							setBoard(post.getBoard());
+							setBoard(new Board());
 							gameCreated(post);
 							i += 1;
 						} else if (postType.matches("PIECEADDED")) {
