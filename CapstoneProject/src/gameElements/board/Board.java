@@ -47,8 +47,8 @@ public class Board {
 		for(int j = 0; j < board.length; j++) {
 			for(int i = 0; i < board[j].length; i++) {
 				// draw outer box
-				surface.fill(18, 82, 18);
-				surface.stroke(0);//TODO change later?
+				surface.fill(220, 180, 42);
+				surface.stroke(0);
 				surface.rect(x, y, sqWidth, sqHeight);
 				
 				// draw piece
@@ -63,7 +63,10 @@ public class Board {
 					surface.fill(255, 0, 0);
 					surface.rect(x, y- sqHeight/3, (int)(sqWidth*0.8), (int)(sqHeight/6));
 					surface.fill(0, 255, 0);
-					surface.rect(x-(int)(sqWidth*0.8-sqWidth*0.8*Math.abs((double)piece.getHealth()/(double)piece.getFullHealth()))/2, y- sqHeight/3, (int)(sqWidth*0.8*Math.abs((double)piece.getHealth()/(double)piece.getFullHealth())), (int)(sqHeight/6));
+					double ratio = (double)piece.getHealth()/(double)piece.getFullHealth();
+					if(ratio < 0) { ratio = 0;}
+					surface.rect(x-(int)(sqWidth*0.8-sqWidth*0.8*ratio)/2, y- sqHeight/3, (int)(sqWidth*0.8*ratio), (int)(sqHeight/6));
+					surface.fill(0);
 				}
 				
 				x+=sqWidth;
