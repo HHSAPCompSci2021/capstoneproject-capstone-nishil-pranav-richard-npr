@@ -70,6 +70,8 @@ public class Card {
 	 * @return True if the point is contained within this card, false otherwise
 	 * */
 	public boolean isPointInside(float cx, float cy, float x, float y, float width, float height) {
+		x -= width/2;
+		y -= height/2;
 		if(cx >= x && cx <=x+width && cy >= y && cy <=y+height) {
 			return true;
 		}
