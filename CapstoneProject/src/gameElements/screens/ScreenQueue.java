@@ -71,6 +71,7 @@ public class ScreenQueue extends Screen {
 //				gameScreen.setNames("a", "b");
 //				gameScreen.setBoardRef(boardRef);
 //				gameScreen.setBoardRef(gameCreated);
+				gameScreen.setWhite(true);
 				surface.switchScreen(ScreenSwitcher.SCREEN8);
 				return;
 			}
@@ -81,6 +82,7 @@ public class ScreenQueue extends Screen {
 //			gameScreen.setNames("a", "b");
 //			gameScreen.setBoardRef(gameCreated);
 //			gameScreen.setBoardRef(gameCreated);
+			gameScreen.setWhite(false);
 			surface.switchScreen(ScreenSwitcher.SCREEN8);
 			return;
 		}

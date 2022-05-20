@@ -49,6 +49,7 @@ public class ScreenOnlineGame extends Screen implements ActionListener{
 //	private Rectangle rightPFP;
 	
 	private boolean gameInProgress;
+	private boolean white;
 	
 	private final int x = 1200;
 	private final int y = 600;
@@ -166,6 +167,8 @@ public class ScreenOnlineGame extends Screen implements ActionListener{
 //		showBox(leftPFP);
 //		showBox(rightPFP);
 		
+		// TODO: fix bug where names are null
+		
 		surface.textSize(25);
 		surface.textAlign(PConstants.LEFT);
 		if (nameOne != null) surface.text(nameOne, x/2-340, y/2-220);
@@ -252,9 +255,9 @@ public class ScreenOnlineGame extends Screen implements ActionListener{
 	 */
 	public void mousePressed() {
 		
-		Point click= surface.actualCoordinatesToAssumed(new Point(surface.mouseX, surface.mouseY)); 
+		Point click = surface.actualCoordinatesToAssumed(new Point(surface.mouseX, surface.mouseY)); 
 		
-		if(surface.mouseButton == PConstants.RIGHT) { //right button is clicked
+		if (surface.mouseButton == PConstants.RIGHT) { //right button is clicked
 			float tempX;
 			float tempY =  y/2+50-200+(102*0)+(94/2);
 			
@@ -262,6 +265,12 @@ public class ScreenOnlineGame extends Screen implements ActionListener{
 				tempX = x/2-485;
 			} else {
 				tempX = x/2+315;
+			}
+			
+			if (white && activePlayer.equals(p2)) {					// if the player with this screen is white but it's black's turn
+				return;
+			} else if (!white && activePlayer.equals(p1)) {			// if the player with this screen is black but it's white's turn
+				return;
 			}
 			
 	        for(int i = 0; i < activePlayer.getCards().size() && i < 5; i++) {
@@ -332,7 +341,7 @@ public class ScreenOnlineGame extends Screen implements ActionListener{
 		// add piece to board and update the energy "cost" value based on how much the added piece costs
 		if (gamePieceName.matches("Bishop")) {
 			board.add(new Bishop(y, x, board, white));
-			cost = 3;
+			cost = 3;						// TODO: make these not hard coded if extra time
 		} else if (gamePieceName.matches("Knight")) {
 			board.add(new Knight(y, x, board, white));
 			cost = 2;
@@ -385,7 +394,6 @@ public class ScreenOnlineGame extends Screen implements ActionListener{
 	
 	
 	private void checkGameOver() {
-		
 		int gameOver = board.checkGameOver();
 		
 		if (gameOver == 0) {			// game is not over
@@ -399,7 +407,6 @@ public class ScreenOnlineGame extends Screen implements ActionListener{
 			gameInProgress = false;
 			activePlayer = p2;
 		} 
-		
 	}
 	
 	/**
@@ -459,17 +466,6 @@ public class ScreenOnlineGame extends Screen implements ActionListener{
 		showBox(rectangle, true);
 	}
 	
-	private GamePiece gpFromString(String name, boolean white, int col, int row) {
-		switch(name) {
-		case "Queen": return new Queen(row, col, board, white);
-		case "Knight": return new Knight(row, col, board, white);
-		case "Bishop": return new Bishop(row, col, board, white);
-		case "Rook": return new Rook(row, col, board, white);
-		case "Pawn": return new Pawn(row, col, board, white);
-		}
-		return null;
-	}
-	
 	private void skipTurn() {
 		if (activePlayer == null  || !gameInProgress) return;
 		if (activePlayer.equals(p1)) {
@@ -481,6 +477,10 @@ public class ScreenOnlineGame extends Screen implements ActionListener{
 		}
 		activePiece = null;
 //		board.play();
+	}
+
+	public void setWhite(boolean white) {
+		this.white = white;
 	}
 
 }
