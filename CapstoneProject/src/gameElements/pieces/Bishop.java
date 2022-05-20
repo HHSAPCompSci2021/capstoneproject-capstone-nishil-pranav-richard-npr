@@ -14,7 +14,7 @@ public class Bishop extends GamePiece{
 		health = 25;
 		fullHealth = health;
 		damage = 7;
-		maxDist = 3;
+		maxDist = 2;
 		energy = 3;
 		range = 1;
 		if (wht) {
