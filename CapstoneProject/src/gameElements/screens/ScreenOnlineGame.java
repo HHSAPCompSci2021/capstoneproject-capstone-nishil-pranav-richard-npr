@@ -100,9 +100,6 @@ public class ScreenOnlineGame extends Screen implements ActionListener{
 	 * Draws the elements of the game onto the processing window.
 	 */
 	public void draw() {
-		
-//		System.out.println(surface.getGameReference());
-		
 		if (gameInProgress) {
 			drawGame();
 		} else {
@@ -120,7 +117,7 @@ public class ScreenOnlineGame extends Screen implements ActionListener{
 		
 		// DRAW STUFF
 		surface.pushStyle();
-		surface.background(198, 46, 46);
+		surface.background(32, 42, 68);
 		
 		surface.textSize(15);
 		surface.fill(255);
@@ -134,11 +131,11 @@ public class ScreenOnlineGame extends Screen implements ActionListener{
 		showBox(rightKing);
 		whiteKing = surface.getImages().get(ImageCodes.WHITE_CASTLE);
 		blackKing = surface.getImages().get(ImageCodes.BLACK_CASTLE);
-		surface.image(whiteKing, x/2-390, y/2-50, 75, 188);
-		surface.image(blackKing, x/2+210, y/2-50, 75, 188);
+		surface.image(whiteKing, x/2-290, y/2-50, 75, 188);
+		surface.image(blackKing, x/2+310, y/2-50, 75, 188);
 		
-		surface.image(whiteKing, x/2-390, y/2+175, 75, 188);
-		surface.image(blackKing, x/2+210, y/2+175, 75, 188);
+		surface.image(whiteKing, x/2-290, y/2+175, 75, 188);
+		surface.image(blackKing, x/2+310, y/2+175, 75, 188);
 		
 //		 leftKing = new Rectangle(x/2-390,y/2+50,100,400);
 //		rightKing = new Rectangle(x/2+210,y/2+50,100,400);
@@ -149,14 +146,14 @@ public class ScreenOnlineGame extends Screen implements ActionListener{
 		board.draw(surface, boardX, boardY, boardWidth, boardHeight);
 		
 		surface.textSize(15);
-        float tempX = x/2-485, tempY = y/2+50-200+(102*0)+(94/2);
+        float tempX = x/2-385, tempY = y/2+50-200+(102*0)+(94/2);
         for(int i = 0; i < p1.getCards().size() && i < 5; i++) {
         	Card c = p1.getCards().get(i);
         	c.draw(surface, tempX, tempY, 75, 75);
         	tempY+=90;
         }
 
-        tempX = x/2+315;
+        tempX = x/2+415;
         tempY = y/2+50-200+(102*0)+(94/2);
         for(int i = 0; i < p2.getCards().size() && i < 5; i++) {
         	Card c = p2.getCards().get(i);
@@ -170,13 +167,14 @@ public class ScreenOnlineGame extends Screen implements ActionListener{
 //		showBox(leftPFP);
 //		showBox(rightPFP);
 		
-		// TODO: fix bug where names are null
-		
 		surface.textSize(25);
+		surface.fill(255);
 		surface.textAlign(PConstants.LEFT);
-		if (nameOne != null) surface.text(nameOne, x/2-340, y/2-220);
+		if(nameOne != null)
+			surface.text(nameOne, x/2-340, y/2-220);
 		surface.textAlign(PConstants.RIGHT);
-		if (nameTwo != null) surface.text(nameTwo, x/2+340, y/2-220);
+		if(nameTwo != null)
+			surface.text(nameTwo, x/2+340, y/2-220);
 		String s = "";
 		if(activePlayer.equals(p1)) {
 			s = "White's Turn";
@@ -189,15 +187,16 @@ public class ScreenOnlineGame extends Screen implements ActionListener{
 		if (activePiece != null) {
 			if(activePlayer.equals(p1)) {
 				surface.rectMode(PConstants.CORNER);
-				surface.fill(100, 0, 0);
-				surface.rect(boardX + boardWidth/2-boardWidth/15, boardY-15, boardWidth/2 + boardWidth/15, boardHeight);
+				surface.fill(100, 0, 0, 100);
+				surface.rect(boardX + boardWidth/2-boardWidth/15, boardY-14, boardWidth/2 + boardWidth/15, boardHeight);
 				surface.fill(255);
 				surface.rectMode(PConstants.CENTER);
 			}
 			else {
 				surface.rectMode(PConstants.CORNER);
-				surface.fill(100, 0, 0);
-				surface.rect(boardX-boardWidth/15, boardY-15, boardWidth/2 + boardWidth/15, boardHeight);
+				surface.fill(100, 0, 0, 100); 
+				int x;
+				surface.rect(boardX-boardWidth/15, boardY-14, boardWidth/2 + boardWidth/15, boardHeight);
 				surface.fill(255);
 				surface.rectMode(PConstants.CENTER);
 			}
@@ -206,6 +205,16 @@ public class ScreenOnlineGame extends Screen implements ActionListener{
 		}
 		surface.textSize(25);
 		surface.text((180-time), x/2, 580);
+		
+		surface.fill(32, 42, 68);
+		surface.rectMode(PConstants.CORNER);
+		surface.noStroke();
+
+		if(activePlayer.equals(p1)) {
+			surface.rect(x/2+365, 0, surface.width+200, surface.height+200);
+		} else if(activePlayer.equals(p2)) {
+			surface.rect(0, 0, x/2-345, surface.height+200);
+		}
 		
 		surface.popStyle();
 		
@@ -312,7 +321,7 @@ public class ScreenOnlineGame extends Screen implements ActionListener{
 				post.setWhite(activePlayer.isWhite());
 				post.setGamePieceName(activePiece);
 				
-				DatabaseReference postRef = surface.postData(post, surface.getGameReference());
+				DatabaseReference postRef = surface.postData(post);
 				
 				
 //				board.play();
