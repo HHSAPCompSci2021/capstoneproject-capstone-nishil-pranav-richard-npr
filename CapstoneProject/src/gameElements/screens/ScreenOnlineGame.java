@@ -219,7 +219,6 @@ public class ScreenOnlineGame extends Screen implements ActionListener{
 			surface.rect(0, 0, x/2-345, surface.height+200);
 		}
 		
-		
 		surface.popStyle();
 		
 	}
