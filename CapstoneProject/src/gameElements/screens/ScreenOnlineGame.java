@@ -255,16 +255,8 @@ public class ScreenOnlineGame extends Screen implements ActionListener{
 		Point click= surface.actualCoordinatesToAssumed(new Point(surface.mouseX, surface.mouseY)); 
 		
 		if(surface.mouseButton == PConstants.RIGHT) { //right button is clicked
-			//start the time if not started already
-			//so the game begins when the first player chooses their piece
-			if(time == 0) {
-				timer.start();
-			}
-			
 			float tempX;
 			float tempY =  y/2+50-200+(102*0)+(94/2);
-			
-
 			
 			if(activePlayer.equals(p1)) {
 				tempX = x/2-485;
@@ -293,12 +285,12 @@ public class ScreenOnlineGame extends Screen implements ActionListener{
 					if(loc.x >= board.getWidth()/2) {
 						System.err.println("CANNOT PLACE ON ENEMY'S SIDE!!!");
 						return;
-					} 
+					}
 				} else if(activePlayer.equals(p2)) {
 					if(loc.x <= board.getWidth()/2) {
 						System.err.println("CANNOT PLACE ON ENEMY'S SIDE!!!");
 						return;
-					} 
+					}
 				}
 				
 				// post the new piece
@@ -321,6 +313,7 @@ public class ScreenOnlineGame extends Screen implements ActionListener{
 	 * @param post the post from the database representing the new piece.
 	 */
 	public void pieceAdded(ChangePost post) {
+		
 		// get data
 		int x = post.getX();
 		int y = post.getY();
@@ -328,8 +321,15 @@ public class ScreenOnlineGame extends Screen implements ActionListener{
 		boolean white = post.isWhite();
 		String gamePieceName = post.getGamePieceName();
 		
+		// start the time if not started already (so the game begins when the first piece is placed)
+		if (time == 0) {
+			timer.start();
+		}
+		
+		// console log for debugging
 		System.out.println(String.format("pieceAdded (%d, %d)", x, y));
 		
+		// add piece to board and update the energy "cost" value based on how much the added piece costs
 		if (gamePieceName.matches("Bishop")) {
 			board.add(new Bishop(y, x, board, white));
 			cost = 3;
@@ -353,8 +353,9 @@ public class ScreenOnlineGame extends Screen implements ActionListener{
 			return;
 		}
 		
+		// subtract the cost from energy, use a turn, and set activePiece to null
 		activePlayer.useEnergy(cost);
-		if(activePlayer.equals(p1)) {
+		if (activePlayer.equals(p1)) {
 			activePlayer = p2;
 		} else {
 			activePlayer = p1;
