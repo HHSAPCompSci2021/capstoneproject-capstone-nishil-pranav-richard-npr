@@ -12,6 +12,7 @@ import core.ImageCodes;
 import gameElements.board.*;
 import gameElements.pieces.*;
 import processing.core.PConstants;
+import processing.core.PImage;
 
 
 /**
@@ -54,6 +55,7 @@ public class ScreenLocalGame extends Screen implements ActionListener{
 	private final int boardWidth = 500;
 	private final int boardHeight = 400;
 	private final int MAX_KING_HP = 100;
+	private PImage blackKing, whiteKing;
 	
 	private Timer timer;
 	private int time;
@@ -123,6 +125,17 @@ public class ScreenLocalGame extends Screen implements ActionListener{
 		surface.imageMode(PConstants.CENTER);
 		showBox(leftKing);
 		showBox(rightKing);
+		whiteKing = surface.getImages().get(ImageCodes.WHITE_CASTLE);
+		blackKing = surface.getImages().get(ImageCodes.BLACK_CASTLE);
+		surface.image(whiteKing, x/2-390, y/2-50, 75, 188);
+		surface.image(blackKing, x/2+210, y/2-50, 75, 188);
+		
+		surface.image(whiteKing, x/2-390, y/2+175, 75, 188);
+		surface.image(blackKing, x/2+210, y/2+175, 75, 188);
+		
+//		 leftKing = new Rectangle(x/2-390,y/2+50,100,400);
+//		rightKing = new Rectangle(x/2+210,y/2+50,100,400);
+		
 		showTextButton(leftKingHP, board.getKingHealth(true) + "/" + MAX_KING_HP, false);
 		showTextButton(rightKingHP, board.getKingHealth(false) + "/" + MAX_KING_HP, false);
 		
