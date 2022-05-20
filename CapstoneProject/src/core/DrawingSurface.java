@@ -1,9 +1,12 @@
 package core;
 
+import java.awt.Color;
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import com.google.auth.oauth2.GoogleCredentials;
@@ -31,6 +34,7 @@ import gameElements.screens.ScreenQueue;
 import gameElements.screens.ScreenSecond;
 import gameElements.screens.ScreenSwitcher;
 import processing.core.PApplet;
+import processing.core.PConstants;
 import processing.core.PImage;
 
 
@@ -51,11 +55,10 @@ public class DrawingSurface extends PApplet {
 	private ArrayList<UserPost> queue;
 	private String playerName;
 	private Board board;
-//	public UserPost player;		// the player running this program, NETWORKING ONLY. may be null		// TODO: make private later maybe
+	public UserPost player;		// the player running this program, NETWORKING ONLY. may be null		// TODO: make private later maybe
 	
 	// Database stuff
 	private DatabaseReference ref;
-	private DatabaseReference gameRef;
 	
 	private static int i;
 	
@@ -74,6 +77,7 @@ public class DrawingSurface extends PApplet {
 		FileInputStream refreshToken;
 		DatabaseReference queueRef = null;
 		DatabaseReference gamesRef = null;
+		DatabaseReference test = null;
 		try {
 
 			refreshToken = new FileInputStream("dataBaseKey.json");
@@ -330,42 +334,6 @@ public class DrawingSurface extends PApplet {
 	public Board getBoard() {
 		return board;
 	}
-
-	/**
-	 * Returns the database reference to the current game (networking). Could be null.
-	 * 
-	 * @return the database reference to the current game
-	 */
-	public DatabaseReference getGameReference() {
-		return gameRef;
-	}
-	
-	/**
-	 * Sets the database reference to the current game (networking) to gameRef.
-	 * 
-	 * @param gameRef new database reference to the current game
-	 */
-	public void setGameReference(DatabaseReference gameRef) {
-		this.gameRef = gameRef;
-	}
-	
-	/**
-	 * Returns an i value. This is a value that is incremented every time something is added to the queue.
-	 * Used for IDing.
-	 * 
-	 * @return an i value
-	 */
-	public int getI() {
-		return i;
-	}
-	
-	/**
-	 * Adds a ChildEventListener to ref
-	 * @param ref a DatabaseReference to add the ChildEventListener to
-	 */
-	public void addChildEventListener(DatabaseReference ref) {
-		ref.addChildEventListener(new DatabaseChangeListener());
-	}
 	
 	/**
 	 * Tells the ScreenQueue that the queue was updated if it is the active screen
@@ -458,9 +426,7 @@ public class DrawingSurface extends PApplet {
 			tasks.add(new Runnable() {
 				@Override
 				public void run() {
-//					postData(new IntegerPost())
 					Post postN = dataSnapshot.getValue(Post.class);
-					System.out.println("> add " + postN + postN.postType);
 					String postType = postN.postType;
 					if (postType != null ) {
 						if (postType.matches("USER")) {

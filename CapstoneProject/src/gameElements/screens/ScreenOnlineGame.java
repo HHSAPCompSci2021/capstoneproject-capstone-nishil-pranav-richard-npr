@@ -100,9 +100,6 @@ public class ScreenOnlineGame extends Screen implements ActionListener{
 	 * Draws the elements of the game onto the processing window.
 	 */
 	public void draw() {
-		
-//		System.out.println(surface.getGameReference());
-		
 		if (gameInProgress) {
 			drawGame();
 		} else {
@@ -190,14 +187,14 @@ public class ScreenOnlineGame extends Screen implements ActionListener{
 		if (activePiece != null) {
 			if(activePlayer.equals(p1)) {
 				surface.rectMode(PConstants.CORNER);
-				surface.fill(100, 0, 0, 200);
+				surface.fill(100, 0, 0, 100);
 				surface.rect(boardX + boardWidth/2-boardWidth/15, boardY-14, boardWidth/2 + boardWidth/15, boardHeight);
 				surface.fill(255);
 				surface.rectMode(PConstants.CENTER);
 			}
 			else {
 				surface.rectMode(PConstants.CORNER);
-				surface.fill(100, 0, 0, 200); 
+				surface.fill(100, 0, 0, 100); 
 				int x;
 				surface.rect(boardX-boardWidth/15, boardY-14, boardWidth/2 + boardWidth/15, boardHeight);
 				surface.fill(255);
@@ -218,7 +215,6 @@ public class ScreenOnlineGame extends Screen implements ActionListener{
 		} else if(activePlayer.equals(p2)) {
 			surface.rect(0, 0, x/2-345, surface.height+200);
 		}
-		
 		
 		surface.popStyle();
 		
@@ -325,7 +321,7 @@ public class ScreenOnlineGame extends Screen implements ActionListener{
 				post.setWhite(activePlayer.isWhite());
 				post.setGamePieceName(activePiece);
 				
-				DatabaseReference postRef = surface.postData(post, surface.getGameReference());
+				DatabaseReference postRef = surface.postData(post);
 				
 				
 //				board.play();

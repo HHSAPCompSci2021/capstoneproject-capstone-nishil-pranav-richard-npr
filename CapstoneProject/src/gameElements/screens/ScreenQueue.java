@@ -15,7 +15,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import core.DrawingSurface;
-import core.DrawingSurface.DatabaseChangeListener;
 import databaseData.BoardPost;
 import databaseData.UserPost;
 import processing.core.PConstants;
@@ -28,7 +27,8 @@ public class ScreenQueue extends Screen {
 	private ScreenOnlineGame gameScreen;
 	
 	private Rectangle button;
-	
+	private int i;
+	private boolean updated;
 //	private boolean white;
 	private boolean firstLoop;
 	private BoardPost gameCreated;
@@ -61,7 +61,7 @@ public class ScreenQueue extends Screen {
 		String str = "";
 		str = Integer.toString(queue.size());
 		
-		// make a new game
+		
 		if (firstLoop) {
 			firstLoop = false;
 			if (queue.size() > 0) {		// if there is someone already waiting in queue
@@ -83,15 +83,13 @@ public class ScreenQueue extends Screen {
 				DatabaseReference gameRef = ref.child(Integer.toString(surface.getI()));
 				surface.addChildEventListener(gameRef);
 				surface.setGameReference(gameRef);
-				
-				
+
+				gameScreen.setWhite(true);
 				surface.switchScreen(ScreenSwitcher.SCREEN8);
 				return;
 			}
 		}
-		
-		
-		// connect to an existing game
+
 		if (gameCreated != null && queue.size() == 2) {
 //			gameScreen.setNames("a", "b");
 //			gameScreen.setBoardRef(gameCreated);
@@ -140,6 +138,7 @@ public class ScreenQueue extends Screen {
 	}
 	
 	public void queueUpdated() {
+		updated = true;
 //		System.out.println("updatedd");
 //		white = false;
 	}

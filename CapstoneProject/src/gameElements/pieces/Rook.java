@@ -9,6 +9,13 @@ import processing.core.PApplet;
 
 public class Rook extends GamePiece{
 	
+	/**
+	 * creates a new alive Rook in the given row, column, board, and color
+	 * @param r the row in which to place the piece
+	 * @param c the column in which to place the piece
+	 * @param brd the board in which to place the piece
+	 * @param wht the color of the piece
+	 */
 	public Rook(int r, int c, Board brd, boolean wht) {
 		super(r, c, brd, wht);
 		health = 120;
