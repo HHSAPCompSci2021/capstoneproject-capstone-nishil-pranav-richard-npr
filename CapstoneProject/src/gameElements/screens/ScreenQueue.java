@@ -70,7 +70,7 @@ public class ScreenQueue extends Screen {
 				DatabaseReference boardRef = surface.postData(board);
 //				gameScreen.setNames("a", "b");
 //				gameScreen.setBoardRef(boardRef);
-				gameScreen.setBoardRef(gameCreated);
+//				gameScreen.setBoardRef(gameCreated);
 				surface.switchScreen(ScreenSwitcher.SCREEN8);
 				return;
 			}
@@ -80,7 +80,7 @@ public class ScreenQueue extends Screen {
 		if (gameCreated != null && queue.size() == 2) {
 //			gameScreen.setNames("a", "b");
 //			gameScreen.setBoardRef(gameCreated);
-			gameScreen.setBoardRef(gameCreated);
+//			gameScreen.setBoardRef(gameCreated);
 			surface.switchScreen(ScreenSwitcher.SCREEN8);
 			return;
 		}

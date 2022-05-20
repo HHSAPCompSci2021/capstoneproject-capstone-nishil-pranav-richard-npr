@@ -354,7 +354,7 @@ public class DrawingSurface extends PApplet {
 			queueScreen2.gameCreated(post);
 		} else if (this.activeScreen.equals(screens.get(3))) {
 			ScreenOnlineGame gameScreen2 = (ScreenOnlineGame) gameScreen;
-			gameScreen2.setBoardRef(post);
+//			gameScreen2.setBoardRef(post);
 		}
 		  
 	}
@@ -440,7 +440,7 @@ public class DrawingSurface extends PApplet {
 						} else if (postType.matches("PIECEADDED")) {
 							ChangePost post = dataSnapshot.getValue(ChangePost.class);
 							System.out.println("    CHANGE: " + post);
-							
+							pieceAdded(post);
 //							post.setReference(dataSnapshot.getRef());
 //							setBoard(post.getBoard());
 //							gameCreated(post);
