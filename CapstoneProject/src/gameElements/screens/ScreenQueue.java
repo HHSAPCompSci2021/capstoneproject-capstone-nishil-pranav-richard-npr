@@ -70,9 +70,6 @@ public class ScreenQueue extends Screen {
 				
 				
 				BoardPost board = new BoardPost();
-				String whiteName = queue.get(1).getPlayerName();
-				String blackName = queue.get(0).getPlayerName();
-				board.setNames(whiteName, blackName);
 				DatabaseReference boardRef = surface.postData(board);
 //				gameScreen.setNames("a", "b");
 //				gameScreen.setBoardRef(boardRef);
@@ -81,7 +78,6 @@ public class ScreenQueue extends Screen {
 				surface.addChildEventListener(gameRef);
 				surface.setGameReference(gameRef);
 				gameScreen.setWhite(true);
-				gameScreen.setNames(whiteName, blackName);
 				surface.switchScreen(ScreenSwitcher.SCREEN8);
 				return;
 			}
@@ -94,15 +90,15 @@ public class ScreenQueue extends Screen {
 //			gameScreen.setBoardRef(gameCreated);
 //			gameScreen.setBoardRef(gameCreated);
 			
-			String whiteName = gameCreated.getWhiteName();
-			String blackName = gameCreated.getBlackName();
+//			String whiteName = gameCreated.getWhiteName();
+//			String blackName = gameCreated.getBlackName();
 			
 			// folder for game replicating
 			DatabaseReference gameRef = ref.child(Integer.toString(surface.getI()-1));
 			surface.addChildEventListener(gameRef);
 			surface.setGameReference(gameRef);
 			gameScreen.setWhite(false);
-			gameScreen.setNames(whiteName, blackName);
+//			gameScreen.setNames(whiteName, blackName);
 			
 			// remove from queue
 			surface.clearData(ref.child("Queue"));				// TODO: clear data when leaving game, keeping updated i value for new players
