@@ -13,57 +13,60 @@ import processing.core.PApplet;
 import processing.core.PConstants;
 import core.ImageCodes;
 
-
+/**
+ * 
+ * Screen representing the menu that players first see when they join the game.
+ * From the menu, they can choose to view instructions, play online, or play locally (with a friend).
+ * 
+ * @author Nishil Anand
+ *
+ */
 public class ScreenMenu extends Screen {
 	
 	private DrawingSurface surface;
 	
-	private Rectangle button;
-//	private Rectangle multiplayerButton;
+	private Rectangle onlineButton;
 	private Rectangle localButton;
 	private Rectangle instructionsButton;
 	
+	
+	/**
+	 * Constructs a new Screen Menu with a DrawingSurface
+	 * @param surface the DrawingSurface this class uses to draw
+	 */
 	public ScreenMenu(DrawingSurface surface) {
 		super(1200,600);
 		this.surface = surface;
 		
-		button = new Rectangle(1200/2-100,600/2-150,175,50);
-//		multiplayerButton = new Rectangle(1200/2-100,600/2+50,175,50);
+		onlineButton = new Rectangle(1200/2-100,600/2-150,175,50);
 		instructionsButton = new Rectangle(1200/2-100,600/2-50,175,50);
 		localButton = new Rectangle(1200/2-100,600/2+50,175,50);
 	}
 	
 	
+	/**
+	 * Draws the menu
+	 */
 	public void draw() {
-		
-		surface.pushStyle();
-		//surface.background(255,255,255);
 		surface.image(surface.getImages().get(ImageCodes.BACKGROUND), 0, 0, 1200, 600);
 		
-		surface.textSize(20);
-		showButton(button, "Test Database");
-//		surface.textSize(16);
-//		showButton(multiplayerButton, "Find opponent (wip)");
 		surface.textSize(18);
+		showButton(onlineButton, "Play online");
 		showButton(instructionsButton, "Instructions");
-		surface.textSize(18);
 		showButton(localButton, "Play with a friend");
 		
 		surface.popStyle();
-		
-//		System.out.println(button.y + "         " + surface.mouseX + "      " + surface.mouseY);
-		
 	}
 	
-	
+	/**
+	 * Called whenever the mouse is pressed.
+	 * Used to identify if the user has clicked on a button.
+	 */
 	public void mousePressed() {
 		Point p = surface.actualCoordinatesToAssumed(new Point(surface.mouseX,surface.mouseY));
 		
-		if (button.contains(p))
+		if (onlineButton.contains(p))
 			surface.switchScreen(ScreenSwitcher.SCREEN3);
-		
-//		if (multiplayerButton.contains(p))
-//			surface.switchScreen(ScreenSwitcher.SCREEN3);
 		
 		if (instructionsButton.contains(p)) {
 			surface.switchScreen(ScreenSwitcher.SCREEN7);
