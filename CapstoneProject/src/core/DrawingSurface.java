@@ -108,6 +108,9 @@ public class DrawingSurface extends PApplet {
 		ScreenMenu screen1 = new ScreenMenu(this);
 		screens.add(screen1);
 		
+		ScreenSecond screen2 = new ScreenSecond(this);
+		screens.add(screen2);
+		
 		ScreenOnlineNameCreate screen3 = new ScreenOnlineNameCreate(this, queueRef);
 		screens.add(screen3);
 		
