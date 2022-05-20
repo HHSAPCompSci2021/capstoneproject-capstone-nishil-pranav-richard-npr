@@ -28,7 +28,6 @@ package databaseData;
 	
  */
 public class Post {
-	private String data;
 	
 	public String postType;
 	
@@ -36,7 +35,7 @@ public class Post {
 	 * Creates a new Post object with an empty message
 	 * */
 	public Post() {
-		data = "";
+		
 	}
 	
 	/**
@@ -44,10 +43,13 @@ public class Post {
 	 * @param type The type of message this Post holds - MESSAGE or USER
 	 * */
 	public Post(String type) {
-		if (type == "MESSAGE" || type == "USER" || type == "BOARD" || type == "TESTING") {
+		if (type == "MESSAGE" || type == "USER" || type == "BOARD" || type == "TESTING" || type == "PIECEADDED") {
 			postType = type;
 		} else {
 			System.err.println("unknown post type: " + type);
+			for (StackTraceElement v: Thread.currentThread().getStackTrace()) {
+			    System.err.println("    " + v);
+			}
 		}
 	}
 	

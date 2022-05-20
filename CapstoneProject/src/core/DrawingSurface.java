@@ -19,6 +19,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import databaseData.BoardPost;
+import databaseData.ChangePost;
 import databaseData.Post;
 import databaseData.UserPost;
 import gameElements.board.Board;
@@ -358,6 +359,17 @@ public class DrawingSurface extends PApplet {
 		  
 	}
 	
+	/**
+	 * Tells the ScreenOnlineGame that a piece was added if it is the active screen
+	 * @param post the post of the piece to add
+	 */
+	public void pieceAdded(ChangePost post) {
+		if (this.activeScreen.equals(screens.get(3))) {
+			ScreenOnlineGame screen = (ScreenOnlineGame) screens.get(3);
+			screen.pieceAdded(post);
+		}
+	}
+	
 	
 //	/** 
 //	 * Returns an ArrayList of UserPosts with players in the queue.
@@ -416,7 +428,7 @@ public class DrawingSurface extends PApplet {
 					if (postType != null ) {
 						if (postType.matches("USER")) {
 							UserPost post = dataSnapshot.getValue(UserPost.class);
-							System.out.println(post);
+//							System.out.println(post);
 							queue.add(post);
 							updatedQueue();
 						} else if (postType.matches("BOARD")) {
@@ -425,6 +437,13 @@ public class DrawingSurface extends PApplet {
 							System.out.println("    BOARD ADDED: " + post);
 							setBoard(post.getBoard());
 							gameCreated(post);
+						} else if (postType.matches("PIECEADDED")) {
+							ChangePost post = dataSnapshot.getValue(ChangePost.class);
+							System.out.println("    CHANGE: " + post);
+							
+//							post.setReference(dataSnapshot.getRef());
+//							setBoard(post.getBoard());
+//							gameCreated(post);
 						}
 					} else {
 //						System.out.println(postType);
