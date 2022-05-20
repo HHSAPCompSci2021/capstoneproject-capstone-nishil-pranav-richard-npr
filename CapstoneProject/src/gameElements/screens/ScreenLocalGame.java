@@ -50,7 +50,7 @@ public class ScreenLocalGame extends Screen implements ActionListener{
 	private final int x = 1200;
 	private final int y = 600;
 	
-	private final int boardX = x/2-323;
+	private final int boardX = x/2-223;
 	private final int boardY = y/4+14;
 	private final int boardWidth = 500;
 	private final int boardHeight = 400;
@@ -70,18 +70,18 @@ public class ScreenLocalGame extends Screen implements ActionListener{
 		super(1200,600);
 		this.surface = surface;
 		
-		 leftKing = new Rectangle(x/2-390,y/2+50,100,400);
-		rightKing = new Rectangle(x/2+210,y/2+50,100,400);
+		 leftKing = new Rectangle(x/2-290,y/2+50,100,400);
+		rightKing = new Rectangle(x/2+310,y/2+50,100,400);
 		//x/2-290
-		 leftKingHP = new Rectangle(x/2-390,y/2+50,50,20);
-		rightKingHP = new Rectangle(x/2+210,y/2+50,50,20);
+		 leftKingHP = new Rectangle(x/2-290,y/2+50,50,20);
+		rightKingHP = new Rectangle(x/2+310,y/2+50,50,20);
 		
 		board = surface.getBoard();
 		p1 = new Player(board, true);
 		p2 = new Player(board, false);
 		
-		leftEnergy = new Rectangle(x/2-557,y/2+50,50,20);
-		rightEnergy = new Rectangle(x/2+397,y/2+50,50,20);
+		leftEnergy = new Rectangle(x/2-457,y/2+50,50,20);
+		rightEnergy = new Rectangle(x/2+497,y/2+50,50,20);
 		
 //		leftPFP = new Rectangle(x/2-405,y/2-275+(94/2),94,94);
 //		rightPFP = new Rectangle(x/2+405,y/2-275+(94/2),94,94);
@@ -127,11 +127,11 @@ public class ScreenLocalGame extends Screen implements ActionListener{
 		showBox(rightKing);
 		whiteKing = surface.getImages().get(ImageCodes.WHITE_CASTLE);
 		blackKing = surface.getImages().get(ImageCodes.BLACK_CASTLE);
-		surface.image(whiteKing, x/2-390, y/2-50, 75, 188);
-		surface.image(blackKing, x/2+210, y/2-50, 75, 188);
+		surface.image(whiteKing, x/2-290, y/2-50, 75, 188);
+		surface.image(blackKing, x/2+310, y/2-50, 75, 188);
 		
-		surface.image(whiteKing, x/2-390, y/2+175, 75, 188);
-		surface.image(blackKing, x/2+210, y/2+175, 75, 188);
+		surface.image(whiteKing, x/2-290, y/2+175, 75, 188);
+		surface.image(blackKing, x/2+310, y/2+175, 75, 188);
 		
 //		 leftKing = new Rectangle(x/2-390,y/2+50,100,400);
 //		rightKing = new Rectangle(x/2+210,y/2+50,100,400);
@@ -142,14 +142,14 @@ public class ScreenLocalGame extends Screen implements ActionListener{
 		board.draw(surface, boardX, boardY, boardWidth, boardHeight);
 		
 		surface.textSize(15);
-        float tempX = x/2-485, tempY = y/2+50-200+(102*0)+(94/2);
+        float tempX = x/2-385, tempY = y/2+50-200+(102*0)+(94/2);
         for(int i = 0; i < p1.getCards().size() && i < 5; i++) {
         	Card c = p1.getCards().get(i);
         	c.draw(surface, tempX, tempY, 75, 75);
         	tempY+=90;
         }
 
-        tempX = x/2+315;
+        tempX = x/2+415;
         tempY = y/2+50-200+(102*0)+(94/2);
         for(int i = 0; i < p2.getCards().size() && i < 5; i++) {
         	Card c = p2.getCards().get(i);
@@ -164,6 +164,7 @@ public class ScreenLocalGame extends Screen implements ActionListener{
 //		showBox(rightPFP);
 		
 		surface.textSize(25);
+		surface.fill(255);
 		surface.textAlign(PConstants.LEFT);
 		surface.text(nameOne, x/2-340, y/2-220);
 		surface.textAlign(PConstants.RIGHT);
@@ -187,7 +188,8 @@ public class ScreenLocalGame extends Screen implements ActionListener{
 			}
 			else {
 				surface.rectMode(PConstants.CORNER);
-				surface.fill(100, 0, 0);
+				surface.fill(100, 0, 0); //TODO ??????????
+				int x;
 				surface.rect(boardX-boardWidth/15, boardY-14, boardWidth/2 + boardWidth/15, boardHeight);
 				surface.fill(255);
 				surface.rectMode(PConstants.CENTER);
@@ -264,9 +266,9 @@ public class ScreenLocalGame extends Screen implements ActionListener{
 
 			
 			if(activePlayer.equals(p1)) {
-				tempX = x/2-485;
+				tempX = x/2-385;
 			} else {
-				tempX = x/2+315;
+				tempX = x/2+415;
 			}
 			
 	        for(int i = 0; i < activePlayer.getCards().size() && i < 5; i++) {
@@ -372,7 +374,7 @@ public class ScreenLocalGame extends Screen implements ActionListener{
 				activePlayer = null;
 				gameInProgress = false;
 			}
-			if (time % 7 == 0) { // adds 1 energy every 7 sec
+			if (time % 5 == 0) { // adds 1 energy every 7 sec
 				p1.addEnergy(1);
 				p2.addEnergy(1);
 			}
