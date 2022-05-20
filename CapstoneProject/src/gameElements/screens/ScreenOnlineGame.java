@@ -120,7 +120,7 @@ public class ScreenOnlineGame extends Screen implements ActionListener{
 		
 		// DRAW STUFF
 		surface.pushStyle();
-		surface.background(198, 46, 46);
+		surface.background(32, 42, 68);
 		
 		surface.textSize(15);
 		surface.fill(255);
@@ -190,14 +190,14 @@ public class ScreenOnlineGame extends Screen implements ActionListener{
 		if (activePiece != null) {
 			if(activePlayer.equals(p1)) {
 				surface.rectMode(PConstants.CORNER);
-				surface.fill(100, 0, 0, 200);
+				surface.fill(100, 0, 0, 100);
 				surface.rect(boardX + boardWidth/2-boardWidth/15, boardY-14, boardWidth/2 + boardWidth/15, boardHeight);
 				surface.fill(255);
 				surface.rectMode(PConstants.CENTER);
 			}
 			else {
 				surface.rectMode(PConstants.CORNER);
-				surface.fill(100, 0, 0, 200); 
+				surface.fill(100, 0, 0, 100); 
 				int x;
 				surface.rect(boardX-boardWidth/15, boardY-14, boardWidth/2 + boardWidth/15, boardHeight);
 				surface.fill(255);
