@@ -27,12 +27,8 @@ public class ScreenQueue extends Screen {
 	private ScreenOnlineGame gameScreen;
 	
 	private Rectangle button;
-	
-<<<<<<< HEAD
-=======
 	private int i;
 	private boolean updated;
->>>>>>> parent of fb026f8 (:+1:  THIS TOOK AN HOUR BUT NETWORKING NOW WORKS IN FOLDERS WOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO)
 //	private boolean white;
 	private boolean firstLoop;
 	private BoardPost gameCreated;
@@ -69,18 +65,31 @@ public class ScreenQueue extends Screen {
 		if (firstLoop) {
 			firstLoop = false;
 			if (queue.size() > 0) {		// if there is someone already waiting in queue
+				// player names
+//				String blackName = queue.get(0).getPlayerName();
+//				String whiteName = queue.get(1).getPlayerName();
+//				gameScreen.setNames(whiteName, blackName);
+//				gameScreen.setWhite(true);
+				
+				// make game
+				System.out.println("quyeuedsadas: " + queue.size());
 				BoardPost board = new BoardPost();
 				DatabaseReference boardRef = surface.postData(board);
 //				gameScreen.setNames("a", "b");
 //				gameScreen.setBoardRef(boardRef);
 //				gameScreen.setBoardRef(gameCreated);
+				
+				// folder for game replicating
+				DatabaseReference gameRef = ref.child(Integer.toString(surface.getI()));
+				surface.addChildEventListener(gameRef);
+				surface.setGameReference(gameRef);
+
 				gameScreen.setWhite(true);
 				surface.switchScreen(ScreenSwitcher.SCREEN8);
 				return;
 			}
 		}
-		
-		
+
 		if (gameCreated != null && queue.size() == 2) {
 //			gameScreen.setNames("a", "b");
 //			gameScreen.setBoardRef(gameCreated);
@@ -90,14 +99,21 @@ public class ScreenQueue extends Screen {
 			DatabaseReference gameRef = ref.child(Integer.toString(surface.getI()-1));
 			surface.addChildEventListener(gameRef);
 			surface.setGameReference(gameRef);
-			gameScreen.setWhite(false);
+			
+			// player names
+//			String blackName = queue.get(0).getPlayerName();
+//			String whiteName = queue.get(1).getPlayerName();
+//			gameScreen.setNames(whiteName, blackName);
+//			gameScreen.setWhite(false);
 			
 			// remove from queue
-			surface.clearData(ref.child("Queue"));				// TODO: clear data when leaving game, keeping updated i value for new players
+			surface.clearData(ref.child("Queue"));				// TODO: clear game data when leaving game
 			
 			surface.switchScreen(ScreenSwitcher.SCREEN8);
 			return;
 		}
+		
+		
 		
 		
 		
