@@ -471,7 +471,6 @@ public class DrawingSurface extends PApplet {
 							updatedQueue();
 						} else if (postType.matches("BOARD")) {
 							BoardPost post = dataSnapshot.getValue(BoardPost.class);
-							post.setReference(dataSnapshot.getRef());
 							System.out.println("    BOARD ADDED: " + post);
 							setBoard(new Board());
 						} else if (postType.matches("PIECEADDED")) {
@@ -501,7 +500,6 @@ public class DrawingSurface extends PApplet {
 			if (postType != null) {
 				if (postType.matches("BOARD")) {
 					BoardPost post = arg0.getValue(BoardPost.class);
-					post.setReference(arg0.getRef());
 					System.out.println("    BOARD UPDATED: " + post);
 					setBoard(post.getBoard());
 				} else if (postType.matches("INT")) {

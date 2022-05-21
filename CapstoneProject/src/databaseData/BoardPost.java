@@ -1,11 +1,9 @@
 package databaseData;
 
-import java.util.ArrayList;
-
-import com.google.firebase.database.DatabaseReference;
-
 import gameElements.board.Board;
-import gameElements.pieces.GamePiece;
+
+
+// TODO: this class probably doesn't need to exist (or can be replaced by something). It was originally made to store a Board but does not because it is better to just post changes to the Board. Firebase also can't store arrays so storing a Board would be tricky.  
 
 /**
  * The BoardPost class represents a Post of a Board
@@ -14,11 +12,7 @@ import gameElements.pieces.GamePiece;
 public class BoardPost extends Post {
 	
 	private Board board;
-	private DatabaseReference ref;
-	private ArrayList<ArrayList<GamePiece>> grid;
 	
-	private String whiteName;
-	private String blackName;
 	
 	/**
 	 * Creates a new BoardPost object
@@ -26,7 +20,6 @@ public class BoardPost extends Post {
 	public BoardPost() {
 		super("BOARD");
 		this.board = new Board();
-		updateGrid();
 	}
 	
 	/**
@@ -36,8 +29,8 @@ public class BoardPost extends Post {
 	public BoardPost(Board board) {
 		super("BOARD");
 		this.board = board;
-		updateGrid();
 	}
+	
 	
 	/**
 	 * Returns the board this BoardPost represents
@@ -53,44 +46,6 @@ public class BoardPost extends Post {
 	 */
 	public void setBoard(Board board) {
 		this.board = board;
-		updateGrid();
-	}
-	
-	public void setReference(DatabaseReference ref) {
-		this.ref = ref;
-	}
-	
-	public DatabaseReference getReference() {
-		return ref;
-	}
-	
-//	public ArrayList<ArrayList<GamePiece>> getGrid() {
-//		return grid;
-//	}
-	
-	public void updateGrid() {
-//		if (this.board == null) return;
-//		GamePiece[][] gridArray = board.getBoard();	
-//		grid = new ArrayList<ArrayList<GamePiece>>();
-//		for (int i = 0; i < gridArray.length; i++ ) {
-//			for (int j = 0; j < gridArray[i].length; j++ ) {
-//				grid.get(i).set(j, gridArray[i][j]);
-//			}
-//		}
-		this.grid = board.getBoard();
-	}
-	
-	public void setNames(String whiteName, String blackName) {
-		this.whiteName = whiteName;
-		this.blackName = blackName;
-	}
-	
-	public String getWhiteName() {
-		return this.whiteName;
-	}
-	
-	public String getBlackName() {
-		return this.blackName;
 	}
 	
 }
