@@ -3,7 +3,6 @@ package databaseData;
 public class NamePost extends Post {
 	
 	private String whiteName;
-
 	private String blackName;
 	
 	public NamePost() {

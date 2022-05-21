@@ -1,12 +1,9 @@
 package core;
 
-import java.awt.Color;
 import java.awt.Point;
-import java.awt.Rectangle;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import com.google.auth.oauth2.GoogleCredentials;
@@ -36,7 +33,6 @@ import gameElements.screens.ScreenQueue;
 import gameElements.screens.ScreenSecond;
 import gameElements.screens.ScreenSwitcher;
 import processing.core.PApplet;
-import processing.core.PConstants;
 import processing.core.PImage;
 
 
@@ -54,18 +50,16 @@ public class DrawingSurface extends PApplet {
 	private ArrayList<Screen> screens;
 	private ArrayList<Integer> keys;
 	private ArrayList<PImage> images;
-	private ArrayList<UserPost> queue;
-	private String playerName;
-	private Board board;
-//	public UserPost player;		// the player running this program, NETWORKING ONLY. may be null		// TODO: make private later maybe
 	
 	// Database stuff
 	private DatabaseReference ref;
 	private DatabaseReference gameRef;
+	private ArrayList<UserPost> queue;
+	private String playerName;
+	private Board board;
 	private boolean loaded;
+	private int i;			// used for gameIDs
 	
-	private int i;
-	private final long loadedInTime = System.currentTimeMillis();		// TODO: this is only for testing, delete in final verion
 	
 	/**
 	 * Constructs a new DrawingSurface, setting up fields, the database, and screens.
@@ -74,7 +68,6 @@ public class DrawingSurface extends PApplet {
 		
 		// SETUP NORMAL FIELDS
 		playerName = null;
-//		board = null;
 		queue = new ArrayList<UserPost>();
 		i = 0;
 		
@@ -99,11 +92,10 @@ public class DrawingSurface extends PApplet {
 			queueRef.addChildEventListener(new DatabaseChangeListener());
 			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-	
+		
 		// SCREEN SETUP
 		screens = new ArrayList<Screen>();
 		keys = new ArrayList<Integer>();
@@ -134,7 +126,6 @@ public class DrawingSurface extends PApplet {
 		screens.add(screen8);
 		
 		activeScreen = screens.get(0);
-//		board = new Board();
 		
 	}
 	
@@ -143,7 +134,6 @@ public class DrawingSurface extends PApplet {
 	 */
 	public void setup() {
 		
-		// LOAD IMAGES
 		images.add(ImageCodes.UNKNOWN, loadImage(String.format("Images%sunknown.png", fileSeparator)));
 		
 		images.add(ImageCodes.BLACK_BISHOP, loadImage(String.format("Images%sChessPieces%sblackSide%sblackBishop.png", fileSeparator, fileSeparator, fileSeparator)));
@@ -166,30 +156,12 @@ public class DrawingSurface extends PApplet {
 		images.add(ImageCodes.WHITE_CASTLE, loadImage(String.format("Images%sChessPieces%swhiteSide%swhiteCastle.png", fileSeparator, fileSeparator, fileSeparator)));
 		images.add(ImageCodes.BLACK_CASTLE, loadImage(String.format("Images%sChessPieces%sblackSide%sblackCastle.png", fileSeparator, fileSeparator, fileSeparator)));
 		
-	
-	
 	}
-
-	int hsdujhasjkfhsdDeletethislater = 0;
 	
 	/**
 	 * Draws the current active screen.
 	 */
 	public void draw() {
-		
-		// loading screen till all firebase stuff is collected 
-//		if (i == 0) {
-//			drawLoading();
-//			return;
-//		}
-		
-		hsdujhasjkfhsdDeletethislater += 1;
-		
-		if (hsdujhasjkfhsdDeletethislater % 60 == 0) {
-			hsdujhasjkfhsdDeletethislater = 0;
-			System.out.println(loadedInTime);
-		}
-		
 		ratioX = (float)width/activeScreen.DRAWING_WIDTH;
 		ratioY = (float)height/activeScreen.DRAWING_HEIGHT;
 		scale(ratioX, ratioY);
@@ -235,10 +207,6 @@ public class DrawingSurface extends PApplet {
 	 * Calls the activeScreen's mousePressed() method
 	 */
 	public void mousePressed() {
-//		String path = "Folder";
-//		DatabaseReference postRef = ref.child(path);
-//		DatabaseReference pushedPostRef = postData(new MessagePost("Hello, world!"), postRef);
-//		System.out.println(pushedPostRef.getKey());
 		activeScreen.mousePressed();
 	}
 	
@@ -377,11 +345,22 @@ public class DrawingSurface extends PApplet {
 		this.gameRef = gameRef;
 	}
 	
-	// TODO: java doc (putting this as todo cause i keep changing what i is)
+	/**
+	 * Returns an int to be used for a roomID/gameID. Whenever a new game is created, this value goes up.
+	 * This makes it so that two games don't have the same roomID. 
+	 * 
+	 * @return an int to be used for a new roomID
+	 */
 	public int getI() {
 		return i;
 	}
 	
+	/**
+	 * Returns if Firebase has been loaded yet.
+	 * It counts as loaded once a single post from the Database has been loaded in.
+	 * 
+	 * @return if Firebase has been loaded yet
+	 */
 	public boolean isLoaded() {
 		return loaded;
 	}
@@ -405,22 +384,9 @@ public class DrawingSurface extends PApplet {
 	}
 	
 	/**
-	 * @deprecated
 	 * Tells the ScreenQueue that a game was made if it is the active screen
+	 * @param dataSnapshot the DataSnapshot of the room
 	 */
-	public void gameCreated(BoardPost post) {
-		Screen queueScreen = screens.get(7);
-		Screen gameScreen = screens.get(3);
-		if (this.activeScreen.equals(screens.get(7))) {
-			ScreenQueue queueScreen2 = (ScreenQueue) queueScreen;
-			queueScreen2.gameCreated(post);
-		} else if (this.activeScreen.equals(screens.get(3))) {
-			ScreenOnlineGame gameScreen2 = (ScreenOnlineGame) gameScreen;
-//			gameScreen2.setBoardRef(post);
-		}
-		  
-	}
-	
 	public void roomCreated(DataSnapshot dataSnapshot) {
 		Screen q = screens.get(7);
 		if (this.activeScreen.equals(q)) {
@@ -440,6 +406,10 @@ public class DrawingSurface extends PApplet {
 		}
 	}
 	
+	/**
+	 * Sets the names in ScreenOnlineGame if it is the active sceeen 
+	 * @param post Post containing the names of the players
+	 */
 	public void setNames(NamePost post) {
 		if (this.activeScreen.equals(screens.get(3))) {
 			ScreenOnlineGame screen = (ScreenOnlineGame) screens.get(3);
@@ -455,7 +425,7 @@ public class DrawingSurface extends PApplet {
 		return queue;
 	}
 	
-	// run when everything is loaded
+	// runs when something is loaded in
 	private void loaded() {
 		loaded = true;
 	}
@@ -466,7 +436,8 @@ public class DrawingSurface extends PApplet {
 	 * Handles all changes to the database reference. Because Firebase uses a separate thread than most other processes we're using (both Swing and Processing),
 	 * we need to have a strategy for ensuring that code is executed somewhere besides these methods.
 	 * 
-	 * @author john_shelby, Nishil Anand
+	 * @author john_shelby
+	 * @author Nishil Anand
 	 *
 	 */
 	public class DatabaseChangeListener implements ChildEventListener {
@@ -498,12 +469,9 @@ public class DrawingSurface extends PApplet {
 		 */
 		public void onChildAdded(DataSnapshot dataSnapshot, String arg1) {
 			
-//			System.out.println("SNAPSHOT FROM DRAWING " + dataSnapshot);
-			
 			tasks.add(new Runnable() {
 				@Override
 				public void run() {
-//					postData(new IntegerPost())
 					Post postN = dataSnapshot.getValue(Post.class);
 					System.out.println("> add " + postN + postN.postType);
 					String postType = postN.postType;
@@ -511,7 +479,6 @@ public class DrawingSurface extends PApplet {
 					if (postType != null) {
 						if (postType.matches("USER")) {
 							UserPost post = dataSnapshot.getValue(UserPost.class);
-//							System.out.println(post);
 							queue.add(post);
 							updatedQueue();
 						} else if (postType.matches("BOARD")) {
@@ -519,18 +486,10 @@ public class DrawingSurface extends PApplet {
 							post.setReference(dataSnapshot.getRef());
 							System.out.println("    BOARD ADDED: " + post);
 							setBoard(new Board());
-							gameCreated(post);
 						} else if (postType.matches("PIECEADDED")) {
 							ChangePost post = dataSnapshot.getValue(ChangePost.class);
 							System.out.println("    CHANGE: " + post);
 							pieceAdded(post);
-//							post.setReference(dataSnapshot.getRef());
-//							setBoard(post.getBoard());
-//							gameCreated(post);
-						} else if (postType.matches("INT")) {
-//							IntegerPost post = dataSnapshot.getValue(IntegerPost.class);
-//							if (post.getX() == 0)
-//								roomCreated(dataSnapshot);
 						}
 					} else {
 						System.err.println("null post " + dataSnapshot.getRef());
@@ -540,10 +499,8 @@ public class DrawingSurface extends PApplet {
 						if (name.equals("Queue")) return;										// only continue if it's not Queue, meaning that it is a game
 						int name2 = Integer.parseInt(name);
 						i = name2+1;
-						System.err.println(i);
 						roomCreated(dataSnapshot);
 					}
-//					currentDrawing.addDotSet(post.dots, new Color(post.r,post.g,post.b));
 				}
 				
 			});
@@ -559,7 +516,6 @@ public class DrawingSurface extends PApplet {
 					post.setReference(arg0.getRef());
 					System.out.println("    BOARD UPDATED: " + post);
 					setBoard(post.getBoard());
-//					gameCreated(post);
 				} else if (postType.matches("INT")) {
 					IntegerPost post = arg0.getValue(IntegerPost.class);
 				}
@@ -568,18 +524,15 @@ public class DrawingSurface extends PApplet {
 
 		@Override
 		public void onChildMoved(DataSnapshot arg0, String arg1) {
-			// TODO Auto-generated method stub
-
+			return;
 		}
 
 		@Override
 		public void onChildRemoved(DataSnapshot arg0) {
 			tasks.add(new Runnable() {
-
+				
 				@Override
 				public void run() {
-//					currentDrawing.clear();
-
 					Post postN = arg0.getValue(Post.class);
 					System.out.println("> remove " + postN + postN.postType);
 					String postType = postN.postType;

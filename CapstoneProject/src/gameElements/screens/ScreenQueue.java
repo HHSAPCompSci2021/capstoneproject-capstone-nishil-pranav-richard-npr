@@ -34,7 +34,6 @@ public class ScreenQueue extends Screen {
 //	private boolean white;
 	private boolean firstLoop;
 	private boolean switched;
-	private BoardPost gameCreated;
 	private DatabaseReference roomCreated;
 	
 	public ScreenQueue(DrawingSurface surface, DatabaseReference ref, ArrayList<UserPost> queue, ScreenOnlineGame gameScreen) {
@@ -144,15 +143,6 @@ public class ScreenQueue extends Screen {
 		
 		surface.popStyle();
 		
-	}
-	
-
-	/**
-	 * @deprecated
-	 * @param post
-	 */
-	public void gameCreated(BoardPost post) {
-		gameCreated = post;
 	}
 	
 	public void roomCreated(DataSnapshot post) {
