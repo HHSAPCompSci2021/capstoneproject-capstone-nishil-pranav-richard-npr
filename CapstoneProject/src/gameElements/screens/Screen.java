@@ -5,9 +5,12 @@ package gameElements.screens;
  * - make it extend this class.
  * - add it to the Screen setup in the DrawingSurface constructor
  * - add it to ScreenSwitcher
+ * 
+ * @author Nishil Anand
+ * @author john_shelby
  */
 public abstract class Screen {
-
+	
 	public final int DRAWING_WIDTH, DRAWING_HEIGHT;
 	
 	public Screen(int width, int height) {
@@ -30,6 +33,5 @@ public abstract class Screen {
 	public void keyPressed() {
 		
 	}
-	
 	
 }
