@@ -54,7 +54,7 @@ public class ScreenOnlineGame extends Screen implements ActionListener{
 	private final int x = 1200;
 	private final int y = 600;
 	
-	private final int boardX = x/2-323;
+	private final int boardX = x/2-223;
 	private final int boardY = y/4+14;
 	private final int boardWidth = 500;
 	private final int boardHeight = 400;
@@ -208,10 +208,16 @@ public class ScreenOnlineGame extends Screen implements ActionListener{
 		surface.rectMode(PConstants.CORNER);
 		surface.noStroke();
 
-		if(activePlayer.equals(p1)) {
+//		if(activePlayer.equals(p1)) {
+//			surface.rect(x/2+365, 0, surface.width+200, surface.height+200);
+//		} else if(activePlayer.equals(p2)) {
+//			surface.rect(0, 0, x/2-345, surface.height+200);
+//		}
+		if(white) {
 			surface.rect(x/2+365, 0, surface.width+200, surface.height+200);
-		} else if(activePlayer.equals(p2)) {
+		} else {
 			surface.rect(0, 0, x/2-345, surface.height+200);
+
 		}
 		
 		surface.popStyle();
@@ -272,9 +278,9 @@ public class ScreenOnlineGame extends Screen implements ActionListener{
 			float tempY =  y/2+50-200+(102*0)+(94/2);
 			
 			if(activePlayer.equals(p1)) {
-				tempX = x/2-485;
+				tempX = x/2-385;
 			} else {
-				tempX = x/2+315;
+				tempX = x/2+415;
 			}
 			
 			if (white && activePlayer.equals(p2)) {					// if the player with this screen is white but it's black's turn
@@ -438,7 +444,7 @@ public class ScreenOnlineGame extends Screen implements ActionListener{
 				activePlayer = null;
 				gameInProgress = false;
 			}
-			if (time % 7 == 0) { // adds 1 energy every 7 sec
+			if (time % 5 == 0) { // adds 1 energy every 7 sec
 				p1.addEnergy(1);
 				p2.addEnergy(1);
 			}
