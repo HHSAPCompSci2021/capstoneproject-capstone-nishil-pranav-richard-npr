@@ -207,11 +207,11 @@ public class ScreenOnlineGame extends Screen implements ActionListener{
 		surface.rectMode(PConstants.CORNER);
 		surface.noStroke();
 
-//		if(activePlayer.equals(p1)) {
-//			surface.rect(x/2+365, 0, surface.width+200, surface.height+200);
-//		} else if(activePlayer.equals(p2)) {
-//			surface.rect(0, 0, x/2-345, surface.height+200);
-//		}
+		if(white) {
+			surface.rect(x/2+365, 0, surface.width+200, surface.height+200);
+		} else {
+			surface.rect(0, 0, x/2-345, surface.height+200);
+		}
 		
 //		surface.textAlign(PConstants.LEFT, PConstants.TOP);
 //		if (white) {
