@@ -44,7 +44,7 @@ public class Post {
 	 * @param type The type of message this Post holds - MESSAGE or USER
 	 * */
 	public Post(String type) {
-		if (type == "MESSAGE" || type == "USER" || type == "BOARD" || type == "TESTING" || type == "PIECEADDED" || type == "NAME" || type == "INT") {
+		if (type == "MESSAGE" || type == "USER" || type == "BOARD" || type == "TESTING" || type == "PIECEADDED" || type == "INT") {
 			postType = type;
 		} else {
 			System.err.println("unknown post type: " + type);

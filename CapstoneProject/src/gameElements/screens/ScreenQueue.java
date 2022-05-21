@@ -18,7 +18,6 @@ import core.DrawingSurface;
 import core.DrawingSurface.DatabaseChangeListener;
 import databaseData.BoardPost;
 import databaseData.IntegerPost;
-import databaseData.NamePost;
 import databaseData.UserPost;
 import processing.core.PConstants;
 
