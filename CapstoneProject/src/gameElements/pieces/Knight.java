@@ -50,7 +50,7 @@ public class Knight extends GamePiece {
 			for(int c = col-2; c <= col+2; c++) {
 				if(board.inBounds(r,  c)) {
 					if (board.isEmpty(r, c)){
-						System.out.println("distance: " + loc.getDistanceFrom(new Location(r, c)));
+//						System.out.println("distance: " + loc.getDistanceFrom(new Location(r, c)));
 						Location temp = new Location(r, c);
 						if(loc.getDistanceFrom(temp) > Math.sqrt(5) - 0.001 && loc.getDistanceFrom(temp) < Math.sqrt(5) + 0.001) {
 							locs.add(temp);

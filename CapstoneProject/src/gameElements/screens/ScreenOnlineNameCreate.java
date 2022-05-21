@@ -42,7 +42,7 @@ public class ScreenOnlineNameCreate extends Screen {
 	
 	public void draw() {
 		// loading screen if firebase stuff has not loaded in yet
-		if (surface.getI() == 0) {
+		if (!surface.isLoaded()) {
 			drawLoading();
 			return;
 		}

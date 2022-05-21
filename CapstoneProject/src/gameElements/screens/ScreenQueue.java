@@ -17,6 +17,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import core.DrawingSurface;
 import core.DrawingSurface.DatabaseChangeListener;
 import databaseData.BoardPost;
+import databaseData.IntegerPost;
 import databaseData.NamePost;
 import databaseData.UserPost;
 import processing.core.PConstants;
@@ -32,7 +33,9 @@ public class ScreenQueue extends Screen {
 	
 //	private boolean white;
 	private boolean firstLoop;
+	private boolean switched;
 	private BoardPost gameCreated;
+	private DatabaseReference roomCreated;
 	
 	public ScreenQueue(DrawingSurface surface, DatabaseReference ref, ArrayList<UserPost> queue, ScreenOnlineGame gameScreen) {
 		super(1200,600);
@@ -52,6 +55,8 @@ public class ScreenQueue extends Screen {
 //		}
 		
 		button = new Rectangle(1200/2-100,600/2-50,200,50);
+		switched = false;
+		
 	}
 	
 	
@@ -62,37 +67,38 @@ public class ScreenQueue extends Screen {
 		String str = "";
 		str = Integer.toString(queue.size());
 		
+		if (switched) {
+			System.err.println("switch failed?");
+		}
+		
 		// make a new game
 		if (firstLoop) {
 			firstLoop = false;
 			if (queue.size() > 0) {		// if there is someone already waiting in queue
-				System.out.println("quyeuedsadas: " + queue.size());
+//				System.out.println("quyeuedsadas: " + queue.size());
 				
 				BoardPost board = new BoardPost();
-				System.out.println("quyeuedsadas: " + queue.size());
 				DatabaseReference boardRef = surface.postData(board);
-				System.out.println("quyeuedsadas: " + queue.size());
 //				gameScreen.setNames("a", "b");
 //				gameScreen.setBoardRef(boardRef);
 //				gameScreen.setBoardRef(gameCreated);
+				
 				DatabaseReference gameRef = ref.child(Integer.toString(surface.getI()));
-				System.out.println("quyeuedsadas: " + queue.size());
+				surface.postData(new IntegerPost(0), gameRef);
+				
 				surface.addChildEventListener(gameRef);
-				System.out.println("quyeuedsadas: " + queue.size());
 				surface.setGameReference(gameRef);
-				System.out.println("quyeuedsadas: " + queue.size());
 				gameScreen.setWhite(true);
 				gameScreen.setNames(surface.getPlayerName(), surface.getQueue().get(0).getPlayerName());
-				System.out.println("quyeuedsadas: " + queue.size());
 				surface.switchScreen(ScreenSwitcher.SCREEN8);
-				System.out.println("quyeuedsadas: " + queue.size());
+				switched = true;
 				return;
 			}
 		}
 		
 		
 		// connect to an existing game
-		if (gameCreated != null && queue.size() > 0 && queue.size() % 2 == 0) {
+		if (roomCreated != null && queue.size() > 0 && queue.size() % 2 == 0) {
 //			gameScreen.setNames("a", "b");
 //			gameScreen.setBoardRef(gameCreated);
 //			gameScreen.setBoardRef(gameCreated);
@@ -100,8 +106,8 @@ public class ScreenQueue extends Screen {
 //			String whiteName = gameCreated.getWhiteName();
 //			String blackName = gameCreated.getBlackName();
 			
-			// folder for game replicating
-			DatabaseReference gameRef = ref.child(Integer.toString(surface.getI()-1));
+			// folder for game replicating	
+			DatabaseReference gameRef = roomCreated;
 			surface.addChildEventListener(gameRef);
 			surface.setGameReference(gameRef);
 			gameScreen.setWhite(false);
@@ -114,6 +120,7 @@ public class ScreenQueue extends Screen {
 			// remove from queue
 			surface.clearData(ref.child("Queue"));				// TODO: clear data when leaving game, keeping updated i value for new players
 			surface.switchScreen(ScreenSwitcher.SCREEN8);
+			switched = true;
 			return;
 		}
 		
@@ -140,9 +147,19 @@ public class ScreenQueue extends Screen {
 	}
 	
 
-	
+	/**
+	 * @deprecated
+	 * @param post
+	 */
 	public void gameCreated(BoardPost post) {
 		gameCreated = post;
+	}
+	
+	public void roomCreated(DataSnapshot post) {
+		System.out.println("ROOM CREATED");
+		String ref = post.getRef().toString();
+		String name = ref.substring(ref.lastIndexOf("/")+1);
+		this.roomCreated = this.ref.child(name);
 	}
 	
 	private void showButton(Rectangle rectangle, String buttonText) {

@@ -102,6 +102,9 @@ public class ScreenOnlineGame extends Screen implements ActionListener{
 	 * Draws the elements of the game onto the processing window.
 	 */
 	public void draw() {
+		
+//		System.out.println("draw game");
+		
 		if (gameInProgress) {
 			drawGame();
 		} else {

@@ -62,8 +62,10 @@ public class DrawingSurface extends PApplet {
 	// Database stuff
 	private DatabaseReference ref;
 	private DatabaseReference gameRef;
+	private boolean loaded;
 	
 	private int i;
+	private final long loadedInTime = System.currentTimeMillis();		// TODO: this is only for testing, delete in final verion
 	
 	/**
 	 * Constructs a new DrawingSurface, setting up fields, the database, and screens.
@@ -74,12 +76,12 @@ public class DrawingSurface extends PApplet {
 		playerName = null;
 //		board = null;
 		queue = new ArrayList<UserPost>();
+		i = 0;
 		
 		
 		// DATABASE SETUP
 		FileInputStream refreshToken;
 		DatabaseReference queueRef = null;
-		DatabaseReference gamesRef = null;
 		try {
 
 			refreshToken = new FileInputStream("dataBaseKey.json");
@@ -92,11 +94,9 @@ public class DrawingSurface extends PApplet {
 			FirebaseApp.initializeApp(options);
 			ref = FirebaseDatabase.getInstance().getReference();
 			queueRef = ref.child("Queue");
-			gamesRef = ref.child("Games");
 			
 			ref.addChildEventListener(new DatabaseChangeListener());
 			queueRef.addChildEventListener(new DatabaseChangeListener());
-			gamesRef.addChildEventListener(new DatabaseChangeListener());
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -170,6 +170,8 @@ public class DrawingSurface extends PApplet {
 	
 	}
 
+	int hsdujhasjkfhsdDeletethislater = 0;
+	
 	/**
 	 * Draws the current active screen.
 	 */
@@ -180,6 +182,13 @@ public class DrawingSurface extends PApplet {
 //			drawLoading();
 //			return;
 //		}
+		
+		hsdujhasjkfhsdDeletethislater += 1;
+		
+		if (hsdujhasjkfhsdDeletethislater % 60 == 0) {
+			hsdujhasjkfhsdDeletethislater = 0;
+			System.out.println(loadedInTime);
+		}
 		
 		ratioX = (float)width/activeScreen.DRAWING_WIDTH;
 		ratioY = (float)height/activeScreen.DRAWING_HEIGHT;
@@ -368,14 +377,13 @@ public class DrawingSurface extends PApplet {
 		this.gameRef = gameRef;
 	}
 	
-	/**
-	 * Returns an i value. This is a value that is incremented every time something is added to the queue.
-	 * Used for IDing.
-	 * 
-	 * @return an i value
-	 */
+	// TODO: java doc (putting this as todo cause i keep changing what i is)
 	public int getI() {
 		return i;
+	}
+	
+	public boolean isLoaded() {
+		return loaded;
 	}
 	
 	/**
@@ -397,6 +405,7 @@ public class DrawingSurface extends PApplet {
 	}
 	
 	/**
+	 * @deprecated
 	 * Tells the ScreenQueue that a game was made if it is the active screen
 	 */
 	public void gameCreated(BoardPost post) {
@@ -410,6 +419,14 @@ public class DrawingSurface extends PApplet {
 //			gameScreen2.setBoardRef(post);
 		}
 		  
+	}
+	
+	public void roomCreated(DataSnapshot dataSnapshot) {
+		Screen q = screens.get(7);
+		if (this.activeScreen.equals(q)) {
+			ScreenQueue screen = (ScreenQueue) q;
+			screen.roomCreated(dataSnapshot);
+		}
 	}
 	
 	/**
@@ -438,6 +455,12 @@ public class DrawingSurface extends PApplet {
 		return queue;
 	}
 	
+	// run when everything is loaded
+	private void loaded() {
+		loaded = true;
+	}
+	
+	
 	/**
 	 * 
 	 * Handles all changes to the database reference. Because Firebase uses a separate thread than most other processes we're using (both Swing and Processing),
@@ -455,14 +478,12 @@ public class DrawingSurface extends PApplet {
 			DrawingSurface.this.registerMethod("post", this);
 		}
 		
-		
 		public void post() {
 			while (!tasks.isEmpty()) {
 				Runnable r = tasks.remove();
 				r.run();
 			}
 		}
-		
 		
 		@Override
 		public void onCancelled(DatabaseError arg0) {
@@ -486,7 +507,8 @@ public class DrawingSurface extends PApplet {
 					Post postN = dataSnapshot.getValue(Post.class);
 					System.out.println("> add " + postN + postN.postType);
 					String postType = postN.postType;
-					if (postType != null ) {
+					loaded();
+					if (postType != null) {
 						if (postType.matches("USER")) {
 							UserPost post = dataSnapshot.getValue(UserPost.class);
 //							System.out.println(post);
@@ -498,7 +520,6 @@ public class DrawingSurface extends PApplet {
 							System.out.println("    BOARD ADDED: " + post);
 							setBoard(new Board());
 							gameCreated(post);
-							i += 1;
 						} else if (postType.matches("PIECEADDED")) {
 							ChangePost post = dataSnapshot.getValue(ChangePost.class);
 							System.out.println("    CHANGE: " + post);
@@ -507,11 +528,20 @@ public class DrawingSurface extends PApplet {
 //							setBoard(post.getBoard());
 //							gameCreated(post);
 						} else if (postType.matches("INT")) {
-							IntegerPost post = dataSnapshot.getValue(IntegerPost.class);
-							i = post.getX();
+//							IntegerPost post = dataSnapshot.getValue(IntegerPost.class);
+//							if (post.getX() == 0)
+//								roomCreated(dataSnapshot);
 						}
 					} else {
-//						System.out.println(postType);
+						System.err.println("null post " + dataSnapshot.getRef());
+						DatabaseReference postRef = dataSnapshot.getRef();
+						String refStr = postRef.toString();										// the reference of the post, such as "https://chessroyale-e5d70-default-rtdb.firebaseio.com/Queue"
+						String name = refStr.substring(refStr.lastIndexOf("/") + 1);			// get the name of the post, such as "Queue"
+						if (name.equals("Queue")) return;										// only continue if it's not Queue, meaning that it is a game
+						int name2 = Integer.parseInt(name);
+						i = name2+1;
+						System.err.println(i);
+						roomCreated(dataSnapshot);
 					}
 //					currentDrawing.addDotSet(post.dots, new Color(post.r,post.g,post.b));
 				}
@@ -532,7 +562,6 @@ public class DrawingSurface extends PApplet {
 //					gameCreated(post);
 				} else if (postType.matches("INT")) {
 					IntegerPost post = arg0.getValue(IntegerPost.class);
-					i = post.getX();
 				}
 			}
 		}
