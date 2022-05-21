@@ -2,7 +2,7 @@ package databaseData;
 
 
 /**
- * The ChangePost class a piece to be added to the board.
+ * The ChangePost class represents a piece to be added to the board.
  * @author Nishil Anand
  * */
 public class ChangePost extends Post {

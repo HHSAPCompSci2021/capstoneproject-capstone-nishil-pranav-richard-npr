@@ -82,7 +82,7 @@ public class ScreenQueue extends Screen {
 //				gameScreen.setBoardRef(gameCreated);
 				
 				DatabaseReference gameRef = ref.child(Integer.toString(surface.getI()));
-				surface.postData(new IntegerPost(0), gameRef);
+				surface.postData(new IntegerPost(), gameRef);
 				
 				surface.addChildEventListener(gameRef);
 				surface.setGameReference(gameRef);
