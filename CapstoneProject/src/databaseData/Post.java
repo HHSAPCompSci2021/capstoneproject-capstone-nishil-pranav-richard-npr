@@ -33,10 +33,10 @@ public class Post {
 	public String postType;
 	
 	/**
-	 * Creates a new Post object with an empty message
+	 * Creates a new Post object, holding nothing
 	 * */
 	public Post() {
-		
+		postType = null;
 	}
 	
 	/**
