@@ -87,7 +87,11 @@ public class ScreenOnlineGame extends Screen implements ActionListener{
 		leftEnergy = new Rectangle(x/2-457,y/2+50,50,20);
 		rightEnergy = new Rectangle(x/2+497,y/2+50,50,20);
 		
-		activePlayer = p1;
+		if (white) {
+			activePlayer = p1;
+		} else {
+			activePlayer = p2;
+		}
 		
 		gameInProgress = true;
 		
@@ -135,7 +139,6 @@ public class ScreenOnlineGame extends Screen implements ActionListener{
 		surface.image(whiteKing, x/2-290, y/2+175, 75, 188);
 		surface.image(blackKing, x/2+310, y/2+175, 75, 188);
 		
-		
 		showTextButton(leftKingHP, board.getKingHealth(true) + "/" + MAX_KING_HP, false);
 		showTextButton(rightKingHP, board.getKingHealth(false) + "/" + MAX_KING_HP, false);
 		
@@ -175,23 +178,16 @@ public class ScreenOnlineGame extends Screen implements ActionListener{
 			surface.text(nameTwo, x/2+340, y/2-220);
 //		else
 //			System.out.println("nameTwo null");
-		String s = "";
-		if(activePlayer.equals(p1)) {
-			s = "White's Turn";
-		} else if(activePlayer.equals(p2)) {
-			s = "Black's Turn";
-		}
 //		s+="\n" + (180-time);
 		surface.textAlign(PConstants.CENTER);
-		surface.text(s, x/2, 100);
 		if (activePiece != null) {
-			if(activePlayer.equals(p1)) {
+			if (activePlayer.equals(p1)) {
 				surface.rectMode(PConstants.CORNER);
 				surface.fill(100, 0, 0, 100);
 				surface.rect(boardX + boardWidth/2-boardWidth/15, boardY-14, boardWidth/2 + boardWidth/15, boardHeight);
 				surface.fill(255);
 				surface.rectMode(PConstants.CENTER);
-			} else {
+			} else if (activePlayer.equals(p2)){
 				surface.rectMode(PConstants.CORNER);
 				surface.fill(100, 0, 0, 100); 
 				surface.rect(boardX-boardWidth/15, boardY-14, boardWidth/2 + boardWidth/15, boardHeight);
@@ -213,12 +209,17 @@ public class ScreenOnlineGame extends Screen implements ActionListener{
 //		} else if(activePlayer.equals(p2)) {
 //			surface.rect(0, 0, x/2-345, surface.height+200);
 //		}
-		if(white) {
-			surface.rect(x/2+365, 0, surface.width+200, surface.height+200);
-		} else {
-			surface.rect(0, 0, x/2-345, surface.height+200);
-
-		}
+		
+//		surface.textAlign(PConstants.LEFT, PConstants.TOP);
+//		if (white) {
+//			surface.rect(x/2+365, 0, surface.width+200, surface.height+200);
+//			surface.fill(255);
+//			surface.text("white", 10, 10);
+//		} else {
+//			surface.rect(0, 0, x/2-345, surface.height+200);
+//			surface.fill(255);
+//			surface.text("black", 10, 10);
+//		}
 		
 		surface.popStyle();
 		
@@ -277,16 +278,10 @@ public class ScreenOnlineGame extends Screen implements ActionListener{
 			float tempX;
 			float tempY =  y/2+50-200+(102*0)+(94/2);
 			
-			if(activePlayer.equals(p1)) {
+			if (white) {
 				tempX = x/2-385;
 			} else {
 				tempX = x/2+415;
-			}
-			
-			if (white && activePlayer.equals(p2)) {					// if the player with this screen is white but it's black's turn
-				return;
-			} else if (!white && activePlayer.equals(p1)) {			// if the player with this screen is black but it's white's turn
-				return;
 			}
 			
 	        for(int i = 0; i < activePlayer.getCards().size() && i < 5; i++) {
@@ -297,7 +292,7 @@ public class ScreenOnlineGame extends Screen implements ActionListener{
 	        			return;
 	        		}
 	        		activePiece = c.getPiece();
-	        		System.out.println("clicked " + activePiece);
+//	        		System.out.println("clicked " + activePiece);
 	        		return;
 	        	}
 	        	tempY+=90;
@@ -352,7 +347,7 @@ public class ScreenOnlineGame extends Screen implements ActionListener{
 		}
 		
 		// console log for debugging
-		System.out.println(String.format("pieceAdded (%d, %d)", x, y));
+//		System.out.println(String.format("pieceAdded (%d, %d)", x, y));
 		
 		// add piece to board and update the energy "cost" value based on how much the added piece costs
 		if (gamePieceName.matches("Bishop")) {
@@ -378,23 +373,10 @@ public class ScreenOnlineGame extends Screen implements ActionListener{
 			return;
 		}
 		
-		// subtract the cost from energy, use a turn, and set activePiece to null
-		activePlayer.useEnergy(cost);
-		if (activePlayer.equals(p1)) {
-			activePlayer = p2;
-		} else {
-			activePlayer = p1;
-		}
+		// subtract the cost from energy and set activePiece to null
+		if (activePlayer.equals(this.playerFromWhite(white)))
+			activePlayer.useEnergy(cost);
 		activePiece = null;
-	}
-	
-	/**
-	 * If enter/return is pressed the current player's turn is skipped.
-	 */
-	public void keyPressed() {
-		if (surface.key == PConstants.ENTER || surface.key == PConstants.RETURN) {
-			skipTurn();
-		}
 	}
 	
 	/**
@@ -482,21 +464,27 @@ public class ScreenOnlineGame extends Screen implements ActionListener{
 		showBox(rectangle, true);
 	}
 	
-	private void skipTurn() {
-		if (activePlayer == null  || !gameInProgress) return;
-		if (activePlayer.equals(p1)) {
-			activePlayer = p2;
-		} else if (activePlayer.equals(p2)) {
+	/**
+	 * Sets the white field to white and adjusts activePlayer
+	 * 
+	 * @param white if the player with this screen is white
+	 */
+	public void setWhite(boolean white) {
+		System.err.println("white set to " + white);
+		if (white) {
 			activePlayer = p1;
 		} else {
-			return;
+			activePlayer = p2;
 		}
-		activePiece = null;
-//		board.play();
-	}
-
-	public void setWhite(boolean white) {
 		this.white = white;
+	}
+	
+	private Player playerFromWhite(boolean white) {
+		if (white) {
+			return p1;
+		} else {
+			return p2;
+		}
 	}
 
 }
