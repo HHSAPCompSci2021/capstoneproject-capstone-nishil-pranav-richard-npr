@@ -393,7 +393,6 @@ public class DrawingSurface extends PApplet {
 		Screen screen = screens.get(7);
 		if (this.activeScreen.equals(screens.get(7))) {
 			ScreenQueue queueScreen = (ScreenQueue) screen;
-			queueScreen.queueUpdated();
 		}
 	}
 	

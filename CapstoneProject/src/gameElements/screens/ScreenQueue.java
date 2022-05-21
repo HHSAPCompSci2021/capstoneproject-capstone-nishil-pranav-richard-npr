@@ -139,10 +139,7 @@ public class ScreenQueue extends Screen {
 		
 	}
 	
-	public void queueUpdated() {
-//		System.out.println("updatedd");
-//		white = false;
-	}
+
 	
 	public void gameCreated(BoardPost post) {
 		gameCreated = post;
