@@ -303,7 +303,7 @@ public class ScreenOnlineGame extends Screen implements ActionListener{
 	        
 		} else {
 			Point loc = board.clickToIndex(click, boardX, boardY, boardWidth, boardHeight); 
-			if(loc != null && activePiece != null && board.get(loc.x, loc.y) == null) { 
+			if(loc != null && activePiece != null && board.get(loc.y, loc.x) == null) { 
 				if(activePlayer.equals(p1)) { //white
 					if(loc.x >= board.getWidth()/2) {
 						System.err.println("CANNOT PLACE ON ENEMY'S SIDE!!!");
