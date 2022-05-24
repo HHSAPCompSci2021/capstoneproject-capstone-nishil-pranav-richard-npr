@@ -22,18 +22,26 @@ public class Board {
 	private int whiteKingHP;
 	private int blackKingHP;
 	
+	/**
+	 * Constructs a new Board with the specified width and height
+	 * @param x The width of this board
+	 * @param y The height of this board
+	 * */
 	public Board(int x, int y) {
 		board = new GamePiece[x][y];
 		images = null;
-		whiteKingHP = 100;
-		blackKingHP = 100;
+		whiteKingHP = 200;
+		blackKingHP = 200;
 	}
 	
+	/**
+	 * Constructs a new Board with width 15 and height 15
+	 * */
 	public Board() {
 		board = new GamePiece[15][15];
 		images = null;
-		whiteKingHP = 100;
-		blackKingHP = 100;
+		whiteKingHP = 200;
+		blackKingHP = 200;
 	}
 	
 	/**
