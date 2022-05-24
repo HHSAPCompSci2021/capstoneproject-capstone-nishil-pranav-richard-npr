@@ -5,11 +5,8 @@ package gameElements.screens;
 
 import java.awt.Point;
 import java.awt.Rectangle;
-import java.util.ArrayList;
 
 import core.DrawingSurface;
-import gameElements.board.Board;
-import processing.core.PApplet;
 import processing.core.PConstants;
 import core.ImageCodes;
 

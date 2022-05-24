@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import core.ImageCodes;
 import gameElements.board.Board;
 import gameElements.board.Location;
-import io.grpc.netty.shaded.io.netty.util.internal.MathUtil;
 import processing.core.PApplet;
 
 /**
