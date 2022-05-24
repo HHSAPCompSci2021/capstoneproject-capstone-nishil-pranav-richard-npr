@@ -9,11 +9,30 @@ public class IntegerPost extends Post {
 	
 	private int x;
 	
+	
 	/**
 	 * Constructs a new IntegerPost
 	 */
 	public IntegerPost() {
 		super("INT");
+		x = 0;
+	}
+	
+	
+	/**
+	 * Sets the value this Post holds to value.
+	 * @param value the new value for this Post to hold.
+	 */
+	public void setValue(int value) {
+		this.x = value;
+	}
+	
+	/**
+	 * Returns the value that this Post holds.
+	 * @return the value that this Post holds
+	 */
+	public int getValue() {
+		return x;
 	}
 	
 	/**
