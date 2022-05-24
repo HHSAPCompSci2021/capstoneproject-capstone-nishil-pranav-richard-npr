@@ -15,22 +15,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import databaseData.BoardPost;
-import databaseData.ChangePost;
-import databaseData.IntegerPost;
-import databaseData.Post;
-import databaseData.UserPost;
+import databaseData.*;
 import gameElements.board.Board;
-import gameElements.screens.Screen;
-import gameElements.screens.ScreenInstructions;
-import gameElements.screens.ScreenLocalGame;
-import gameElements.screens.ScreenLocalNameCreate;
-import gameElements.screens.ScreenMenu;
-import gameElements.screens.ScreenOnlineGame;
-import gameElements.screens.ScreenOnlineNameCreate;
-import gameElements.screens.ScreenQueue;
-import gameElements.screens.ScreenSecond;
-import gameElements.screens.ScreenSwitcher;
+import gameElements.screens.*;
 import processing.core.PApplet;
 import processing.core.PImage;
 
@@ -50,7 +37,7 @@ public class DrawingSurface extends PApplet {
 	private ArrayList<Integer> keys;
 	private ArrayList<PImage> images;
 	
-	// Database stuff
+	// Database stuff 
 	private DatabaseReference ref;
 	private DatabaseReference gameRef;
 	private ArrayList<UserPost> queue;
@@ -376,9 +363,9 @@ public class DrawingSurface extends PApplet {
 	 * Tells the ScreenQueue that the queue was updated if it is the active screen
 	 */
 	public void updatedQueue() {
-		Screen screen = screens.get(7);
+		//ÍScreen screen = screens.get(7);
 		if (this.activeScreen.equals(screens.get(7))) {
-			ScreenQueue queueScreen = (ScreenQueue) screen;
+			//ÍScreenQueue queueScreen = (ScreenQueue) screen;
 		}
 	}
 	
@@ -503,10 +490,10 @@ public class DrawingSurface extends PApplet {
 					System.out.println("    BOARD UPDATED: " + post);
 					setBoard(post.getBoard());
 				} else if (postType.matches("INT")) {
-					IntegerPost post = arg0.getValue(IntegerPost.class);
+					//IntegerPost post = arg0.getValue(IntegerPost.class);
 				}
 			}
-		}
+		} 
 
 		@Override
 		public void onChildMoved(DataSnapshot arg0, String arg1) {

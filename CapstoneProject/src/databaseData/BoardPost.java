@@ -2,9 +2,6 @@ package databaseData;
 
 import gameElements.board.Board;
 
-
-// TODO: this class probably doesn't need to exist (or can be replaced by something). It was originally made to store a Board but does not because it is better to just post changes to the Board. Firebase also can't store arrays so storing a Board would be tricky.  
-
 /**
  * The BoardPost class represents a Post of a Board
  * @author Nishil Anand

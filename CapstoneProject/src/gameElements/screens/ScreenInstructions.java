@@ -27,7 +27,6 @@ public class ScreenInstructions extends Screen {
 		button1 = new Rectangle(1200-200,30,175,50);
 	}
 	
-	
 	public void draw() {
 		
 		surface.pushStyle();
@@ -54,7 +53,8 @@ public class ScreenInstructions extends Screen {
 				 + "\nthe sides of the board, you will see what pieces are available to you."
 				 + "\nTo add them to the board, press the corresponding number and click to "
 				 + "\nadd it to the board. Note that pieces take up power, which you can see "
-				 + "\non the side. Good luck soldier.", 1200/2, 600/2);
+				 + "\non the side. The pieces are arranged in a list, which displays total "
+				 + "\nhealth, damage capacity, and energy needed to use it. Good luck general!", 1200/2, 600/2);
 		
 		surface.popStyle();
 		

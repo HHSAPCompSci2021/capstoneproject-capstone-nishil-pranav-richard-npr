@@ -26,7 +26,7 @@ public class ScreenLocalNameCreate extends Screen {
 	private StringBuffer boxText;
 	private Rectangle nameCreationBox;
 	
-	private String player1;
+	private String player1; 
 	private String player2;
 	private boolean boxSelected;
 	

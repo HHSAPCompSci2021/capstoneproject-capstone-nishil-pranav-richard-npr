@@ -1,6 +1,4 @@
 package core;
-import java.awt.Dimension;
-
 import javax.swing.JFrame;
 
 import processing.awt.PSurfaceAWT;
@@ -9,7 +7,7 @@ import processing.core.PApplet;
  * The Main class is the class that contains the PApplet on which the program is executed.
  * @author John Shelby
  * */
-public class Main {
+public class Main { 
 	
 	public static void main(String[] args) {
 		
@@ -26,8 +24,6 @@ public class Main {
 		JFrame window = (JFrame)canvas.getFrame();
 
 		window.setSize(1050, 600);
-//		window.setMinimumSize(new Dimension(1000,600));
-//		window.setMaximumSize(new Dimension(1000, 600));
 		window.setLocation(20, 20);
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setResizable(true);

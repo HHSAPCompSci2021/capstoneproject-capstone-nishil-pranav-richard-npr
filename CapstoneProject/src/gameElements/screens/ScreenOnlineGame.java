@@ -429,10 +429,9 @@ public class ScreenOnlineGame extends Screen implements ActionListener{
 				activePlayer = null;
 				gameInProgress = false;
 			}
-			if (time % 5 == 0) { // adds 1 energy every 7 sec
 				p1.addEnergy(1);
 				p2.addEnergy(1);
-			}
+
 		}
 	}
 	

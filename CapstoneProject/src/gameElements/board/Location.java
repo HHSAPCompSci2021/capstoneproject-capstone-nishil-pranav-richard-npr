@@ -1,5 +1,4 @@
 package gameElements.board;
-import gameElements.pieces.*;
 public class Location {
 	private int row, col;
 	public Location() {
@@ -26,18 +25,4 @@ public class Location {
 		double dRow = (double) row, dCol = (double) col, dRowOther = (double) other.getRow(), dColOther = (double)other.getCol();
 		return Math.sqrt(Math.pow((dRow-dRowOther), 2) + Math.pow((dCol - dColOther), 2));
 	}
-
-/*
-	private GamePiece gp;
-	
-	public Location(GamePiece g) {
-		gp = g;
-	}
-	
-	public GamePiece get() {
-		return gp;
-	}
-	
-	*/
-
 }

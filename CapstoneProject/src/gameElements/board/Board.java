@@ -1,6 +1,5 @@
 package gameElements.board;
 
-import java.awt.Color;
 import java.awt.Point;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
@@ -37,6 +36,14 @@ public class Board {
 		blackKingHP = 100;
 	}
 	
+	/**
+	 * Draws this board on a DrawingSurface PApplet
+	 * @param surface The surface (PApplet) on which this board is to be drawn on
+	 * @param x The leftmost point of the board
+	 * @param y The topmost point of the board
+	 * @param width The width of the board
+	 * @param height The height of the board
+	 * */
 	public void draw(DrawingSurface surface, float x, float y, float width, float height) {
 		if (images == null) {
 			images = surface.getImages();
@@ -76,6 +83,16 @@ public class Board {
 		}
 	}
 	
+	/**
+	 * Returns the xy coordinates of a point given the index
+	 * @param x The leftmost x value on the board
+	 * @param y The topmost y value on the board
+	 * @param width The width of the board
+	 * @param height The height of the board
+	 * @param r The row of the index
+	 * @param c The column of the index
+	 * @return The coordinate at the given index on this board
+	 * */
 	public Point2D.Float getCoordFromIndex(float x, float y, float width, float height, int r, int c) {
 		Point2D.Float coords = new Point2D.Float();
 		coords.x = x+(width/board.length)*r;
@@ -83,7 +100,12 @@ public class Board {
 		return coords;
 	}
 	
-	
+	/**
+	 * Returns the GamePiece at a certain location
+	 * @param x The row of the GamePiece
+	 * @param y The column of the GamePiece
+	 * @return the GamePiece at board[x][y], if it is valid
+	 * */
 	public GamePiece get(int x, int y) {
 		if(x >= 0 && x < board.length && y >= 0 && y < board[0].length) {
 			return board[x][y];
@@ -91,6 +113,13 @@ public class Board {
 		return null;
 	}
 	
+	/**
+	 * Adds a GamePiece to an index on this board
+	 * @param l The GamePiece to be added
+	 * @param x The row where l is to be added
+	 * @param the column where l is to be added
+	 * @post If board[x][y] is valid, it will be set to l
+	 * */
 	public void set(GamePiece l, int x, int y) {
 		if(x >= 0 && x < board.length && y >= 0 && y < board[0].length) {
 			board[x][y] = l;
@@ -112,14 +141,28 @@ public class Board {
 		board[x][y] = piece;
 	}
 	
+	/**
+	 * Returns the height of this board
+	 * @return the height of this board
+	 * */
 	public int getHeight() {
 		return board.length;
 	}
 	
+	/**
+	 * Returns the width of this board
+	 * @return the width of this board
+	 * */
 	public int getWidth() {
 		return board[0].length;
 	}
 	
+	/**
+	 * Determines whether a certain index is within the bounds of this board
+	 * @param r The row which is being tested
+	 * @param c The column which is being tested
+	 * @return True if board[r][c] is a valid index, False otherwise
+	 * */
 	public boolean inBounds(int r, int c) {
 		if(r >= 0 && c >= 0 && r < board.length && c < board[0].length) {
 			return true;
@@ -127,6 +170,12 @@ public class Board {
 		return false;
 	}
 	
+	/**
+	 * Determines whether the Board is empty at a certain Location
+	 * @param r The row which is being tested
+	 * @param c The column which is being tested
+	 * @return True if board[i][c] is null, False otherwise. 
+	 * */
 	public boolean isEmpty(int r, int c) {
 		if(board[r][c] == null) {
 			return true;
@@ -165,6 +214,10 @@ public class Board {
 		return new Point((int)x1, (int)y1);
 	}
 	
+	/**
+	 * Plays the game according to GamePiece behavior
+	 * @post the Locations and health of some or all GamePieces may be affected
+	 * */
 	public void play() {
 		
 		// Note: to prevent calling act on the same GamePiece multiple times (if the GamePiece moves it might get called again), all GamePieces are gathered into an ArrayList then act is called on each GamePiece
@@ -207,6 +260,11 @@ public class Board {
 		
 	}
 	
+	/**
+	 * Returns the health of the king of a certain side.
+	 * @param white Whether the king is on the white side or not
+	 * @return The health of the corresponding king
+	 * */
 	public int getKingHealth(boolean white) {
 		if (white) {
 			return whiteKingHP;
@@ -233,6 +291,12 @@ public class Board {
 		board[r][c].takeDamage(board[r][c].getDamage());
 	}
  	
+	/**
+	 * Removes a GamePiece from the specified location
+	 * @param r The row of the GamePiece to be removed
+	 * @param c The column of the GamePiece to be removed
+	 * @post board[r][c] is null
+	 * */
 	public void remove(int r, int c) {
 		board[r][c] = null;
 	}
@@ -258,6 +322,11 @@ public class Board {
 	
 	// NETWORKING
 	
+	/**
+	 * Converts a 2D ArrayList of GamePieces into GamePieces on this Board
+	 * @param list The 2D ArrayList of GamePieces
+	 * @post this Board is a 2D array representation of list
+	 * */
 	public void listToArray(ArrayList<ArrayList<GamePiece>> list) {
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board[i].length; j++) {
@@ -266,14 +335,20 @@ public class Board {
 		}
 	}
 	
-	// nulls array so it's safe to post. store data before using this
+	/**
+	 * Makes this board null so its safe to post
+	 * @post this Board is completely null
+	 * */
 	public void removeArray() {
 		this.board = null;
 	}
 	
 	
 	
-	// TODO: javadoc
+	/**
+	* Converts this Board into a 2D ArrayList of GamePieces
+	* @return a 2D ArrayList containing GamePieces as this Board does
+	*/
 	public ArrayList<ArrayList<GamePiece>> getBoard() {
 		ArrayList<ArrayList<GamePiece>> grid = new ArrayList<ArrayList<GamePiece>>();
 		GamePiece[][] gridArray = board;
