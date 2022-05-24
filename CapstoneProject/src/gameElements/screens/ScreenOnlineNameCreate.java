@@ -124,7 +124,9 @@ public class ScreenOnlineNameCreate extends Screen {
 	
 	private UserPost addPlayerToQueue(String playerName) {
 		UserPost user = new UserPost(playerName);
-		queueFolder.push().setValueAsync(user);
+		DatabaseReference userRef = queueFolder.push();
+		userRef.setValueAsync(user);
+		surface.setInQueue(userRef);
 		return user;
 //		DatabaseReference pushedPostRef = surface.postData(user, queueFolder);
 //		String playerID = pushedPostRef.getKey();

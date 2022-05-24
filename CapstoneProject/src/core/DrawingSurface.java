@@ -40,6 +40,8 @@ public class DrawingSurface extends PApplet {
 	// Database stuff 
 	private DatabaseReference ref;
 	private DatabaseReference gameRef;
+	private DatabaseReference inQueue;		// the player running this game. used for if they leave
+	
 	private ArrayList<UserPost> queue;
 	private String playerName;
 	private Board board;
@@ -141,6 +143,15 @@ public class DrawingSurface extends PApplet {
 		
 		images.add(ImageCodes.WHITE_CASTLE, loadImage(String.format("Images%sChessPieces%swhiteSide%swhiteCastle.png", fileSeparator, fileSeparator, fileSeparator)));
 		images.add(ImageCodes.BLACK_CASTLE, loadImage(String.format("Images%sChessPieces%sblackSide%sblackCastle.png", fileSeparator, fileSeparator, fileSeparator)));
+		
+		
+		Runtime.getRuntime().addShutdownHook(new Thread()  // when the program exits remove the player from queue (if they are in the queue when they left)
+			{
+			      public void run() {
+			    	  if (inQueue != null)
+			    		  clearData(inQueue);
+			      }
+			});
 		
 	}
 	
@@ -400,11 +411,18 @@ public class DrawingSurface extends PApplet {
 		return queue;
 	}
 	
+	/**
+	 * Sets the inQueue of this surface to inQueue 
+	 * @param inQueue new value for inQueue
+	 */
+	public void setInQueue(DatabaseReference inQueue) {
+		this.inQueue = inQueue;
+	}
+	
 	// runs when something is loaded in
 	private void loaded() {
 		loaded = true;
 	}
-	
 	
 	/**
 	 * 

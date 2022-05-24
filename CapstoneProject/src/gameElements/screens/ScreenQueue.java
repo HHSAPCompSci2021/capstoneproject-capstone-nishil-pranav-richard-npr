@@ -30,7 +30,6 @@ public class ScreenQueue extends Screen {
 	
 	private Rectangle button;
 	
-//	private boolean white;
 	private boolean firstLoop;
 	private boolean switched;
 	private DatabaseReference roomCreated;
@@ -43,14 +42,7 @@ public class ScreenQueue extends Screen {
 		this.gameScreen = gameScreen;
 		this.firstLoop = true;
 		
-		/*
-		 * when there are 2 players in the queue, the one that joined first is white
-		 */
-//		if (queue.size() > 0) {
-//			white = false;
-//		} else {
-//			white = true;
-//		}
+		// when there are 2 players in the queue, the one that joined first is white
 		
 		button = new Rectangle(1200/2-100,600/2-50,200,50);
 		switched = false;
@@ -88,6 +80,7 @@ public class ScreenQueue extends Screen {
 				surface.setGameReference(gameRef);
 				gameScreen.setWhite(true);
 				gameScreen.setNames(surface.getPlayerName(), surface.getQueue().get(0).getPlayerName());
+				surface.setInQueue(null);
 				surface.switchScreen(ScreenSwitcher.SCREEN8);
 				switched = true;
 				return;
@@ -117,6 +110,7 @@ public class ScreenQueue extends Screen {
 			
 			// remove from queue
 			surface.clearData(ref.child("Queue"));				// TODO: clear data when leaving game, keeping updated i value for new players
+			surface.setInQueue(null);
 			surface.switchScreen(ScreenSwitcher.SCREEN8);
 			switched = true;
 			return;
