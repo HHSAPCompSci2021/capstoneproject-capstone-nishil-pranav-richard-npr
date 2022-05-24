@@ -108,6 +108,8 @@ public class ScreenOnlineNameCreate extends Screen {
 //				surface.player = user;
 				surface.setPlayerName(playerName);
 				surface.switchScreen(ScreenSwitcher.SCREEN4);
+			} else if (surface.keyCode == KeyEvent.VK_BACK_SPACE) {
+				boxText.deleteCharAt(boxText.length()-1);
 			} else if (ascii >= 32 && ascii <= 126) {
 				boxText.append(key);
 			}
