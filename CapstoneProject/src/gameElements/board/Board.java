@@ -125,7 +125,7 @@ public class Board {
 	 * Adds a GamePiece to an index on this board
 	 * @param l The GamePiece to be added
 	 * @param x The row where l is to be added
-	 * @param the column where l is to be added
+	 * @param y The column where l is to be added
 	 * @post If board[x][y] is valid, it will be set to l
 	 * */
 	public void set(GamePiece l, int x, int y) {

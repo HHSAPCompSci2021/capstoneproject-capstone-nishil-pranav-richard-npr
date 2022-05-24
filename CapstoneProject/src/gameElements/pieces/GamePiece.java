@@ -41,9 +41,9 @@ public abstract class GamePiece {
 	
 	/**
 	 * causes the gamePiece to act. When acting, the gamepiece will check if its health is 
-	 * <= 0, check if its target is untargetable, set a new target if it doesnt already 
+	 * less than or equal to 0, check if its target is untargetable, set a new target if it doesnt already 
 	 * have one, get all possible moves, get the best move, move to the best move, 
-	 * get all attack targets, damage those targets, and check if its health <= 0
+	 * get all attack targets, damage those targets, and check if its health is less than or equal to 0
 	 */
 	public void act() {
 		if(!dead) {

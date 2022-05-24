@@ -51,7 +51,7 @@ public class Location {
 	
 	/**
 	 * Sets the column of this Location
-	 * @param newColumn the row of this Location
+	 * @param newCol the row of this Location
 	 * */
 	public void setCol(int newCol) {
 		col = newCol;
