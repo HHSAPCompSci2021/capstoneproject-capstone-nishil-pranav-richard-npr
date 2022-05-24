@@ -1,7 +1,6 @@
 package gameElements.screens;
 
 
-
 public interface ScreenSwitcher {
 	public static final int SCREEN1 = 0;		// Menu
 	public static final int SCREEN2 = 1;		// Second
