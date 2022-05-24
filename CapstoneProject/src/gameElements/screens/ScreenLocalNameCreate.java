@@ -92,7 +92,9 @@ public class ScreenLocalNameCreate extends Screen {
 					surface.switchScreen(ScreenSwitcher.SCREEN5);
 				}
 			} else if (surface.keyCode == KeyEvent.VK_BACK_SPACE) {
-				boxText.deleteCharAt(boxText.length()-1);
+				int index = boxText.length()-1;
+				if (index < 0) return;				// prevent exception from backspacing with nothing there
+				boxText.deleteCharAt(index);
 			} else if (ascii >= 32 && ascii <= 126) {
 				boxText.append(key);
 			}
