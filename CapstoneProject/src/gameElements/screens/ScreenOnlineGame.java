@@ -1,14 +1,10 @@
 package gameElements.screens;
 
-
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.Timer;
-
-import com.google.firebase.database.DatabaseReference;
-
 import core.DrawingSurface;
 import core.ImageCodes;
 import databaseData.ChangePost;
@@ -19,7 +15,7 @@ import processing.core.PImage;
 
 
 /**
- * The screen that holds the game and its elements for the user to interact during a match (placing pieces, seeing enemy pieces, etc)
+ * This Screen holds the game and its elements for the user to interact with during a match (placing pieces, seeing enemy pieces, etc)
  * 
  * @author Nishil Anand 
  * @author Pranav Gunhal
@@ -44,9 +40,6 @@ public class ScreenOnlineGame extends Screen implements ActionListener{
 	
 	private Rectangle leftEnergy;
 	private Rectangle rightEnergy;
-	
-//	private Rectangle leftPFP;
-//	private Rectangle rightPFP;
 	
 	private boolean gameInProgress;
 	private boolean white;
@@ -98,13 +91,11 @@ public class ScreenOnlineGame extends Screen implements ActionListener{
 		timer = new Timer(1000, this);
 	}
 	
+	
 	/**
 	 * Draws the elements of the game onto the processing window.
 	 */
 	public void draw() {
-		
-//		System.out.println("draw game");
-		
 		if (gameInProgress) {
 			drawGame();
 		} else {
@@ -112,15 +103,8 @@ public class ScreenOnlineGame extends Screen implements ActionListener{
 		}
 	}
 	
-	
 	private void drawGame() {
 		
-		// DO STUFF
-		int oneEnergy = p1.getEnergy();
-		int twoEnergy = p2.getEnergy();
-		
-		
-		// DRAW STUFF
 		surface.pushStyle();
 		surface.background(32, 42, 68);
 		
@@ -163,25 +147,19 @@ public class ScreenOnlineGame extends Screen implements ActionListener{
         	tempY+=90;
         }
 		
-		showTextButton(leftEnergy, oneEnergy + "/10");
-		showTextButton(rightEnergy, twoEnergy + "/10");
-		
-//		showBox(leftPFP);
-//		showBox(rightPFP);
+		showTextButton(leftEnergy, p1.getEnergy() + "/10");
+		showTextButton(rightEnergy, p2.getEnergy() + "/10");
 		
 		surface.textSize(25);
 		surface.fill(255);
 		surface.textAlign(PConstants.LEFT);
+		
 		if (nameOne != null) 
 			surface.text(nameOne, x/2-340, y/2-220);
-//		else
-//			System.out.println("nameOne null");
 		surface.textAlign(PConstants.RIGHT);
 		if (nameTwo != null)
 			surface.text(nameTwo, x/2+340, y/2-220);
-//		else
-//			System.out.println("nameTwo null");
-//		s+="\n" + (180-time);
+		
 		surface.textAlign(PConstants.CENTER);
 		if (activePiece != null) {
 			if (activePlayer.equals(p1)) {
@@ -207,22 +185,11 @@ public class ScreenOnlineGame extends Screen implements ActionListener{
 		surface.rectMode(PConstants.CORNER);
 		surface.noStroke();
 
-		if(white) {
+		if (white) {
 			surface.rect(x/2+365, 0, surface.width+200, surface.height+200);
 		} else {
 			surface.rect(0, 0, x/2-345, surface.height+200);
 		}
-		
-//		surface.textAlign(PConstants.LEFT, PConstants.TOP);
-//		if (white) {
-//			surface.rect(x/2+365, 0, surface.width+200, surface.height+200);
-//			surface.fill(255);
-//			surface.text("white", 10, 10);
-//		} else {
-//			surface.rect(0, 0, x/2-345, surface.height+200);
-//			surface.fill(255);
-//			surface.text("black", 10, 10);
-//		}
 		
 		surface.popStyle();
 		
@@ -295,7 +262,6 @@ public class ScreenOnlineGame extends Screen implements ActionListener{
 	        			return;
 	        		}
 	        		activePiece = c.getPiece();
-//	        		System.out.println("clicked " + activePiece);
 	        		return;
 	        	}
 	        	tempY+=90;
@@ -323,24 +289,23 @@ public class ScreenOnlineGame extends Screen implements ActionListener{
 				post.setWhite(activePlayer.isWhite());
 				post.setGamePieceName(activePiece);
 				
-				DatabaseReference postRef = surface.postData(post, surface.getGameReference());
+				surface.postData(post, surface.getGameReference());
 				
-				
-//				board.play();
 			}
 		}
 	}
 	
 	/**
-	 * Called whenever a new piece is added to the board.
-	 * @param post the post from the database representing the new piece.
+	 * Adds a new piece to the board.
+	 * 
+	 * @param post the Post from the database representing the new piece.
 	 */
-	public void pieceAdded(ChangePost post) {
+	public void addPiece(ChangePost post) {
 		
 		// get data
 		int x = post.getX();
 		int y = post.getY();
-		int cost;
+		int cost;							// TODO: make cost not hard coded if extra time
 		boolean white = post.isWhite();
 		String gamePieceName = post.getGamePieceName();
 		
@@ -349,13 +314,10 @@ public class ScreenOnlineGame extends Screen implements ActionListener{
 			timer.start();
 		}
 		
-		// console log for debugging
-//		System.out.println(String.format("pieceAdded (%d, %d)", x, y));
-		
 		// add piece to board and update the energy "cost" value based on how much the added piece costs
 		if (gamePieceName.matches("Bishop")) {
 			board.add(new Bishop(y, x, board, white));
-			cost = 3;						// TODO: make these not hard coded if extra time
+			cost = 3;
 		} else if (gamePieceName.matches("Knight")) {
 			board.add(new Knight(y, x, board, white));
 			cost = 2;
@@ -380,6 +342,7 @@ public class ScreenOnlineGame extends Screen implements ActionListener{
 		if (activePlayer.equals(this.playerFromWhite(white)))
 			activePlayer.useEnergy(cost);
 		activePiece = null;
+		
 	}
 	
 	/**
@@ -393,21 +356,19 @@ public class ScreenOnlineGame extends Screen implements ActionListener{
 		this.nameTwo = nameTwo;
 	}
 	
-	
-	private void checkGameOver() {
-		int gameOver = board.checkGameOver();
-		
-		if (gameOver == 0) {			// game is not over
-			return;
-		} else if (gameOver == 1) {		// black won
-			System.out.println("white won");
-			gameInProgress = false;
+	/**
+	 * Sets the white field to white and adjusts activePlayer
+	 * 
+	 * @param white if the player with this screen is white
+	 */
+	public void setWhite(boolean white) {
+		System.err.println("white set to " + white);
+		if (white) {
 			activePlayer = p1;
-		} else if (gameOver == 2) {		// white won
-			System.out.println("black won");
-			gameInProgress = false;
+		} else {
 			activePlayer = p2;
-		} 
+		}
+		this.white = white;
 	}
 	
 	/**
@@ -433,6 +394,22 @@ public class ScreenOnlineGame extends Screen implements ActionListener{
 				p2.addEnergy(1);
 
 		}
+	}
+	
+	private void checkGameOver() {
+		int gameOver = board.checkGameOver();
+		
+		if (gameOver == 0) {			// game is not over
+			return;
+		} else if (gameOver == 1) {		// black won
+			System.out.println("white won");
+			gameInProgress = false;
+			activePlayer = p1;
+		} else if (gameOver == 2) {		// white won
+			System.out.println("black won");
+			gameInProgress = false;
+			activePlayer = p2;
+		} 
 	}
 	
 	private void showTextButton(Rectangle rectangle, String buttonText, boolean border) {
@@ -464,21 +441,6 @@ public class ScreenOnlineGame extends Screen implements ActionListener{
 	
 	private void showBox(Rectangle rectangle) {
 		showBox(rectangle, true);
-	}
-	
-	/**
-	 * Sets the white field to white and adjusts activePlayer
-	 * 
-	 * @param white if the player with this screen is white
-	 */
-	public void setWhite(boolean white) {
-		System.err.println("white set to " + white);
-		if (white) {
-			activePlayer = p1;
-		} else {
-			activePlayer = p2;
-		}
-		this.white = white;
 	}
 	
 	private Player playerFromWhite(boolean white) {

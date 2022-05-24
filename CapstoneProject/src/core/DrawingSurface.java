@@ -374,9 +374,9 @@ public class DrawingSurface extends PApplet {
 	 * Tells the ScreenQueue that the queue was updated if it is the active screen
 	 */
 	public void updatedQueue() {
-		//ÍScreen screen = screens.get(7);
+		//Screen screen = screens.get(7);
 		if (this.activeScreen.equals(screens.get(7))) {
-			//ÍScreenQueue queueScreen = (ScreenQueue) screen;
+			//ScreenQueue queueScreen = (ScreenQueue) screen;
 		}
 	}
 	
@@ -399,7 +399,7 @@ public class DrawingSurface extends PApplet {
 	public void pieceAdded(ChangePost post) {
 		if (this.activeScreen.equals(screens.get(3))) {
 			ScreenOnlineGame screen = (ScreenOnlineGame) screens.get(3);
-			screen.pieceAdded(post);
+			screen.addPiece(post);
 		}
 	}
 	
