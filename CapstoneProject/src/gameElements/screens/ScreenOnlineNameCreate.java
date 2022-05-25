@@ -1,24 +1,20 @@
 package gameElements.screens;
 
-
-
-
+import com.google.firebase.database.DatabaseReference;
+import databaseData.UserPost;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-
-import com.google.firebase.database.DatabaseReference;
-
+import processing.core.PConstants;
 import core.DrawingSurface;
 import core.ImageCodes;
-import databaseData.UserPost;
-import processing.core.PApplet;
-import processing.core.PConstants;
 
 
+/**
+ * This Screen is used for the user to enter their name before they queue up for an online game.
+ * 
+ * @author Nishil Anand
+ */
 public class ScreenOnlineNameCreate extends Screen {
 	
 	private DrawingSurface surface;
@@ -29,6 +25,13 @@ public class ScreenOnlineNameCreate extends Screen {
 	
 	private DatabaseReference queueFolder;
 	
+	
+	/**
+	 * Constructs a new ScreenOnlineNameCreate using a DrawingSurface
+	 * 
+	 * @param surface the DrawingSurface to draw with
+	 * @param queueFolder the DatabaseReference to where to post the UserPost to once they are ready to join the queue
+	 */
 	public ScreenOnlineNameCreate(DrawingSurface surface, DatabaseReference queueFolder) {
 		super(1200,600);
 		this.surface = surface;
@@ -40,7 +43,11 @@ public class ScreenOnlineNameCreate extends Screen {
 	}
 	
 	
+	/**
+	 * Draws the elements needed to enter a name onto the Processing window.
+	 */
 	public void draw() {
+		
 		// loading screen if firebase stuff has not loaded in yet
 		if (!surface.isLoaded()) {
 			drawLoading();
@@ -59,9 +66,50 @@ public class ScreenOnlineNameCreate extends Screen {
 		showButton(nameCreationBox, str);
 		
 		surface.popStyle();
+		
 	}
 	
-	public void drawLoading() {
+	/**
+	 * Called when a mouse is pressed. 
+	 * Used for box selection.
+	 */
+	public void mousePressed() {
+		
+		Point p = surface.actualCoordinatesToAssumed(new Point(surface.mouseX,surface.mouseY));
+		
+		if (nameCreationBox.contains(p)) {
+			boxSelected = true;
+		} else {
+			boxSelected = false;
+			boxText = new StringBuffer();		// clear out old text once user clicks off
+		}
+		
+	}
+
+	/**
+	 * Called when a key is pressed.
+	 * Used for entering the name and confirming the name (enter)
+	 */
+	public void keyPressed() {
+		char key = surface.key;
+		int ascii = (int)key;
+		if (boxSelected) {
+			if (surface.keyCode == KeyEvent.VK_ENTER) {
+				String playerName = boxText.toString();
+				addPlayerToQueue(playerName);
+				surface.setPlayerName(playerName);
+				surface.switchScreen(ScreenSwitcher.SCREEN4);
+			} else if (surface.keyCode == KeyEvent.VK_BACK_SPACE) {
+				int index = boxText.length()-1;
+				if (index < 0) return;				// prevent exception from backspacing with nothing there
+				boxText.deleteCharAt(index);
+			} else if (ascii >= 32 && ascii <= 126) {
+				boxText.append(key);
+			}
+		}
+	}
+	
+	private void drawLoading() {
 		
 		int width = 1200;
 		int height = 600;
@@ -85,39 +133,6 @@ public class ScreenOnlineNameCreate extends Screen {
 		
 	}
 	
-	
-	public void mousePressed() {
-		Point p = surface.actualCoordinatesToAssumed(new Point(surface.mouseX,surface.mouseY));
-		
-		if (nameCreationBox.contains(p)) {
-			boxSelected = true;
-		} else {
-			boxSelected = false;
-			boxText = new StringBuffer();		// clear out old text once user clicks off
-		}
-		
-	}
-
-	public void keyPressed() {
-		char key = surface.key;
-		int ascii = (int)key;
-		if (boxSelected) {
-			if (surface.keyCode == KeyEvent.VK_ENTER) {
-				String playerName = boxText.toString();
-				UserPost user = addPlayerToQueue(playerName);
-//				surface.player = user;
-				surface.setPlayerName(playerName);
-				surface.switchScreen(ScreenSwitcher.SCREEN4);
-			} else if (surface.keyCode == KeyEvent.VK_BACK_SPACE) {
-				int index = boxText.length()-1;
-				if (index < 0) return;				// prevent exception from backspacing with nothing there
-				boxText.deleteCharAt(index);
-			} else if (ascii >= 32 && ascii <= 126) {
-				boxText.append(key);
-			}
-		}
-	}
-	
 	private void showButton(Rectangle rectangle, String buttonText) {
 		surface.fill(255);
 		surface.rect(rectangle.x, rectangle.y, rectangle.width, rectangle.height, 4);		// 4 is how round the edges is
@@ -132,14 +147,6 @@ public class ScreenOnlineNameCreate extends Screen {
 		userRef.setValueAsync(user);
 		surface.setInQueue(userRef);
 		return user;
-//		DatabaseReference pushedPostRef = surface.postData(user, queueFolder);
-//		String playerID = pushedPostRef.getKey();
-//		user.setPlayerID(playerID);
-//		Map<String, Object> updates = new HashMap<String, Object>();
-//		updates.put("playerID", playerID);
-//		pushedPostRef.updateChildrenAsync(updates);
-		
 	}
 	
 }
-
