@@ -76,7 +76,7 @@ public class ScreenInstructions extends Screen {
 		Point p = surface.actualCoordinatesToAssumed(new Point(surface.mouseX,surface.mouseY));
 		
 		if (backButton.contains(p))
-			surface.switchScreen(ScreenSwitcher.SCREEN1);
+			surface.switchScreen(ScreenCodes.SCREEN1);
 	}
 	
 	private void showButton(Rectangle rectangle, String buttonText) {

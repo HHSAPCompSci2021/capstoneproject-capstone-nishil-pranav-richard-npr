@@ -4,7 +4,7 @@ package gameElements.screens;
  * Abstract class representing a screen. When adding a screen, remember to:
  * - make it extend this class.
  * - add it to the Screen setup in the DrawingSurface constructor
- * - add it to ScreenSwitcher
+ * - add it to ScreenCodes
  * 
  * @author Nishil Anand
  * @author john_shelby

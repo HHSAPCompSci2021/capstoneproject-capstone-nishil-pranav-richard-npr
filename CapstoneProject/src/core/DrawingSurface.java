@@ -171,13 +171,13 @@ public class DrawingSurface extends PApplet {
 	 */
 	public void keyPressed() {
 		keys.add(keyCode);
-		if (activeScreen == screens.get(ScreenSwitcher.SCREEN3)) {
+		if (activeScreen == screens.get(ScreenCodes.SCREEN3)) {
 			((ScreenOnlineNameCreate) activeScreen).keyPressed();
-		} else if (activeScreen == screens.get(ScreenSwitcher.SCREEN6)) {
+		} else if (activeScreen == screens.get(ScreenCodes.SCREEN6)) {
 			((ScreenLocalNameCreate) activeScreen).keyPressed();
-		} else if (activeScreen == screens.get(ScreenSwitcher.SCREEN5)) {
+		} else if (activeScreen == screens.get(ScreenCodes.SCREEN5)) {
 			((ScreenLocalGame) activeScreen).keyPressed();
-		} else if (activeScreen == screens.get(ScreenSwitcher.SCREEN8)) {
+		} else if (activeScreen == screens.get(ScreenCodes.SCREEN8)) {
 			((ScreenOnlineGame) activeScreen).keyPressed();
 		}
 	}

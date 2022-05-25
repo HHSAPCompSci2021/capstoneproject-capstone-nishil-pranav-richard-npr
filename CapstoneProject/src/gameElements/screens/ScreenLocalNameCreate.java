@@ -101,7 +101,7 @@ public class ScreenLocalNameCreate extends Screen {
 				} else {
 					player2 = playerName;
 					screenLocalGame.setNames(player1, player2);
-					surface.switchScreen(ScreenSwitcher.SCREEN5);
+					surface.switchScreen(ScreenCodes.SCREEN5);
 				}
 			} else if (surface.keyCode == KeyEvent.VK_BACK_SPACE) {
 				int index = boxText.length()-1;

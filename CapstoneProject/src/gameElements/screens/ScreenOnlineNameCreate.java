@@ -98,7 +98,7 @@ public class ScreenOnlineNameCreate extends Screen {
 				String playerName = boxText.toString();
 				addPlayerToQueue(playerName);
 				surface.setPlayerName(playerName);
-				surface.switchScreen(ScreenSwitcher.SCREEN4);
+				surface.switchScreen(ScreenCodes.SCREEN4);
 			} else if (surface.keyCode == KeyEvent.VK_BACK_SPACE) {
 				int index = boxText.length()-1;
 				if (index < 0) return;				// prevent exception from backspacing with nothing there

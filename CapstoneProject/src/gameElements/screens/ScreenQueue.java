@@ -74,7 +74,7 @@ public class ScreenQueue extends Screen {
 				gameScreen.setWhite(true);
 				gameScreen.setNames(surface.getPlayerName(), surface.getQueue().get(0).getPlayerName());
 				surface.setInQueue(null);
-				surface.switchScreen(ScreenSwitcher.SCREEN8);
+				surface.switchScreen(ScreenCodes.SCREEN8);
 				return;
 			}
 		}
@@ -92,7 +92,7 @@ public class ScreenQueue extends Screen {
 			// remove from queue
 			surface.clearData(ref.child("Queue"));
 			surface.setInQueue(null);
-			surface.switchScreen(ScreenSwitcher.SCREEN8);
+			surface.switchScreen(ScreenCodes.SCREEN8);
 			return;
 		}
 		

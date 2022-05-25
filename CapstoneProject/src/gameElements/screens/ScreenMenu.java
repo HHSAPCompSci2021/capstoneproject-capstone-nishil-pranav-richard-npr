@@ -66,16 +66,16 @@ public class ScreenMenu extends Screen {
 		Point p = surface.actualCoordinatesToAssumed(new Point(surface.mouseX,surface.mouseY));
 		
 		if (onlineButton.contains(p))
-			surface.switchScreen(ScreenSwitcher.SCREEN3);
+			surface.switchScreen(ScreenCodes.SCREEN3);
 		
 		if (instructionsButton.contains(p)) {
-			surface.switchScreen(ScreenSwitcher.SCREEN7);
+			surface.switchScreen(ScreenCodes.SCREEN7);
 		}
 		
 		if (localButton.contains(p)) {
 			Board board = new Board();
 			surface.setBoard(board);
-			surface.switchScreen(ScreenSwitcher.SCREEN6);
+			surface.switchScreen(ScreenCodes.SCREEN6);
 		}
 			
 	}
