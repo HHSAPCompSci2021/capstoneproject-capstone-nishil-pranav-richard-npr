@@ -1,23 +1,17 @@
 package gameElements.screens;
 
-
-
-
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-
-import com.google.firebase.database.DatabaseReference;
-
 import core.DrawingSurface;
-import databaseData.UserPost;
-import processing.core.PApplet;
 import processing.core.PConstants;
 
 
+/**
+ * This Screen is used for the user to enter names before they play a local game
+ * 
+ * @author Nishil Anand
+ */
 public class ScreenLocalNameCreate extends Screen {
 	
 	private DrawingSurface surface;
@@ -31,6 +25,12 @@ public class ScreenLocalNameCreate extends Screen {
 	private boolean boxSelected;
 	
 	
+	/**
+	 * Constructs a new ScreenLocalNameCreate using a DrawingSurface
+	 * 
+	 * @param surface the DrawingSurface to draw with
+	 * @param screenLocalGame the ScreenLocalGame that this class is providing names for
+	 */
 	public ScreenLocalNameCreate(DrawingSurface surface, ScreenLocalGame screenLocalGame) {
 		super(1200,600);
 		this.surface = surface;
@@ -42,6 +42,9 @@ public class ScreenLocalNameCreate extends Screen {
 	}
 	
 	
+	/**
+	 * Draws the elements needed to enter a name onto the Processing window.
+	 */
 	public void draw() {
 		
 		surface.pushStyle();
@@ -64,7 +67,12 @@ public class ScreenLocalNameCreate extends Screen {
 		
 	}
 	
+	/**
+	 * Called when a mouse is pressed. 
+	 * Used for box selection.
+	 */
 	public void mousePressed() {
+		
 		Point p = surface.actualCoordinatesToAssumed(new Point(surface.mouseX,surface.mouseY));
 		
 		if (nameCreationBox.contains(p)) {
@@ -75,7 +83,11 @@ public class ScreenLocalNameCreate extends Screen {
 		}
 		
 	}
-
+	
+	/**
+	 * Called when a key is pressed.
+	 * Used for entering the name and confirming the name (enter)
+	 */
 	public void keyPressed() {
 		char key = surface.key;
 		int ascii = (int)key;
@@ -110,4 +122,3 @@ public class ScreenLocalNameCreate extends Screen {
 	}
 	
 }
-
