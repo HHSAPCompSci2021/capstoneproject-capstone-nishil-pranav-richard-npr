@@ -10,6 +10,7 @@ import processing.core.PConstants;
 import processing.core.PImage;
 
 /**
+ * The Board class represents a 15x15 chess board on which GamePieces reside and the castles on either side
  * 
  * @author Pranav Gunhal
  * @author Richard Feng
